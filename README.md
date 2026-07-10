@@ -2,7 +2,7 @@
 
 **The future is a soap bubble. Ride it anyway.**
 
-A one-button browser game about navigating advanced technology transitions — inspired by, and built from, the work of [Andrew Maynard](https://andrewmaynard.net) (Arizona State University) on risk innovation, emerging technologies, and human flourishing. Designed and coded by Anthropic's Claude (Fable 5) in collaboration with Maynard.
+A one-button browser game about navigating advanced technology transitions — inspired by, and built from, the work of [Andrew Maynard](https://andrewmaynard.net) (Arizona State University) on risk innovation, emerging technologies, and human flourishing. Designed and coded by Anthropic's Claude (Fable 5) in collaboration with Maynard. Implemented at [https://fvture.net/hyperbubble/] (https://fvture.net/hyperbubble/)
 
 ## Play
 
