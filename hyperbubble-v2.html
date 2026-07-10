@@ -1888,7 +1888,7 @@ function scaleFactor(){
   return (Math.min(H, W * 0.95) / 640) * cam.zoom;
 }
 function w2sX(wx){ return (wx - cam.x) * scaleFactor(); }
-function w2sY(wy){ return (wy - cam.y) * scaleFactor() + H * 0.44; }
+function w2sY(wy){ return (wy - cam.y) * scaleFactor() + H * (W < H ? 0.54 : 0.44); }
 
 // ---------------------------------------------------------------------
 // whiteboard background (offscreen, remade on resize)
@@ -2776,7 +2776,7 @@ function drawTitle(){
   }
   mtext('☁ gentle mode: ' + (game.gentle ? 'on' : 'off'), W/2, H*0.90, 12, game.gentle ? '#556b8a' : '#a9a69c', 'center', game.gentle ? 0.9 : 0.5, 413);
   mtext('drawn from the notebooks of a certain professor of the future', W/2, H - 14, Math.min(13, W/31), '#a9a69c', 'center', 0.75, 408);
-  mtext('v24 ☀', W - 18, H - 14, 12, '#c3beb4', 'right', 0.8, 410);
+  mtext('v25 ☀', W - 18, H - 14, 12, '#c3beb4', 'right', 0.8, 410);
   drawCorners();
   mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 446, 0.7);
   mtext('how to play', 63, H-31, 13, '#77746a', 'center', 0.9, 447);
