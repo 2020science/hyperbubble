@@ -2659,14 +2659,19 @@ function drawDeathCard(){
   cx.fillStyle = 'rgba(247,244,237,0.9)'; cx.fillRect(0,0,W,H);
   const cw = Math.min(W - 40, 480), ch = Math.min(H - 60, 430);
   const x0 = (W-cw)/2, y0 = (H-ch)/2;
+  const ky = ch / 430;   // compress the layout on short screens
   // card
   mline([[x0,y0],[x0+cw,y0],[x0+cw,y0+ch],[x0,y0+ch],[x0,y0]], '#2b2b33', 3.5, 200);
   const lines = deathLines();
-  mtext(lines[0], W/2, y0+58, 44, '#b3232e', 'center', 1, 201);
-  wrapText(lines[1], W/2, y0+96, cw-70, 19, '#4b4e59', 202);
+  // headline auto-fits the card — 'THE LIGHTS WENT OUT.' was wider than the border
+  cx.font = '44px ' + FONT;
+  const hw2 = cx.measureText(lines[0]).width;
+  const hSize = hw2 > cw - 40 ? Math.max(24, 44 * (cw - 40) / hw2) : 44;
+  mtext(lines[0], W/2, y0+Math.round(58*ky), hSize, '#b3232e', 'center', 1, 201);
+  wrapText(lines[1], W/2, y0+Math.round(96*ky), cw-70, Math.min(19, W/26), '#4b4e59', 202);
   // culprit doodle for bites
   if (d.cause==='bite' || d.cause==='swan' || d.cause==='panic'){
-    const oy = y0+150;
+    const oy = y0+Math.round(158*ky);
     mcircle(W/2, oy, 16, d.cause==='swan' ? '#26262e' : '#8a2430', 3, 203);
     mline([[W/2-8, oy-20],[W/2-2, oy-14]], '#222', 2.5, 204);
     mline([[W/2+8, oy-20],[W/2+2, oy-14]], '#222', 2.5, 205);
@@ -2674,20 +2679,20 @@ function drawDeathCard(){
     mline(teeth, '#222', 2, 206);
   }
   const yr = (d.opt ? '☀ ' : '') + (d.gentle ? '☁ ' : '') + 'YEAR ' + d.year;
-  mtext('you made it to', W/2, y0+196, 17, '#77746a', 'center', 1, 207);
-  mtext(yr, W/2, y0+238, 46, '#2b2b33', 'center', 1, 208);
+  mtext('you made it to', W/2, y0+Math.round(196*ky), 17, '#77746a', 'center', 1, 207);
+  mtext(yr, W/2, y0+Math.round(238*ky), 46, '#2b2b33', 'center', 1, 208);
   if (game.newBest){
-    mtext('★ new best ★', W/2, y0+266, 20, '#c9a227', 'center', 1, 209);
-    mtext('“a future we want, not one that we fear”', W/2, y0+290, 15, '#8a6d00', 'center', 1, 210);
+    mtext('★ new best ★', W/2, y0+Math.round(266*ky), 20, '#c9a227', 'center', 1, 209);
+    mtext('“a future we want, not one that we fear”', W/2, y0+Math.round(290*ky), 15, '#8a6d00', 'center', 1, 210);
   } else {
     const best = game.daily ? game.bestDaily : game.best;
     const short = best - d.year;
-    mtext('best ' + best + (game.daily ? " (today's future)" : '') + (short > 0 && short <= 5 ? ' — ' + short + 'yr short!' : ''), W/2, y0+268, Math.min(17, W/26), '#77746a', 'center', 1, 211);
+    mtext('best ' + best + (game.daily ? " (today's future)" : '') + (short > 0 && short <= 5 ? ' — ' + short + 'yr short!' : ''), W/2, y0+Math.round(268*ky), Math.min(17, W/26), '#77746a', 'center', 1, 211);
   }
-  mtext(d.hills + ' hills · ' + d.pets + ' risks adopted · streak ♪×' + d.bestChain, W/2, y0+312, Math.min(15, W/32), '#77746a', 'center', 1, 212);
-  mtext('flourishing peaked at ' + d.floPeak + '%' + (d.goodTech > 0 ? ' · ' + d.goodTech + '× tech for good' : '') + (d.grown > 0 ? ' · ' + d.grown + 'yr bloomed' : ''), W/2, y0+334, Math.min(14, W/34), '#c0508a', 'center', 1, 218);
+  mtext(d.hills + ' hills · ' + d.pets + ' risks adopted · streak ♪×' + d.bestChain, W/2, y0+Math.round(312*ky), Math.min(15, W/32), '#77746a', 'center', 1, 212);
+  mtext('flourishing peaked at ' + d.floPeak + '%' + (d.goodTech > 0 ? ' · ' + d.goodTech + '× tech for good' : '') + (d.grown > 0 ? ' · ' + d.grown + 'yr bloomed' : ''), W/2, y0+Math.round(334*ky), Math.min(14, W/34), '#c0508a', 'center', 1, 218);
   const deadpan = DEADPAN[(d.year + d.hills) % DEADPAN.length];
-  mtext('“' + deadpan + '”', W/2, y0+358, 14, '#4b4e59', 'center', 0.9, 213);
+  mtext('“' + deadpan + '”', W/2, y0+Math.round(358*ky), 14, '#4b4e59', 'center', 0.9, 213);
   const pulse = 0.7 + Math.sin(game.time*4)*0.3;
   mtext('tap to be redrawn', W/2, y0+ch-24, 22, '#20509e', 'center', pulse, 214);
   drawCorners();
@@ -2786,7 +2791,7 @@ function drawTitle(){
   }
   mtext('☁ gentle mode: ' + (game.gentle ? 'on' : 'off'), W/2, H*0.90, 12, game.gentle ? '#556b8a' : '#a9a69c', 'center', game.gentle ? 0.9 : 0.5, 413);
   mtext('drawn from the notebooks of a certain professor of the future', W/2, H - 14, Math.min(13, W/31), '#a9a69c', 'center', 0.75, 408);
-  mtext('v30 ☀', W - 18, H - 14, 12, '#c3beb4', 'right', 0.8, 410);
+  mtext('v32 ☀', W - 18, H - 14, 12, '#c3beb4', 'right', 0.8, 410);
   drawCorners();
   mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 446, 0.7);
   mtext('how to play', 63, H-31, 13, '#77746a', 'center', 0.9, 447);
