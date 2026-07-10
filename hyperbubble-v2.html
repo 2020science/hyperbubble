@@ -249,6 +249,9 @@ This page draws on Andrew Maynard's published CV, books, and essays.
    TUNING GUIDE — the safe knobs (Andrew: tweak these, avoid everything else)
    Each entry: what it does · where to find it (search the quoted string) · safe range.
 
+   TUTORIAL
+   · Runs that show tutorial text — search "TUTOR_RUNS = 2"  (0 = never, 5 = patient)
+
    SPEED & FEEL
    · Starting speed / ramp / top speed — search "200 * Math.pow(1.008"
      base 200 (150 calm – 260 brisk), growth 1.008/hill (1.005–1.012), cap 980.
@@ -288,6 +291,9 @@ This page draws on Andrew Maynard's published CV, books, and essays.
 // ---------------------------------------------------------------------
 // canvas + resize
 // ---------------------------------------------------------------------
+// how many runs show tutorial text (whispers + arrows) before going quiet
+const TUTOR_RUNS = 2;
+
 const cv = document.getElementById('c');
 const cx = cv.getContext('2d');
 let W = 0, H = 0, DPR = 1;
@@ -667,6 +673,10 @@ window.addEventListener('pointerup', e => {
         }
       }catch(err){}
       game.best = 0; game.bestDaily = 0;
+      notesSeen = {}; LS.set('notes', notesSeen);   // the field notes forget too
+      game.medals = {}; LS.set('medals', {});       // the medals melt down
+      LS.set('garden', 0);                          // the meadow returns to seed
+      game.runs = 0; LS.set('runs', 0);             // even the tutorial starts over
       game.resetFlash = game.time;
       SFX.erase();
     }
@@ -916,7 +926,7 @@ function genHill(){
     landmarks.push({ type:'sign', x: genX + 40, era });
   }
   if (n === 5){ // tutorial orphan, gift-wrapped
-    spawnOrphan(seg, 0.5, 'orphan', true);
+    spawnOrphan(seg, 0.5, 'orphan', game.runs <= TUTOR_RUNS);
   } else if (n >= ERA_HILLS[0] && !firstOfEra){
     if (era >= 3 && runRng() < 0.07){
       // a small protest marches through the trough — never hug a mob
@@ -950,7 +960,7 @@ function genHill(){
   if (n === 4){
     // the first crate arrives gift-wrapped, low and catchable
     const gift = TECH[Math.floor(runRng() * TECH.length)];
-    techs.push({ x: genX + L*0.5, y: hillY(seg, 0.5) - 85, dom: gift[0], name: gift[1], t: 0, taken: false, tutorial: true });
+    techs.push({ x: genX + L*0.5, y: hillY(seg, 0.5) - 85, dom: gift[0], name: gift[1], t: 0, taken: false, tutorial: game.runs <= TUTOR_RUNS });
   }
   const bestRef = game.daily ? game.bestDaily : game.best;
   if (!game.flagPlaced && bestRef > YEAR0){
@@ -1852,7 +1862,7 @@ function popup(x,y,str,col){
   const halfW = Math.min(W * 0.45, str.length * 5.5 + 12);
   let sx = clamp(w2sX(x), halfW, W - halfW), sy = clamp(w2sY(y), 70, H-90);
   // keep clear of the tutorial whispers band while they're teaching
-  const whispering = (game.runs <= 5 || !game.medals.DISRUPTION) && game.state === 'run' && (game.runT || 0) < 18.6;
+  const whispering = game.runs <= TUTOR_RUNS && game.state === 'run' && (game.runT || 0) < 18.6;
   if (whispering && sy > H * 0.24 && sy < H * 0.42) sy = H * 0.44;
   // don't stack on a fresh neighbour — step down until clear
   for (let guard = 0; guard < 8; guard++){
@@ -2563,7 +2573,7 @@ function drawHUD(col){
   }
   // tutorial whispers — timed so they can actually be read; they keep
   // appearing until the first medal is earned
-  if (game.runs <= 5 || !game.medals.DISRUPTION){
+  if (game.runs <= TUTOR_RUNS){
     const msgs = [[0.6, 4.0, 'HOLD: heavy. LET GO: float.'], [4.0, 7.4, 'hold down the slopes, let go at the bottom'], [7.4, 10.8, 'land the way the hill tilts → ♪'], [10.8, 14.4, 'raise FLOURISHING — hug blobs, hold through risks'], [14.4, 18.2, 'SHIFT or two fingers = slow down and think (−♥)']];
     for (const m of msgs){
       if (game.runT > m[0] && game.runT < m[1]){
@@ -2776,7 +2786,7 @@ function drawTitle(){
   }
   mtext('☁ gentle mode: ' + (game.gentle ? 'on' : 'off'), W/2, H*0.90, 12, game.gentle ? '#556b8a' : '#a9a69c', 'center', game.gentle ? 0.9 : 0.5, 413);
   mtext('drawn from the notebooks of a certain professor of the future', W/2, H - 14, Math.min(13, W/31), '#a9a69c', 'center', 0.75, 408);
-  mtext('v25 ☀', W - 18, H - 14, 12, '#c3beb4', 'right', 0.8, 410);
+  mtext('v30 ☀', W - 18, H - 14, 12, '#c3beb4', 'right', 0.8, 410);
   drawCorners();
   mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 446, 0.7);
   mtext('how to play', 63, H-31, 13, '#77746a', 'center', 0.9, 447);
