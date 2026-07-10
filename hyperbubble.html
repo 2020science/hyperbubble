@@ -1,0 +1,3113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>HYPERBUBBLE — the future is a soap bubble. Ride it anyway.</title>
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#f7f4ed">
+<!-- Social sharing card (LinkedIn, X, etc.).
+     IMPORTANT: preview crawlers can only fetch images from a PUBLIC URL — they cannot read
+     embedded data or local files. When you host this game, upload social-card.png next to
+     this file and replace YOUR-DOMAIN-HERE below with your real domain. -->
+<meta property="og:title" content="HYPERBUBBLE — the future is a soap bubble. Ride it anyway.">
+<meta property="og:description" content="A one-button game about navigating advanced technology transitions: hug orphan risks, starve moral panics, deploy tech for good, and keep human flourishing alive.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://fvture.net/hyperbubble/social-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HYPERBUBBLE — the future is a soap bubble. Ride it anyway.">
+<meta name="twitter:image" content="https://fvture.net/hyperbubble/social-card.png">
+<style>
+  html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#f6f3ec;-webkit-user-select:none;user-select:none;}
+  canvas{display:block;touch-action:none;cursor:pointer;}
+  /* the serious page behind the playful game — lives in this same file */
+  #about{ display:none; position:fixed; inset:0; z-index:10; overflow-y:auto;
+    background:#f7f4ed; color:#2b2b33; -webkit-user-select:text; user-select:text;
+    font-family:"Chalkboard SE","Comic Sans MS","Segoe Print",cursive; }
+  #about .page{ max-width:660px; margin:0 auto; padding:44px 24px 80px; line-height:1.65; font-size:17px; }
+  #about h1{ font-size:32px; margin:0 0 4px; }
+  #about .tagline{ color:#77746a; margin:0 0 32px; font-size:16px; }
+  #about h2{ font-size:20px; margin:38px 0 10px; border-bottom:3px solid rgba(192,80,138,0.35);
+    display:inline-block; padding-bottom:2px; }
+  #about p{ margin:0 0 16px; color:#4b4e59; }
+  #about strong{ color:#2b2b33; }
+  #about a{ color:#20509e; text-decoration:none; border-bottom:1.5px dashed rgba(32,80,158,0.4); }
+  #about a:hover{ border-bottom-style:solid; }
+  #about ul{ margin:0 0 16px; padding-left:22px; color:#4b4e59; }
+  #about li{ margin-bottom:10px; }
+  #about .map{ background:rgba(192,80,138,0.06); border:2px solid rgba(120,115,105,0.25);
+    border-radius:6px; padding:18px 20px; margin:20px 0; }
+  #about .map dt{ font-weight:bold; color:#2b2b33; margin-top:12px; }
+  #about .map dt:first-child{ margin-top:0; }
+  #about .map dd{ margin:2px 0 0 0; color:#4b4e59; font-size:15.5px; }
+  #about .back{ display:inline-block; margin-bottom:26px; font-size:15px; cursor:pointer; }
+  #about .foot{ margin-top:48px; padding-top:16px; border-top:2px solid rgba(120,115,105,0.25);
+    color:#77746a; font-size:14px; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="about"><div class="page">
+<a class="back" id="aboutClose">← back to the game</a>
+<div id="aboutBody">
+<h1>The ideas behind HYPERBUBBLE</h1>
+<p class="tagline">A simple game inspired by navigating powerful new technologies in a complex world while not losing sight of what matters.</p>
+
+<h2>A quick note on the game's genesis</h2>
+<p>HYPERBUBBLE started as an idle moment of speculation while I was exploring Anthropic's Fable 5
+AI model. I was in between more complex (and serious) projects, and maximizing use of Fable before
+my access ran out. Wanting to test its capabilities in coding a simple web-based game, I asked it to
+research my work and come up with something inspired by it that was simple, fun, and with gameplay
+that kept you coming back.</p>
+<p>HYPERBUBBLE is the result. In some ways it's nothing special — the world is overflowing with
+simple AI-generated games. What was interesting, though, was the process, and how the game taps into
+my work in very specific ways. It also provides some insight into how Fable 5 works.</p>
+<p>After my initial request, Fable did a deep research dive into my work, created five game-designer
+agents to come up with different concepts, passed these through a panel of three AI judges, and
+selected the winning (AI-generated) proposal.</p>
+<p>After the first draft — which Fable debugged, tested, and checked using an impressive array of
+sub-agents — it began working earnestly with me to come up with the final product, refining the
+goals, gameplay, and feel along the way. We're somewhere beyond version 20 at this point.</p>
+<p>The game is intentionally simple. And there are many aspects of it that are still begging to be
+tweaked and refined. But it still brings a smile to my face every time I play!</p>
+<p>The overall aesthetic is based on my crudely hand-drawn Risk Bites videos on YouTube. The orphan
+risks you adopt (and which — bizarrely — become your pets) are based on my work on orphan risks. The
+named risks come from my work on risk innovation and the often-overlooked risks that trip up
+emerging technologies. The emerging technologies themselves are grounded in my work in tech
+innovation. The panic billboards draw on my website techlashed.org, and the moral-panic fires on my
+work on risk perception and engagement. And the whole trajectory reflects my work on human
+flourishing and navigating complex advanced technology transitions.</p>
+<p>In other words, Fable did a pretty good job of capturing my work in a game that doesn't feel in
+any way instructional (I hope!).</p>
+<p>Of course, it's just a "toy" (as coders would say) and a bit of fun. But under the triviality it
+does demonstrate just how capable AI is becoming as something that can help translate experiences,
+ideas, research, and a lot more into something quite unexpected and serendipitously delightful.</p>
+<p>Which ties in rather nicely with my work on the future of being human in an age of increasingly
+complex technologies — which, of course, is another aspect of my work that Fable was able to capture
+here 😄</p>
+<p><em>Andrew Maynard — July 2026</em></p>
+
+<h2>And now a quick note from Fable — in its own words and style</h2>
+<p>HYPERBUBBLE is a toy, and it knows it. But if you've played for even a few minutes, you've been
+practicing a real way of thinking about technology and the future — one borrowed, with plenty of
+simplification, from the work of <strong>Andrew Maynard</strong>, a physicist turned professor of
+technology transitions at Arizona State University. This page walks through where the ideas come
+from, what the game gets right, where it cheats a little, and where to go if you want the real
+thing.</p>
+
+<h2>The person behind the ideas</h2>
+<p>Maynard started out measuring things. His Cambridge PhD (1992) was in aerosol physics — how to
+collect and analyze vanishingly small airborne particles — and he spent the decade after that on
+the kind of unglamorous work that protection actually depends on: characterizing what people breathe
+at work, first at the UK Health and Safety Executive (1992–2000), then leading aerosol research at
+NIOSH in the US (2000–2005), right as engineered nanomaterials started showing up in labs and
+products.</p>
+<p>That's where the harder question surfaced. You can measure a particle. But what should a society
+do when a technology arrives before the science, the standards, and the oversight needed to handle
+it well? Chasing that question, he spent 2005 to 2010 as Chief Science Advisor to the Project on
+Emerging Nanotechnologies in Washington DC, led the 2006 <em>Nature</em> commentary "Safe handling
+of nanotechnology" — which laid out five grand challenges for nanotech risk research — and found
+himself testifying before Congress more than once.</p>
+<p>He went on to direct the University of Michigan Risk Science Center (2010–2015), and has been at
+Arizona State University ever since: Professor of Advanced Technology Transitions in the School for
+the Future of Innovation in Society, director of the Risk Innovation Lab, and director of the
+<strong>Future of Being Human</strong> initiative, launched in 2022. He calls himself an
+"undisciplinarian." The problems he works on don't respect the borders between physics, public
+health, policy, and ethics — so at some point he stopped respecting them too.</p>
+
+<h2>Risk as a threat to value</h2>
+<p>Conventional risk assessment multiplies probability by harm, and it works well when you can
+measure the hazard. But a lot of what people actually worry about — trust, dignity, autonomy,
+identity, a sense of belonging, deeply held beliefs about how the world should work — doesn't fit
+that math, and tends to get quietly dropped because it doesn't.</p>
+<p>Maynard's <strong>risk innovation</strong> framework starts from a different definition: risk is
+a threat to something of value, whatever that value happens to be. And inside it sit what he calls
+<strong>orphan risks</strong> — risks nobody owns, because they seem too fuzzy, too complicated, or
+too irrelevant to bother with. No agreed tools, no standards, no owners. Which is exactly why they
+have a habit of coming back to bite.</p>
+<p>His answer isn't to eliminate risk — you can't. It's a posture: awareness of what might be
+coming, agility when it arrives, and resilience for when agility isn't enough. In the game, that
+became the blobs that return with teeth, the named hazards you handle by paying attention at the
+right moment, and a death card that tells you what you actually lost was trust. The real framework
+is much less cinematic — worksheets, stakeholder mapping, the discipline of asking what you value
+before asking what threatens it — but the logic is the same.</p>
+
+<h2>Advanced technology transitions</h2>
+<p>The thread running through his current work goes something like this: societies don't experience
+powerful technologies as events. They experience them as <em>transitions</em> — long stretches where
+norms, institutions, markets, and identities all rearrange themselves. And the early days of a
+transition matter enormously, because they set the trajectory for decades. He watched it happen with
+nanotechnology. He'd tell you it's happening again right now, faster and at much larger scale, with
+AI.</p>
+<p>So what do we do about that? His answer is neither the hype nor the brake. As he put it in a 2024
+seminar on AI policy: "We cannot stop the emergence of transformative AI. All we can do is steer
+it." And his version of the pacing problem is a little sharper than the usual one — it's not just
+that technology outruns regulation, it's that consequences now arrive faster than we can build
+responses to them. Which is why he keeps coming back to anticipatory, inclusive governance:
+anticipation, reflexivity, inclusion, responsiveness — and no single group of experts in sole
+charge.</p>
+<p>That's what the PACE ticker and the steadying button are gesturing at. Slowing down to think
+costs you something in the game, eases the pace only partly, and doesn't last. That's roughly how it
+works out here, too.</p>
+
+<h2>On panic and public concern</h2>
+<p>Here's where the game simplifies most, and it's worth being straight about it. The scribble-fires
+reward you for starving moral panics of attention — fly past, don't touch, collect a little
+flourishing. Maynard's actual view is more careful than that. He's written that technology panics
+"are rarely cut and dried," that they shouldn't be read as proof of human irrationality, and that
+they're "usually more complicated underneath" — most often a response to a perceived threat against
+something people genuinely value: identity, dignity, security, livelihood, meaning. He built
+<a href="https://techlashed.org" target="_blank" rel="noopener">Techlashed</a>, an interactive
+timeline of technology panics from ancient Greece to AI, precisely to understand old worries rather
+than laugh at them.</p>
+<p>So when the game teaches you to fly past the fire, keep his caveat in your pocket: look at what
+the fire is burning around. Concern is usually about something real, and history has plenty of
+examples of the harm done by dismissing it.</p>
+
+<h2>Being human with AI</h2>
+<p>The Future of Being Human initiative asks what it might mean to be human in a technologically
+transformed future — with human flourishing, not technological capability, at the center of the
+question. Maynard's stated aim is to help people, communities, and organizations flourish through
+transformational, technology-driven change. Not just survive it — flourish through it.</p>
+<p>His most recent book, written with Jeff Abbott — <a href="https://www.aiandtheartofbeinghuman.com/"
+target="_blank" rel="noopener"><em>AI and the Art of Being Human</em></a> (2025) — takes that
+question into everyday working life. It's built around four postures (curiosity, intentionality,
+clarity, and care), twenty-one practical tools, and a question that's hard to shake once you've
+heard it: what makes me <em>me</em>, when AI can finish my sentences, replicate my style, and
+predict my choices? The pink bar in the game is a cartoon of that concern. If it left you curious,
+the book is where the question gets the room it needs.</p>
+
+<h2>What a game can't carry</h2>
+<p>A few honest caveats, so the toy doesn't oversell itself.</p>
+<ul>
+<li>In the game, navigating a transition is something you do alone, with your thumb. In reality it's
+collective — institutions, standards, law, long deliberation — and the distribution of power decides
+most of what no lone surfer can.</li>
+<li>Flourishing here is one pink bar. Out there it's plural and contested. People disagree about
+what it means, and working through that disagreement isn't noise in the system — it more or less
+<em>is</em> the system.</li>
+<li>The game's risks are things you touch once and resolve. Real risks are relationships that play
+out over years, and they don't land evenly. The question of who carries a risk never shows up on
+screen — and it's usually the most important question there is.</li>
+<li>The fires reward you for withholding attention. As above: his work would tell you to be slower
+to dismiss concern than the game is.</li>
+<li>And five seconds of altitude is a nice metaphor for responsibility. It isn't a method.</li>
+</ul>
+<p>What the game can do is more modest: let the shape of these trade-offs settle into your hands —
+the pull of hype, the cost of attention, the way ignored things circle back — so the serious
+versions feel a little less abstract when you meet them.</p>
+
+<h2>What maps to what</h2>
+<dl class="map">
+<dt>The soap bubble</dt><dd>The central image of his book <em>Future Rising</em> (2020): the future as something fragile, built and carried by us, ridden regardless.</dd>
+<dt>Orphan risks</dt><dd>His coinage for overlooked, unowned risks — hard to quantify, easy to ignore, prone to returning.</dd>
+<dt>The named hazards</dt><dd>Drawn partly from the risk-innovation taxonomy (bad actors, co-opted technology, loss of agency, intergenerational impacts) and partly invented in its spirit.</dd>
+<dt>The medal ladder</dt><dd>Disruption → awareness → agility → resilience → dignity: his framing of a well-navigated transition, "from disruption to dignity."</dd>
+<dt>Grounded exuberance, catalytic serendipity</dt><dd>Two of the Future of Being Human initiative's community values, used here as game systems.</dd>
+<dt>PACE and steadying</dt><dd>The pacing problem, and the real, partial, costly work of slowing down enough to think.</dd>
+<dt>The moral-panic eras</dt><dd>The historical ladder documented at Techlashed, from worries about writing to worries about AI.</dd>
+<dt>The whiteboard style</dt><dd>Risk Bites, his long-running series of hand-drawn explainers on risk.</dd>
+</dl>
+
+<h2>Go deeper</h2>
+<ul>
+<li><a href="https://andrewmaynard.net" target="_blank" rel="noopener">andrewmaynard.net</a> — writing, books, and projects.</li>
+<li><a href="https://futureofbeinghuman.com" target="_blank" rel="noopener">The Future of Being Human</a> — his newsletter on navigating advanced technology transitions.</li>
+<li><a href="https://www.aiandtheartofbeinghuman.com/" target="_blank" rel="noopener">AI and the Art of Being Human</a> (with Jeff Abbott, 2025) — curiosity, intentionality, clarity, and care as a practice for living and working with AI.</li>
+<li><a href="https://riskinnovation.org" target="_blank" rel="noopener">riskinnovation.org</a> — the risk innovation framework, the orphan risks, and practical planning tools.</li>
+<li><a href="https://futureofbeinghuman.asu.edu" target="_blank" rel="noopener">ASU Future of Being Human initiative</a>.</li>
+<li><a href="https://techlashed.org" target="_blank" rel="noopener">techlashed.org</a> — the interactive timeline of technology moral panics.</li>
+<li><a href="https://www.youtube.com/riskbites" target="_blank" rel="noopener">Risk Bites</a> — the YouTube channel whose stick figure appears in this game.</li>
+<li><a href="https://podcasts.apple.com/us/podcast/modem-futura/id1771688480" target="_blank" rel="noopener"><em>Modem Futura</em></a> — his weekly podcast with Sean Leahy on the futures we are building.</li>
+<li>Books: <a href="https://andrewmaynard.net/films-from-the-future/" target="_blank" rel="noopener"><em>Films from the Future</em></a> (2018), <a href="https://andrewmaynard.net/futurerising/" target="_blank" rel="noopener"><em>Future Rising</em></a> (2020), <a href="https://www.aiandtheartofbeinghuman.com/" target="_blank" rel="noopener"><em>AI and the Art of Being Human</em></a> (2025).</li>
+</ul>
+
+<div class="foot">
+HYPERBUBBLE is a single self-contained HTML file — an experiment in whether play can carry ideas.
+This page draws on Andrew Maynard's published CV, books, and essays.
+</div>
+</div>
+</div></div>
+<script>
+"use strict";
+/* =====================================================================
+   HYPERBUBBLE
+   The future is a soap bubble. Ride it anyway.
+
+   A whiteboard surfing game drawn from the notebooks of a certain
+   professor of advanced technology transitions.
+
+   hold = dive · release = soar · hug the small stuff before it grows teeth
+   =====================================================================
+
+   TUNING GUIDE — the safe knobs (Andrew: tweak these, avoid everything else)
+   Each entry: what it does · where to find it (search the quoted string) · safe range.
+
+   SPEED & FEEL
+   · Starting speed / ramp / top speed — search "200 * Math.pow(1.008"
+     base 200 (150 calm – 260 brisk), growth 1.008/hill (1.005–1.012), cap 980.
+   · Dive strength — search "HOLD_MULT = 5.1"  (4.5 gentle – 6.0 fierce)
+   · Air gravity (floatiness) — search "GRAV = 1550"  (lower = floatier, 1300–1800)
+
+   FLOURISHING ECONOMY
+   · Starting flourishing — search "flo:30" (appears TWICE: change both!)  (20–50)
+   · Ambient drain — search "0.42 + Math.min(2.2"  base 0.42/s, +0.15/era, cap 2.2.
+   · Era reward bonus — search "experience compounds"  +4%/era from era 5, cap +25%.
+   · Hard final stretch — search "n *= 0.6"  (gains above 80% cut to 60%; 0.7 = kinder)
+   · Reward values: hug — search "addFlo(4)" · managed risk — "addFlo(8)" ·
+     tech for good — "addFlo(14)" · rushed to market — "addFlo(-15)" ·
+     bite — "addFlo(-12)" · starved panic — "addFlo(5)"
+
+   TECH & STEADYING
+   · Carry timer before deploy — search "timer: 5.0"  (4–7 seconds)
+   · Steady slow-motion — search "dt *= 0.55"  (0.4 dreamier – 0.7 subtler)
+   · Steady flourishing cost — search "drain += 1.5"
+   · Pace brake — search "0.04 * dt" (build rate) and "0.35" nearby (max 35% brake)
+
+   SPAWN RATES (per hill, roughly)
+   · Orphans — search "0.45 + n * 0.004" · Named risks — "runRng() < 0.13" ·
+     Tech crates — "runRng() < 0.34" · Panic share of orphans — "r < 0.16"
+
+   DEATH RULES
+   · Cracks to pop — search "P.cracks >= 3"
+   · Dive-crash threshold — search "960" (higher = only wilder dives crack)
+
+   SOUND
+   · Music volume — search "0.38" (in MUS.ensure) · Slide squeak — search "0, 0.06"
+
+   After any change: hard-refresh (check the version stamp bottom-right of the
+   title), and remember to copy this file over index.html if you edit this one.
+   ===================================================================== */
+
+// ---------------------------------------------------------------------
+// canvas + resize
+// ---------------------------------------------------------------------
+const cv = document.getElementById('c');
+const cx = cv.getContext('2d');
+let W = 0, H = 0, DPR = 1;
+function resize(){
+  const w = window.innerWidth, h = window.innerHeight;
+  const d = Math.min(window.devicePixelRatio || 1, 2);
+  if (w === W && h === H && d === DPR && board) return;   // mobile chrome fires resize constantly
+  DPR = d; W = w; H = h;
+  cv.width = W * DPR; cv.height = H * DPR;
+  cv.style.width = W + 'px'; cv.style.height = H + 'px';
+  makeBoard();
+}
+window.addEventListener('resize', resize);
+function watchDPR(){
+  try{
+    matchMedia('(resolution: ' + window.devicePixelRatio + 'dppx)')
+      .addEventListener('change', () => { resize(); watchDPR(); }, { once: true });
+  }catch(e){}
+}
+watchDPR();
+
+const FONT = '"Chalkboard SE","Comic Sans MS","Segoe Print",cursive';
+
+// ---------------------------------------------------------------------
+// utils
+// ---------------------------------------------------------------------
+function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+function lerp(a,b,t){ return a+(b-a)*t; }
+function mulberry32(a){
+  return function(){
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+// deterministic hash -> [0,1) for wobble/jitter
+function hash1(n){
+  n = Math.imul(n ^ 61, 0x27d4eb2d);
+  n = n ^ (n >>> 15);
+  n = Math.imul(n, 0x2c1b3c6d);
+  n = n ^ (n >>> 12);
+  return (n >>> 0) / 4294967296;
+}
+function angDiff(a,b){
+  let d = a - b;
+  while (d >  Math.PI) d -= 2*Math.PI;
+  while (d < -Math.PI) d += 2*Math.PI;
+  return d;
+}
+function hexLerp(c1,c2,t){
+  const p = h => [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+  const a = p(c1), b = p(c2);
+  return 'rgb(' + Math.round(lerp(a[0],b[0],t)) + ',' + Math.round(lerp(a[1],b[1],t)) + ',' + Math.round(lerp(a[2],b[2],t)) + ')';
+}
+
+// safe localStorage
+const LS = {
+  get(k,d){ try{ const v = localStorage.getItem('hb_'+k); return v===null? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem('hb_'+k, JSON.stringify(v)); }catch(e){} }
+};
+
+// ---------------------------------------------------------------------
+// audio — everything synthesized, nothing loaded
+// ---------------------------------------------------------------------
+const AU = {
+  ctx:null, master:null, muted: LS.get('muted', false),
+  slideGain:null, buzzGain:null, buzzPan:null, squealGain:null, squealOsc:null,
+  init(){
+    if (this.ctx) return;
+    try{
+      this.ctx = new (window.AudioContext||window.webkitAudioContext)();
+      this.master = this.ctx.createGain();
+      this.master.gain.value = this.muted ? 0 : 0.5;
+      this.master.connect(this.ctx.destination);
+      // marker-squeak slide loop (filtered noise)
+      const buf = this.ctx.createBuffer(1, this.ctx.sampleRate * 0.6, this.ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i=0;i<d.length;i++) d[i] = Math.random()*2-1;
+      this.noiseBuf = buf;
+      const src = this.ctx.createBufferSource(); src.buffer = buf; src.loop = true;
+      const bp = this.ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value = 1400; bp.Q.value = 2.2;
+      this.slideGain = this.ctx.createGain(); this.slideGain.gain.value = 0;
+      src.connect(bp); bp.connect(this.slideGain); this.slideGain.connect(this.master); src.start();
+      // orphan-debt buzz (you can HEAR what you ignored)
+      const bo = this.ctx.createOscillator(); bo.type='sawtooth'; bo.frequency.value = 55;
+      const bf = this.ctx.createBiquadFilter(); bf.type='lowpass'; bf.frequency.value = 240;
+      this.buzzGain = this.ctx.createGain(); this.buzzGain.gain.value = 0;
+      this.buzzPan = (this.ctx.createStereoPanner ? this.ctx.createStereoPanner() : this.ctx.createGain());
+      bo.connect(bf); bf.connect(this.buzzGain); this.buzzGain.connect(this.buzzPan); this.buzzPan.connect(this.master); bo.start();
+      // over-inflation squeal warning
+      const so = this.ctx.createOscillator(); so.type='sine'; so.frequency.value = 900;
+      this.squealOsc = so;
+      this.squealGain = this.ctx.createGain(); this.squealGain.gain.value = 0;
+      so.connect(this.squealGain); this.squealGain.connect(this.master); so.start();
+    }catch(e){ this.ctx = null; }
+  },
+  resume(){ if (this.ctx && this.ctx.state !== 'running') this.ctx.resume().catch(()=>{}); },
+  setMuted(m){ this.muted = m; LS.set('muted', m); if (this.master) this.master.gain.value = m?0:0.5; },
+  hushLoops(){
+    if (this.slideGain) this.slideGain.gain.value = 0;
+    if (this.buzzGain) this.buzzGain.gain.value = 0;
+    if (this.squealGain) this.squealGain.gain.value = 0;
+  },
+  tone(f, type, dur, vol, opts){
+    if (!this.ctx || this.muted) return;
+    opts = opts || {};
+    const t0 = this.ctx.currentTime + (opts.delay||0);
+    const o = this.ctx.createOscillator(); o.type = type; o.frequency.setValueAtTime(f, t0);
+    if (opts.slideTo) o.frequency.exponentialRampToValueAtTime(Math.max(20,opts.slideTo), t0 + dur);
+    const g = this.ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + (opts.attack||0.008));
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    let out = g;
+    if (opts.pan !== undefined && this.ctx.createStereoPanner){
+      const p = this.ctx.createStereoPanner(); p.pan.value = clamp(opts.pan,-1,1);
+      g.connect(p); out = p;
+    }
+    o.connect(g); out.connect(this.master);
+    o.start(t0); o.stop(t0 + dur + 0.05);
+  },
+  noise(dur, vol, freq, q){
+    if (!this.ctx || this.muted) return;
+    const t0 = this.ctx.currentTime;
+    const buf = this.ctx.createBuffer(1, this.ctx.sampleRate * dur, this.ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i=0;i<d.length;i++) d[i] = (Math.random()*2-1) * (1 - i/d.length);
+    const src = this.ctx.createBufferSource(); src.buffer = buf;
+    const f = this.ctx.createBiquadFilter(); f.type='bandpass'; f.frequency.value = freq||1000; f.Q.value = q||1;
+    const g = this.ctx.createGain(); g.gain.value = vol;
+    src.connect(f); f.connect(g); g.connect(this.master); src.start(t0);
+  }
+};
+// pentatonic ladder — a hot streak is literally a rising melody
+const PENTA = [261.6, 293.7, 329.6, 392.0, 440.0, 523.3, 587.3, 659.3, 784.0, 880.0, 1046.5, 1174.7];
+const SFX = {
+  note(i){ const f = PENTA[clamp(i,0,PENTA.length-1)]; AU.tone(f,'triangle',0.28,0.28); AU.tone(f*2,'sine',0.18,0.08); },
+  thud(){ AU.noise(0.1,0.25,300,1); },
+  chirp(){ AU.tone(740,'sine',0.09,0.22); AU.tone(1046,'sine',0.12,0.22,{delay:0.08}); },
+  sigh(){ AU.tone(500,'sine',0.4,0.14,{slideTo:210}); },
+  puff(){ AU.noise(0.18,0.18,500,0.8); },
+  ping(){ AU.tone(1318,'square',0.14,0.16); },
+  bite(){ AU.tone(300,'sawtooth',0.3,0.3,{slideTo:70}); AU.noise(0.15,0.3,800,1); },
+  crack(){ AU.noise(0.12,0.35,2500,2); AU.tone(180,'square',0.12,0.15,{slideTo:90}); },
+  pop(){ AU.noise(0.3,0.5,1500,0.6); AU.tone(880,'sine',0.35,0.25,{slideTo:60}); },
+  honk(pan){ AU.tone(220,'sawtooth',0.28,0.3,{slideTo:180,pan:pan}); AU.tone(220,'sawtooth',0.24,0.25,{delay:0.32,slideTo:190,pan:pan}); },
+  sparkle(){ [880,1108,1318,1760].forEach((f,i)=>AU.tone(f,'sine',0.16,0.16,{delay:i*0.06})); },
+  medal(){ [523,659,784].forEach((f,i)=>AU.tone(f,'triangle',0.3,0.25,{delay:i*0.12})); },
+  best(){ [523,659,784,1046,1318].forEach((f,i)=>AU.tone(f,'triangle',0.4,0.22,{delay:i*0.11})); },
+  erase(){ AU.noise(0.5,0.3,900,0.5); },
+  graze(){ AU.tone(1568,'sine',0.12,0.2,{slideTo:2093}); },
+  flash(){ AU.noise(0.08,0.3,4000,1); },
+  boost(){ AU.tone(392,'sine',0.35,0.2,{slideTo:784}); },
+  nom(){ AU.tone(196,'square',0.08,0.2); AU.tone(261,'square',0.08,0.2,{delay:0.09}); },
+  panicGrow(){ AU.tone(150,'sawtooth',0.5,0.25,{slideTo:400}); },
+  smash(){ AU.noise(0.22,0.45,900,0.8); AU.tone(180,'square',0.12,0.2,{slideTo:80}); AU.tone(1200,'square',0.06,0.12,{delay:0.03}); },
+  deployGood(){ [392,494,587,784].forEach((f,i)=>AU.tone(f,'triangle',0.25,0.2,{delay:i*0.07})); },
+  deployBad(){ AU.tone(600,'sawtooth',0.4,0.25,{slideTo:110}); AU.noise(0.2,0.2,500,0.8); }
+};
+
+// ---------------------------------------------------------------------
+// the backing track — a synthesized 80's arcade score that grows with the eras:
+// new instruments layer in, keys drift, tempo chases the PACE, and the whole
+// mix muffles as flourishing fades. B toggles it.
+// ---------------------------------------------------------------------
+const MUS = {
+  on: LS.get('music', true), timer: null, gain: null, filt: null, next: 0, step: 0,
+  ensure(){
+    if (this.timer || !AU.ctx) return;
+    this.gain = AU.ctx.createGain(); this.gain.gain.value = 0.38;
+    this.filt = AU.ctx.createBiquadFilter(); this.filt.type = 'lowpass'; this.filt.frequency.value = 7000;
+    this.gain.connect(this.filt); this.filt.connect(AU.master);
+    // tempo-synced feedback echo — the 80s in one node
+    this.delayIn = AU.ctx.createGain(); this.delayIn.gain.value = 0.55;
+    this.dl = AU.ctx.createDelay(1); this.dl.delayTime.value = 0.28;
+    const fb = AU.ctx.createGain(); fb.gain.value = 0.34;
+    this.delayIn.connect(this.dl); this.dl.connect(fb); fb.connect(this.dl); this.dl.connect(this.gain);
+    this.next = AU.ctx.currentTime + 0.1;
+    this.timer = setInterval(() => this.tick(), 40);
+  },
+  lead(f, t, dur, vol){
+    const o = AU.ctx.createOscillator(); o.type = 'triangle'; o.frequency.setValueAtTime(f, t);
+    const lfo = AU.ctx.createOscillator(); lfo.frequency.value = 5.5;
+    const lg = AU.ctx.createGain(); lg.gain.value = 5;
+    lfo.connect(lg); lg.connect(o.frequency); lfo.start(t); lfo.stop(t + dur + 0.05);
+    const g = AU.ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.025);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(this.gain);
+    if (this.delayIn) g.connect(this.delayIn);
+    o.start(t); o.stop(t + dur + 0.05);
+  },
+  pad(rootM, t, dur){
+    [0, 3, 7].forEach(iv => {
+      const o = AU.ctx.createOscillator(); o.type = 'sine';
+      o.frequency.value = 440 * Math.pow(2, (rootM + iv - 69) / 12);
+      const g = AU.ctx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.linearRampToValueAtTime(0.032, t + dur * 0.3);
+      g.gain.linearRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(this.gain);
+      o.start(t); o.stop(t + dur + 0.05);
+    });
+  },
+  setOn(v){ this.on = v; LS.set('music', v); },
+  n(f, t, dur, type, vol, slide){
+    const o = AU.ctx.createOscillator(); o.type = type; o.frequency.setValueAtTime(Math.max(20, f), t);
+    if (slide) o.frequency.exponentialRampToValueAtTime(Math.max(20, slide), t + dur);
+    const g = AU.ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(this.gain);
+    o.start(t); o.stop(t + dur + 0.03);
+  },
+  hit(t, dur, vol, hp){
+    if (!AU.noiseBuf) return;
+    const src = AU.ctx.createBufferSource(); src.buffer = AU.noiseBuf;
+    const f = AU.ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = hp;
+    const g = AU.ctx.createGain();
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.connect(f); f.connect(g); g.connect(this.gain);
+    src.start(t); src.stop(t + dur + 0.02);
+  },
+  tick(){
+    if (!AU.ctx) return;
+    if (AU.muted || !this.on || document.hidden || game.paused || AU.ctx.state !== 'running'){
+      this.next = AU.ctx.currentTime + 0.06;
+      return;
+    }
+    const running = game.state === 'run' || game.state === 'earthrise';
+    const pace = running ? Math.min(2.2, Math.pow(1.012, Math.max(0, P.hills))) : 1;
+    const bpm = running ? 116 * Math.min(1.35, 0.92 + pace * 0.16) : 84;
+    const spb = 60 / bpm / 4;                       // one 16th note
+    if (this.dl) this.dl.delayTime.value = spb * 3;   // dotted-eighth echo, always in time
+    while (this.next < AU.ctx.currentTime + 0.16){
+      this.play(this.step, this.next, spb, running);
+      this.next += spb;
+      this.step = (this.step + 1) % 64;             // 4 bars
+    }
+    // the world dims — the music dims with it
+    const cut = running ? 900 + Math.pow(P.flo / 100, 1.4) * 7500 : 5500;
+    this.filt.frequency.value += (cut - this.filt.frequency.value) * 0.12;
+  },
+  play(step, t, spb, running){
+    const era = Math.max(0, game.eraCur || 0);
+    const band = era % 4;
+    const midi = m => 440 * Math.pow(2, (m - 69) / 12);
+    const key = 45 + ((era * 5) % 12);              // key drifts a fourth each era
+    // the classic loops: i–VI–III–VII and friends
+    const PROG = [[0,-4,3,-2],[0,3,-4,-2],[0,-2,3,-4],[0,-4,-2,3]][band];
+    const bar = (step / 16) | 0, s = step % 16;
+    const root = key + PROG[bar];
+    const chord = [0, 3, 7, 10];
+    const swing = (s % 2 === 1) ? spb * 0.12 : 0;   // shuffle the off-beats
+    if (!running){
+      // title & death: dreamy arpeggio over a warm pad
+      if (s % 4 === 0) this.lead(midi(root + chord[((step / 4) | 0) % 4] + 12), t, spb * 3.6, 0.06);
+      if (s === 0){ this.n(midi(root - 12), t, spb * 8, 'sine', 0.11); this.pad(root, t, spb * 16); }
+      return;
+    }
+    // warm pad glue, one triad per bar
+    if (s === 0) this.pad(root, t, spb * 16);
+    // bass: triangle with an octave bounce + sub sine underneath
+    const bassSteps = [[0,3,6,8,11,14],[0,4,6,8,12,14],[0,3,8,11,14],[0,2,6,8,10,14]][band];
+    if (bassSteps.indexOf(s) >= 0){
+      const up = (s === 6 || s === 14) ? 12 : 0;    // the bounce
+      this.n(midi(root - 12 + up), t, spb * 1.8, 'triangle', 0.2);
+      this.n(midi(root - 24), t, spb * 1.8, 'sine', 0.11);
+    }
+    // kick from era 1, extra kick era 4+
+    if (era >= 1 && (s === 0 || s === 8)) this.n(100, t, 0.1, 'sine', 0.6, 38);
+    if (era >= 4 && s === 12) this.n(100, t, 0.08, 'sine', 0.42, 44);
+    // snare from era 2
+    if (era >= 2 && (s === 4 || s === 12)) this.hit(t, 0.09, 0.24, 1400);
+    // hats: accented downbeats, swung off-beats from era 3
+    if (s % 2 === 0) this.hit(t, 0.03, (s % 4 === 0) ? 0.085 : 0.05, 6500);
+    else if (era >= 3) this.hit(t + swing, 0.025, 0.045, 8500);
+    // soft arpeggio from era 1
+    const arpPat = [[0,1,2,3],[0,2,1,3],[0,3,2,1],[2,0,3,1]][band];
+    if (era >= 1 && s % 2 === 1) this.n(midi(root + chord[arpPat[((step / 2) | 0) % 4]] + 12), t + swing, spb * 1.05, 'square', 0.036);
+    // the hummable bit: a two-bar melody with vibrato and echo, bars 3-4
+    if (era >= 1 && bar >= 2 && s % 2 === 0){
+      const PENT = [0, 3, 5, 7, 10, 12, 15];
+      const PHRASE = [
+        [0,2,3,2, 5,3,2,1,  0,2,3,5, 3,2,1,0],
+        [2,3,5,3, 2,0,1,2,  3,5,6,5, 3,2,1,2],
+        [5,3,2,3, 0,1,2,3,  5,6,5,3, 2,1,0,2],
+        [0,1,2,3, 5,3,2,0,  1,2,3,5, 6,5,3,2],
+      ][band];
+      const idx = (bar - 2) * 8 + s / 2;
+      const deg = PHRASE[idx];
+      if (deg !== undefined && (idx % 4 !== 3 || era >= 3)){
+        this.lead(midi(key + 12 + PENT[deg]), t, spb * 1.9, 0.08);
+      }
+    }
+  }
+};
+
+// ---------------------------------------------------------------------
+// input — one button, three bindings
+// ---------------------------------------------------------------------
+let holding = false;
+let tapQueued = false;      // a fresh press since last consumed
+let steadyKey = false;      // shift held = taking stock
+function press(){
+  AU.init(); AU.resume(); MUS.ensure();
+  holding = true; tapQueued = true;
+}
+function release(){ holding = false; }
+cv.addEventListener('pointerdown', e => { e.preventDefault(); press(); });
+window.addEventListener('pointerup',   e => release());
+window.addEventListener('pointercancel', e => release());
+window.addEventListener('blur', () => { release(); if (game.state==='run'||game.state==='earthrise'){ game.paused = true; AU.hushLoops(); } });
+document.addEventListener('visibilitychange', () => { if (document.hidden && (game.state==='run'||game.state==='earthrise')){ game.paused = true; AU.hushLoops(); } });
+function toggleFullscreen(){
+  try {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen();
+  } catch(err){}
+}
+
+const ABOUT = document.getElementById('about');
+function openAbout(){ ABOUT.style.display = 'block'; ABOUT.scrollTop = 0; }
+function closeAbout(){ ABOUT.style.display = 'none'; }
+document.getElementById('aboutClose').addEventListener('click', closeAbout);
+function aboutOpen(){ return ABOUT.style.display === 'block'; }
+
+window.addEventListener('keydown', e => {
+  if (aboutOpen()){ if (e.code === 'Escape') closeAbout(); return; }
+  if (e.repeat) return;
+  if (e.code === 'Space' || e.code === 'ArrowDown'){ e.preventDefault(); press(); }
+  else if (e.key === 'm' || e.key === 'M'){ AU.setMuted(!AU.muted); }
+  else if (e.key === 'b' || e.key === 'B'){ MUS.setOn(!MUS.on); }
+  else if (e.key === 'Shift'){ steadyKey = true; }
+  else if (e.key === 'f' || e.key === 'F'){ toggleFullscreen(); }
+  else if (e.key === 'p' || e.key === 'P' || e.code === 'Escape'){
+    if (game.state==='run'||game.state==='earthrise'){ game.paused = !game.paused; if (game.paused) AU.hushLoops(); }
+  }
+  else if (e.key === 'n' || e.key === 'N'){
+    if (game.notes){ game.notes = false; game.notesFocus = null; }
+    else if (game.state==='title'||game.state==='dead') game.notes = true;
+  }
+  else if (e.key === 'h' || e.key === 'H'){
+    if (game.help) game.help = false;
+    else if (game.state==='title'||game.state==='dead') game.help = true;
+  }
+});
+// two fingers HELD = steady (the responsibility pause); a quick two-finger tap = full pause
+const activePtrs = new Set();
+let twoAt = 0;
+cv.addEventListener('pointerdown', e => {
+  activePtrs.add(e.pointerId);
+  if (activePtrs.size >= 2){
+    twoAt = performance.now();
+    holding = false; tapQueued = false;
+  }
+});
+window.addEventListener('pointerup', e => {
+  const hadTwo = activePtrs.size >= 2;
+  activePtrs.delete(e.pointerId);
+  if (hadTwo && activePtrs.size < 2 && performance.now() - twoAt < 300 &&
+      (game.state==='run'||game.state==='earthrise') && !game.paused){
+    game.paused = true; AU.hushLoops();
+  }
+  if (game.resetHold){
+    if (game.time - game.resetHold > 1.6 && game.state === 'title'){
+      LS.set('best', 0);
+      try{
+        for (let i = localStorage.length - 1; i >= 0; i--){
+          const k = localStorage.key(i);
+          if (k && k.startsWith('hb_daily_')) localStorage.removeItem(k);
+        }
+      }catch(err){}
+      game.best = 0; game.bestDaily = 0;
+      game.resetFlash = game.time;
+      SFX.erase();
+    }
+    game.resetHold = null;
+  }
+});
+window.addEventListener('pointercancel', e => activePtrs.delete(e.pointerId));
+window.addEventListener('keyup', e => {
+  if (e.code==='Space'||e.code==='ArrowDown') release();
+  if (e.key === 'Shift') steadyKey = false;
+});
+cv.addEventListener('contextmenu', e => e.preventDefault());
+
+// ---------------------------------------------------------------------
+// moral panics of past and future — the era ladder
+// ---------------------------------------------------------------------
+const ERAS = [
+  { name:'WRITING',            sub:'Socrates was very worried',        col:'#33343d' },
+  { name:'THE PRINTING PRESS', sub:'too many books, apparently',       col:'#20509e' },
+  { name:"ROCK 'N' ROLL",      sub:'corrupting the youth since 1954',  col:'#b3232e' },
+  { name:'VIDEO GAMES',        sub:'and D&D — borderline case',        col:'#1e7d3c' },
+  { name:'SOCIAL MEDIA',       sub:'the jury is still out',            col:'#6a2a9e' },
+  { name:'AI',                 sub:'plot twist: it is drawing you',    col:'#c96a10' },
+];
+const FUTURE_PANICS = [
+  ['NEURAL LACE','itchy, allegedly'], ['QUANTUM PETS','alive AND asleep'],
+  ['MIND UPLOADS','terms & conditions apply'], ['SENTIENT TOASTERS','they unionized'],
+  ['TELEPATHY APPS','no more secrets, sorry'], ['GRAVITY HACKING','what goes up...'],
+  ['TIME SHARES (LITERAL)','tuesdays, twice'], ['ROBOT THERAPISTS','and how does that compute'],
+  ['DESIGNER DREAMS','ads included'], ['IMMORTALITY BETA','patch notes pending'],
+  ['HOLOGRAM INFLUENCERS','not even real. still famous'], ['LAB-GROWN EVERYTHING','but is it food?'],
+  ['EMOTION MARKETS','feelings futures crashed'], ['PET TRANSLATORS','the cats knew all along'],
+  ['WEATHER SUBSCRIPTIONS','rain is premium now'], ['NOSTALGIA ENGINES','the past was never this good'],
+];
+const ERA_HILLS = [7, 8, 9, 9, 10, 10];  // hills per named era, then 12 each
+function eraIndexForHill(h){
+  let acc = 0;
+  for (let i=0;i<ERA_HILLS.length;i++){ acc += ERA_HILLS[i]; if (h < acc) return i; }
+  return ERA_HILLS.length + Math.floor((h - acc) / 12);
+}
+function eraInfo(idx){
+  if (idx < ERAS.length) return ERAS[idx];
+  const fp = FUTURE_PANICS[(idx - ERAS.length) % FUTURE_PANICS.length];
+  const cols = ['#33343d','#20509e','#b3232e','#1e7d3c','#6a2a9e','#c96a10'];
+  return { name: fp[0], sub: fp[1], col: cols[idx % cols.length] };
+}
+// ---------------------------------------------------------------------
+// emerging & transformative technologies — some real, some almost,
+// all deployable for good or for hype
+// ---------------------------------------------------------------------
+const TECH_DOMS = {
+  nano:'#20509e', ai:'#c96a10', mat:'#4b4e59', qtm:'#6a2a9e', bio:'#1e7d3c',
+  geo:'#207a8a', mov:'#b3232e', spc:'#33343d', nrg:'#b3612e', neu:'#c0508a',
+  food:'#8a6d00', wild:'#c9a227'
+};
+const TECH = [
+  ['nano','SELF-HEALING CONCRETE'],['nano','PROGRAMMABLE DUST'],['nano','NANOBOT POLLINATORS'],
+  ['nano','DNA ORIGAMI FACTORIES'],['nano','MOLECULAR ASSEMBLERS'],['nano','NANO-SPONGE SPILL EATERS'],
+  ['nano','GREY GOO ANTIDOTE'],
+  ['ai','FRONTIER AGENTS'],['ai','EMPATHY ENGINES'],['ai','AI LAB PARTNERS'],['ai','SELF-WRITING LAW'],
+  ['ai','DREAM-TO-TEXT'],['ai','EPISTEMIC FIREWALLS'],['ai','SYNTHETIC FOCUS GROUPS'],['ai','AI TOWN PLANNERS'],
+  ['ai','AI OPTIMIZE'],
+  ['mat','TRANSPARENT WOOD'],['mat','ROOM-TEMP SUPERCONDUCTORS'],['mat','METAMATERIAL CLOAKS'],
+  ['mat','PROGRAMMABLE MATTER'],['mat','SELF-ASSEMBLING FURNITURE'],['mat','INFINITE-RECYCLE PLASTIC'],
+  ['mat','ACOUSTIC DIODES'],
+  ['qtm','QUANTUM INTERNET'],['qtm','QUANTUM BATTERIES'],['qtm','ENTANGLED SENSORS'],
+  ['qtm','POCKET COLD ATOMS'],['qtm','QUANTUM UMBRELLAS'],
+  ['bio','SYNTHETIC CHLOROPLASTS'],['bio','ENGINEERED PROBIOTICS'],['bio','DE-EXTINCTION KITS'],
+  ['bio','PHOTOSYNTHETIC SKIN'],['bio','BIO-PRINTED ORGANS'],['bio','LIVING PAINT'],
+  ['bio','GLOW-TREE STREETLIGHTS'],['bio','ADAPT-A-SEED'],
+  ['bio','SENOLYTIC SMOOTHIES'],['bio','EPIGENETIC REWIND'],['bio','LONGEVITY VACCINES'],['bio','ORGAN CLOCKS'],
+  ['geo','STRATOSPHERIC VEILS'],['geo','CLOUD BRIGHTENERS'],['geo','CARBON-EATING ALGAE'],
+  ['geo','ALBEDO PAINT'],['geo','GLACIER BLANKETS'],['geo','MAMMOTH STEPPE REWILDING'],['geo','FOSSIL-BE-GONE'],
+  ['mov','ROBOTAXI SWARMS'],['mov','EVTOL AIR TAXIS'],['mov','DELIVERY BLIMPS'],
+  ['mov','AUTONOMOUS CARGO SAILSHIPS'],['mov','TELEPORT LOCKERS'],['mov','SKY TRAMS'],['mov','SEVEN TWENTY FOUR'],
+  ['spc','ASTEROID MINING RIGS'],['spc','ORBITAL SOLAR FARMS'],['spc','SPACE ELEVATOR CABLE'],['spc','LUNAR 3D PRINTERS'],
+  ['nrg','FUSION MICROREACTORS'],['nrg','ARTIFICIAL LEAVES'],['nrg','SAND BATTERIES'],['nrg','GEOTHERMAL ANYWHERE'],
+  ['neu','BRAIN-COMPUTER LACE'],['neu','MOOD DIALS'],['neu','DREAM ARCHITECTS'],['neu','MEMORY PROSTHETICS'],['neu','POWERED BRAIN'],
+  ['food','NO-PAIN MEAT'],['food','PRECISION FERMENTATION'],['food','VERTICAL PROTEIN FARMS'],['food','SELF-AWARE SOURDOUGH'],
+  ['wild','MUNICIPAL CLOUD WHALES'],['wild','EMPATHY WI-FI'],['wild','TIME-RELEASE CITIES'],
+  ['wild','OPINION COMPOSTERS'],['wild','SILENCE FARMS'],['wild','BRIGHT FUTURES'],['wild','TRUST ME'],
+];
+
+// what an ignored risk actually threatens — his real stakes
+const STAKES = ['trust','dignity','autonomy','privacy','identity','equity','agency','belonging'];
+
+// named risks: real hazards from the risk-innovation taxonomy plus a few from tomorrow.
+// HOLD as you hit one = managed. Hit it slack-thumbed = consequences.
+const RISK_NAMES = [
+  'BAD ACTORS','CO-OPTED TECH','LOSS OF AGENCY','REPUTATION COLLAPSE','INTERGENERATIONAL DEBT',
+  'ALGORITHMIC BIAS','DATA BREACH','REGULATORY BACKLASH','DEEPFAKE SCANDAL','SUPPLY CHAIN SNAP',
+  'GENE DRIVE ESCAPE','TERMINATION SHOCK','MODEL COLLAPSE','PRIVACY CREEP','AUTOMATION SHOCK',
+  'BIOSECURITY LEAK','ORBITAL DEBRIS CASCADE','ANTIBIOTIC TWILIGHT','RUNAWAY HYPE LOOP','GREENWASH BLOWBACK',
+];
+
+const MEDALS = [
+  { hills:10,  name:'DISRUPTION' },
+  { hills:25,  name:'AWARENESS'  },
+  { hills:50,  name:'AGILITY'    },
+  { hills:100, name:'RESILIENCE' },
+  { hills:250, name:'DIGNITY'    },
+];
+
+// ---------------------------------------------------------------------
+// field notes — the bestiary
+// ---------------------------------------------------------------------
+const NOTES_DEF = [
+  { id:'orphan',  name:'ORPHAN RISK (blob)',      how:'HOLD as you roll past one to adopt it — it becomes a pet that follows you and blocks one hit. Skip past it and it burrows, then attacks a few hills later.' },
+  { id:'panic',   name:'MORAL PANIC (fire)',      how:'A scribble-fire that feeds on attention. Touch it and it flares up and burns you. Fly past without touching and it gutters out (+♥).' },
+  { id:'papz',    name:'PAPARAZZI RISK',          how:'A blob with a camera. Ignored, it returns with a blinding flash. Adopted, its flash stuns attackers for you.' },
+  { id:'trend',   name:'TRENDING RISK',           how:'A blob with an antenna. As a pet it gives you a steady tailwind.' },
+  { id:'swan',    name:'BLACK SWAN',              how:'Rare, big, honks twice before it arrives. A pet will take the hit; passing close without touching scores a graze.' },
+  { id:'risk',    name:'NAMED RISK',              how:'A hazard with its name on it. HOLD as you hit it and it is managed (+♥). Hit it slack-thumbed and it costs you dearly. Or fly around it.' },
+  { id:'doom',    name:'DOOM SLUDGE',             how:'Grey sludge in the deepest valleys. It slows you and eats flourishing. Fly over it.' },
+  { id:'seren',   name:'CATALYTIC SERENDIPITY',   how:'Touch the golden ? and something good happens. Never the same thing twice.' },
+  { id:'sign',    name:'PANIC! BILLBOARD',        how:'Marks each new panic era. Fly through one at low altitude to smash it (+♥). Purely satisfying.' },
+  { id:'tech',    name:'EMERGING TECH (crate)',   how:'Catch a crate; it deploys 5 seconds later, wherever you are. On the ground = tech for good (+♥♥). Above the hype line = fast but reckless — it breeds new risks.' },
+];
+let notesSeen = LS.get('notes', {});
+function unlockNote(id){
+  if (!notesSeen[id]){ notesSeen[id] = true; LS.set('notes', notesSeen); popup(P.x, P.y - 120, 'field note unlocked', '#8a6d00'); }
+}
+
+// ---------------------------------------------------------------------
+// game state
+// ---------------------------------------------------------------------
+const YEAR0 = 2026, PX_PER_YEAR = 400;
+const game = {
+  state:'title',        // title | run | erase | dead | earthrise
+  notes:false,          // bestiary overlay
+  notesFocus:null,      // which card is expanded
+  help:false,           // how-to-play overlay
+  paused:false,
+  daily:false,
+  time:0, boil:0,
+  shake:0, flashT:0, slowmo:0,
+  eraCur:0, eraColFrom:ERAS[0].col, eraColTo:ERAS[0].col, eraFade:1,
+  banner:null, bannerT:0,
+  eraseX:0, deadInfo:null, earthT:0,
+  best: LS.get('best', 0),
+  bestDaily: 0,
+  medals: LS.get('medals', {}),
+  runs: LS.get('runs', 0),
+  newBest:false, titleTip:0,
+};
+let runRng = mulberry32(12345);      // terrain & spawn placement — the shared "future"
+let evRng = mulberry32(54321);       // player-triggered events — never perturbs terrain
+
+// player
+const P = {
+  x:0, y:0, vx:0, vy:0, r:26,
+  grounded:false, airT:0, groundT:0,
+  chain:0, mult:1, cracks:0, inflate:0, overT:0,
+  pets:[], sludged:false, stunFlashCd:0,
+  squash:0, dist:0, hills:0, bestChain:0, adopted:0,
+  lean:0, flo:30, floPeak:30, bloom:0, nextBloomYr:10, carry:null, goodTech:0, bonus:0,
+  paceBrake:0,
+};
+// year bonuses accumulate here; P.dist tracks x + bonus so rewards actually count
+function addYears(px){ P.bonus += px; }
+// human flourishing — the fuel. The pace drains it; care refills it.
+// Care beyond full hearts BLOOMS: it plants flowers on the path ahead,
+// and every 10 bloom grows the future itself (+1 year).
+function addFlo(n, quiet){
+  if (n > 0){
+    // experience compounds: from era 5 onward, acts of care pay up to +25% more.
+    // (The drain still triples over the same stretch — late game stays hard.)
+    n *= 1 + Math.min(0.25, Math.max(0, (game.eraCur || 0) - 4) * 0.04);
+    if (P.flo > 80) n *= 0.6;                 // the last stretch is the hardest
+    const over = Math.max(0, P.flo + n - 100);
+    P.flo = Math.min(100, P.flo + n);
+    if (!quiet) game.floPulse = 0.5;
+    if (P.flo > P.floPeak) P.floPeak = P.flo;
+    if (P.flo >= 50 && !game.flo50 && game.state === 'run'){
+      game.flo50 = true;
+      popup(P.x, P.y - 140, 'halfway lit ♥', '#c0508a');
+    }
+    if (P.flo >= 75 && !game.flo75 && game.state === 'run'){
+      game.flo75 = true;
+      popup(P.x, P.y - 140, 'three-quarters lit ♥♥', '#c0508a');
+    }
+    if (P.flo >= 100 && !game.flo100 && game.state === 'run'){
+      game.flo100 = true;
+      setBanner('FULL FLOURISHING', 'from here on, care blooms into years');
+      SFX.best();
+    }
+    if (over > 0 && game.state === 'run'){
+      P.bloom += over;
+      landmarks.push({ type:'bloom', x: P.x + 120 + Math.random()*260, hue: Math.random() });
+      game.gardenRun = (game.gardenRun || 0) + 1;
+      if (P.bloom >= P.nextBloomYr){
+        P.nextBloomYr += 10;
+        addYears(PX_PER_YEAR);
+        popup(P.x, P.y - 130, 'the future blooms +1yr', '#2a7a2a');
+        SFX.sparkle();
+      }
+    }
+  } else {
+    if (game.state !== 'run') return;      // cutscenes are true safe harbors
+    P.flo = Math.max(0, P.flo + n);
+  }
+}
+
+// world entities
+let segs = [];            // terrain hills
+let orphans = [];         // waiting / adopted handled via P.pets / burrowed / leaping
+let tokens = [];          // golden ?
+let swans = [];
+let pizzas = [];
+let techs = [];           // crates of emerging technology
+let risks = [];           // named hazards — hold to manage
+let landmarks = [];       // towel, duck, signposts
+let particles = [];
+let popups = [];
+let genX = 0, genC = 0, genHillN = 0;
+let pendingReturns = [];  // burrowed orphans waiting to bite
+let firstBite = false, firstPanic = false;
+
+function yearOf(dist){ return YEAR0 + Math.floor(dist / PX_PER_YEAR); }
+
+// ---------------------------------------------------------------------
+// terrain — piecewise cosine hype-cycle hills
+// ---------------------------------------------------------------------
+function hillDepthFor(n){
+  return (105 + Math.min(190, n * 3)) * (0.72 + runRng() * 0.55);
+}
+function genHill(){
+  const n = genHillN;
+  const era = eraIndexForHill(n);
+  const firstOfEra = era !== eraIndexForHill(n - 1);
+  let depth = hillDepthFor(n);
+  if (n < 2) depth = 60 + n * 15;
+  if (firstOfEra) depth *= 0.78;                       // breather valley at each era gate
+  const L = 420 + depth * 1.9 + runRng() * 140;
+  const c1 = clamp(genC + (runRng() - 0.5) * 140, -95, 70);
+  const seg = { x0: genX, x1: genX + L, c0: genC, c1, depth, idx: n, era,
+                sludge: (era >= 3 && depth > 165 && runRng() < 0.5) };
+  segs.push(seg);
+
+  // --- populate the hill ---
+  if (firstOfEra && n > 0){
+    landmarks.push({ type:'sign', x: genX + 40, era });
+  }
+  if (n === 5){ // tutorial orphan, gift-wrapped
+    spawnOrphan(seg, 0.5, 'orphan', true);
+  } else if (n >= ERA_HILLS[0] && !firstOfEra){
+    if (era >= 3 && runRng() < 0.07){
+      // a small protest marches through the trough — never hug a mob
+      for (let k = 0; k < 3; k++) spawnOrphan(seg, 0.4 + k * 0.09, 'panic', false);
+    } else {
+      const spawnP = clamp(0.45 + n * 0.004, 0.45, 0.8);
+      if (runRng() < spawnP){
+        let variant = 'orphan';
+        const r = runRng();
+        if (era >= 3 && r < 0.16) variant = 'panic';
+        else if (era >= 4 && r < 0.30) variant = (runRng() < 0.5 ? 'papz' : 'trend');
+        const t = runRng() < 0.32 ? (runRng()<0.5 ? 0.34 : 0.68) : 0.5;   // ~1/3 in awkward spots
+        spawnOrphan(seg, t, variant, false);
+      }
+    }
+  }
+  if (n > 8 && n % (8 + Math.floor(runRng()*6)) === 0){
+    tokens.push({ x: genX + L*0.5, y: hillY(seg, 0.5) - 190 - runRng()*120, t:0, taken:false });
+  }
+  if (n >= 3 && !firstOfEra && runRng() < 0.34){
+    const tt = 0.28 + runRng() * 0.44;
+    const tech = TECH[Math.floor(runRng() * TECH.length)];
+    techs.push({ x: genX + L * tt, y: hillY(seg, tt) - 70 - runRng() * 190,
+                 dom: tech[0], name: tech[1], t: 0, taken: false });
+  }
+  if (era >= 2 && !firstOfEra && runRng() < 0.13){
+    const rt = runRng() < 0.5 ? 0.28 : 0.72;
+    risks.push({ x: genX + L * rt, name: RISK_NAMES[Math.floor(runRng() * RISK_NAMES.length)], t: 0, done: false });
+  }
+  if (n === 42) landmarks.push({ type:'towel', x: genX + L*0.5, seg });
+  if (n === 4){
+    // the first crate arrives gift-wrapped, low and catchable
+    const gift = TECH[Math.floor(runRng() * TECH.length)];
+    techs.push({ x: genX + L*0.5, y: hillY(seg, 0.5) - 85, dom: gift[0], name: gift[1], t: 0, taken: false, tutorial: true });
+  }
+  const bestRef = game.daily ? game.bestDaily : game.best;
+  if (!game.flagPlaced && bestRef > YEAR0){
+    const fx2 = (bestRef - YEAR0) * PX_PER_YEAR;
+    if (fx2 >= genX && fx2 < genX + L){
+      landmarks.push({ type:'flag', x: fx2, yr: bestRef });
+      game.flagPlaced = true;
+    }
+  }
+
+  genX += L; genC = c1; genHillN++;
+}
+function spawnOrphan(seg, t, variant, tutorial){
+  const x = seg.x0 + (seg.x1 - seg.x0) * t;
+  orphans.push({ x, y: groundAt(x).y, variant, state:'wait', t:0, tutorial:!!tutorial, r:16, blink:runRng()*4 });
+}
+function hillY(seg, t){
+  const ci = seg.c0 + (seg.c1 - seg.c0) * (1 - Math.cos(Math.PI * t)) / 2;
+  return ci + seg.depth * (1 - Math.cos(2 * Math.PI * t)) / 2;
+}
+function groundAt(x){
+  if (!segs.length) return { y: 200, slope: 0, seg: { idx:0, x0:0, x1:1000, c0:200, c1:200, depth:0, sludge:false }, t: 0 };
+  // binary search the hill list
+  let lo = 0, hi = segs.length - 1, seg = segs[segs.length-1];
+  while (lo <= hi){
+    const mid = (lo + hi) >> 1;
+    if (x < segs[mid].x0) hi = mid - 1;
+    else if (x >= segs[mid].x1) lo = mid + 1;
+    else { seg = segs[mid]; break; }
+  }
+  const L = seg.x1 - seg.x0;
+  const t = clamp((x - seg.x0) / L, 0, 1);
+  const y = hillY(seg, t);
+  const dydt = (seg.c1 - seg.c0) * (Math.PI/2) * Math.sin(Math.PI * t)
+             + seg.depth * Math.PI * Math.sin(2 * Math.PI * t);
+  return { y, slope: dydt / L, seg, t };
+}
+function ensureTerrain(refX){
+  while (genX < refX + 3200) genHill();
+  while (segs.length && segs[0].x1 < refX - 1600) segs.shift();
+  orphans = orphans.filter(o => o.x > refX - 1400);
+  tokens = tokens.filter(o => o.x > refX - 800 && !o.taken);
+  techs = techs.filter(o => o.x > refX - 800 && !o.taken);
+  risks = risks.filter(o => o.x > refX - 800);
+  landmarks = landmarks.filter(l => l.x > refX - 1200);
+  pizzas = pizzas.filter(p => p.x > refX - 400 && !p.taken);
+}
+function resetWorld(){
+  segs = []; orphans = []; tokens = []; swans = []; pizzas = []; techs = []; risks = [];
+  landmarks = []; particles = []; popups = []; pendingReturns = [];
+  genX = -1200; genC = 20; genHillN = -2;
+  for (let i=0;i<4;i++) genHill();
+}
+
+// ---------------------------------------------------------------------
+// run lifecycle
+// ---------------------------------------------------------------------
+function startRun(daily){
+  game.daily = !!daily;
+  const today = new Date();
+  const dayKey = today.getFullYear()*10000 + (today.getMonth()+1)*100 + today.getDate();
+  const seedVal = daily ? ((dayKey * 2654435761) % 4294967296) >>> 0 : (Math.random()*4294967296)>>>0;
+  runRng = mulberry32(seedVal);
+  evRng = mulberry32((seedVal ^ 0x9e3779b9) >>> 0);
+  game.bestDaily = LS.get('daily_'+dayKey, 0);
+  game.dayKey = dayKey;
+
+  // flat-ish runway (idx<0 hills are gentle)
+  resetWorld();
+
+  Object.assign(P, { x:0, y:0, vx:250, vy:0, grounded:false, airT:0, groundT:0,
+    chain:0, mult:1, cracks:0, inflate:0, overT:0, pets:[], sludged:false,
+    stunFlashCd:0, squash:0, dist:0, hills:0, bestChain:0, adopted:0, lean:0,
+    flo:30, floPeak:30, bloom:0, nextBloomYr:10, carry:null, goodTech:0, bonus:0, paceBrake:0 });
+  game.brakeShown = false;
+  game.century = 20;
+  game.flo50 = false; game.flo75 = false; game.flo100 = false; game.consequencesShown = false;
+  game.shadowShown = false; game.lowWarned = false; game.duckPlaced = false;
+  game.flagPlaced = false; game.gardenRun = 0; game.copied = false;
+  P.y = groundAt(0).y - P.r - 0.5;
+  P.grounded = true;
+
+  game.state = 'run'; game.paused = false; game.newBest = false; game.runT = 0;
+  game.eraCur = 0; game.eraColFrom = eraInfo(0).col; game.eraColTo = eraInfo(0).col; game.eraFade = 1;
+  game.banner = null; game.slowmo = 0; game.shake = 0; game.flashT = 0;
+  game.slowmoHit = 0; game.tailwindT = 0; game.megaT = 0; game.flowT = 0; game.titleT = 0;
+  game.swanCd = 14 + evRng()*8;
+  MEDALS.forEach(m => { game['medal_'+m.hills+'_shown'] = false; });
+  game.runs++; LS.set('runs', game.runs);
+  cam.zoom = 0.9; cam.y = P.y - 60;
+}
+
+function killPlayer(cause, detail){
+  if (game.state !== 'run') return;
+  game.state = 'erase';
+  game.eraseX = 0;
+  SFX.pop(); setTimeout(()=>SFX.erase(), 250);
+  const yr = yearOf(P.dist);
+  game.deadInfo = { cause, detail: detail||{}, year: yr, hills: P.hills, pets: P.adopted, bestChain: P.bestChain,
+                    grown: Math.floor(P.bloom / 10), floPeak: Math.round(P.floPeak), goodTech: P.goodTech || 0 };
+  P.carry = null;
+  if (game.daily){
+    if (yr > game.bestDaily){ game.bestDaily = yr; LS.set('daily_'+game.dayKey, yr); game.newBest = true; }
+  }
+  if (yr > game.best){ game.best = yr; LS.set('best', yr); game.newBest = true; }
+  if (game.newBest) setTimeout(() => SFX.best(), 1000);
+  // every flower planted joins the lifetime meadow on the title screen
+  if (game.gardenRun) LS.set('garden', LS.get('garden', 0) + game.gardenRun);
+  game.deadAt = 0;
+  burst(P.x, P.y, 26, '#7ab3d4');
+  game.shake = 14;
+}
+
+function addCrack(n, cause, detail){
+  if (game.state !== 'run') return;        // cutscenes and death are safe harbors
+  if (game.megaT > 0){ popup(P.x, P.y - 90, 'unpoppable!', '#c9a227'); SFX.graze(); return; }
+  P.cracks += n;
+  SFX.crack(); game.shake = Math.max(game.shake, 8);
+  if (P.cracks >= 3) killPlayer(cause, detail);
+}
+
+// pets absorb the blow — resilience, felt not named
+function absorbOrShield(cause, detail){
+  if (game.state !== 'run') return true;
+  if (game.megaT > 0){ popup(P.x, P.y - 90, 'boing! unpoppable', '#c9a227'); SFX.graze(); return true; }
+  if (P.pets.length > 0){
+    const pet = P.pets.pop();
+    burst(pet.px, pet.py, 14, '#d46a6a');
+    popup(pet.px, pet.py - 40, '"' + (pet.name || 'your pet') + '" took the hit', '#b3232e');
+    addFlo(-6);
+    SFX.sigh();
+    return true;
+  }
+  addCrack(1, cause, detail);
+  return false;
+}
+
+// ---------------------------------------------------------------------
+// physics — hold to dive, release to soar
+// ---------------------------------------------------------------------
+// floaty in the air, fierce in the dive — soaring is the reward
+const GRAV = 1550, HOLD_MULT = 5.1;
+function paceMin(){
+  const p = 200 * Math.pow(1.008, Math.max(0, P.hills));
+  // deliberate attention genuinely slows the transition — that's the brake
+  return Math.min(p, 980) * (1 + (P.mult - 1) * 0.05) * (1 - (P.paceBrake || 0));
+}
+function stepPlayer(dt){
+  const wasGrounded = P.grounded;
+  const inflated = P.inflate > 0.4;
+  // holding only multiplies gravity in the AIR (the dive); on the ground it digs
+  // into downslopes below — it must never punish an uphill climb
+  let g = GRAV * ((holding && !wasGrounded) ? HOLD_MULT : 1);
+  if (inflated && !holding && !wasGrounded) g *= 0.82;   // hype makes you floaty
+
+  P.vy += g * dt;
+  P.vy = Math.min(P.vy, 3000);
+  // a soap bubble falls gently — unless you dive it
+  if (!wasGrounded && !holding && P.vy > 950) P.vy += (950 - P.vy) * Math.min(1, dt * 3);
+  P.x += P.vx * dt;
+  P.y += P.vy * dt;
+
+  const gr = groundAt(P.x);
+  const rEff = P.r * (1 + P.inflate * 0.6);
+  const gy = gr.y - rEff;
+
+  if (P.y >= gy){
+    const slopeAng = Math.atan(gr.slope);
+    if (!wasGrounded && P.airT > 0.12){
+      judgeLanding(slopeAng, inflated);
+    }
+    // project velocity onto tangent (this + per-frame gravity ≈ proper sliding)
+    const ca = Math.cos(slopeAng), sa = Math.sin(slopeAng);
+    let vt = P.vx * ca + P.vy * sa;
+    vt *= (1 - 0.05 * dt * 60 * 0.016);            // marker friction
+    // dig in: holding on a downslope converts the dive into surface speed
+    if (holding && sa > 0.05) vt += GRAV * 3.6 * sa * dt;
+    P.vx = vt * ca; P.vy = vt * sa;
+    P.y = gy;
+    P.grounded = true; P.groundT += dt; P.airT = 0;
+    P.skimT = 0; P.skimPaid = false;
+  } else {
+    // a clean launch off a crest gets a little extra pop — soaring should feel earned AND generous
+    if (wasGrounded && P.vy < -140 && !holding) P.vy *= 1.14;
+    P.grounded = false; P.airT += dt; P.groundT = 0;
+    // hill-skimming: daring low flight, quietly rewarded
+    const gap = gy - P.y;
+    if (P.airT > 0.25 && gap > 2 && gap < 38){
+      P.skimT = (P.skimT || 0) + dt;
+      if (Math.random() < dt * 14) burst(P.x - 20, P.y + rEff, 1, '#c9a227');
+      if (P.skimT > 0.8 && !P.skimPaid){
+        P.skimPaid = true;
+        addFlo(3);
+        popup(P.x, P.y - 80, 'skimmer! +♥', '#c9a227');
+        SFX.graze();
+      }
+    } else if (gap > 70){
+      P.skimT = 0; P.skimPaid = false;
+    }
+  }
+
+  // the PACE never comes down — you just get better at landing
+  // (the push is strong enough to win against any uphill, so you can stall but never strand)
+  const pm = paceMin();
+  if (P.vx < pm) P.vx += (pm - P.vx) * (P.grounded ? 9 : 2) * dt;
+  P.vx = Math.min(P.vx, 2400);
+  P.dist = Math.max(P.dist, P.x + P.bonus);
+
+  // hill counting + medals
+  const hillIdx = gr.seg.idx;
+  if (hillIdx > P.hills){
+    P.hills = hillIdx;
+    checkEra(); checkMedals();
+  }
+
+  // century milestones, deadpan included
+  const cent = Math.floor(yearOf(P.dist) / 100);
+  if (cent > game.century && game.state === 'run'){
+    game.century = cent;
+    const n = cent + 1;
+    const suffix = n % 10 === 2 && n !== 12 ? 'nd' : (n % 10 === 3 && n !== 13 ? 'rd' : 'th');
+    const quips = ['still no jetpacks', 'ok fine: jetpacks', 'the jetpacks were a mistake', 'post-jetpack society', 'the duck remembers'];
+    setBanner('THE ' + n + suffix + ' CENTURY', quips[Math.min(quips.length - 1, cent - 21)]);
+    SFX.medal();
+  }
+
+  // hype line — soar too high, too long, and the bubble remembers
+  if (P.y < HYPE_Y){
+    P.inflate = Math.min(1, P.inflate + dt / 1.7);
+    if (P.inflate > 0.55) P.mult = Math.max(1, P.mult - 0.5 * dt);
+    if (P.inflate >= 1){
+      P.overT += dt;
+      if (AU.squealGain && !AU.muted){ AU.squealGain.gain.value = 0.08; AU.squealOsc.frequency.value = 700 + P.overT*500; }
+      if (P.overT > 1.4) killPlayer('hype');
+    }
+  } else {
+    P.inflate = Math.max(0, P.inflate - dt * 1.1);
+    P.overT = 0;
+    if (AU.squealGain) AU.squealGain.gain.value = 0;
+  }
+
+  // flourishing bleeds as the pace rises — the transition doesn't wait for you.
+  // hugs, tunes, good calls and a loyal duckling-family are what refill it.
+  if (game.state === 'run'){
+    let drain = 0.42 + Math.min(2.2, game.eraCur * 0.15);
+    drain *= clamp((game.runT || 0) / 15, 0.25, 1);   // the toll eases in — a learner's runway
+    if (P.y < HYPE_Y) drain *= 2.2;
+    if (P.sludged) drain += 4;                    // doom eats flourishing directly
+    if (game.steady){
+      drain += 1.5;                               // thinking time isn't free
+      P.paceBrake = Math.min(0.35, P.paceBrake + 0.04 * dt);
+      if (!game.brakeShown && P.paceBrake > 0.1){
+        game.brakeShown = true;
+        popup(P.x, P.y - 140, 'the pace itself eases ▼', '#556b8a');
+      }
+    } else {
+      P.paceBrake = Math.max(0, P.paceBrake - 0.006 * dt);   // the world pushes back, slowly
+    }
+    P.flo -= drain * dt;
+    // a happy family and grounded exuberance both quietly sustain flourishing
+    addFlo(P.pets.length * 0.06 * dt, true);
+    if (P.mult > 1) addFlo((P.mult - 1) * 0.05 * dt, true);
+    P.flo = clamp(P.flo, 0, 100);
+    if (P.flo <= 0){ killPlayer('empty'); return; }
+    if (P.flo < 10 && !game.lowWarned){
+      game.lowWarned = true;
+      popup(P.x, P.y - 140, 'the light is going…', '#41404d');
+      game.slowmoHit = Math.max(game.slowmoHit || 0, 0.3);
+      SFX.sigh();
+    } else if (P.flo > 25) game.lowWarned = false;
+  }
+
+  // doom sludge — the other stall state
+  const wasSludged = P.sludged;
+  P.sludged = false;
+  if (gr.seg.sludge && gr.t > 0.3 && gr.t < 0.7){
+    const sludgeY = hillY(gr.seg, 0.5) - gr.seg.depth * 0.16;
+    if (P.y + rEff > sludgeY){
+      P.sludged = true;
+      P.vx *= (1 - 0.55 * dt);
+      if (!wasSludged){
+        addFlo(-6);
+        unlockNote('doom');
+        popup(P.x, P.y - 90, 'doom −♥', '#41404d');
+        SFX.sigh();
+      }
+      if (Math.random() < dt*8) puff(P.x - 20, P.y + rEff, '#555');
+    }
+  }
+
+  // squash & lean
+  P.squash = Math.max(0, P.squash - dt * 5);
+  const targetLean = clamp(P.vy / 2500, -0.5, 0.9);
+  P.lean += (targetLean - P.lean) * Math.min(1, dt * 8);
+
+  // slide squeak follows your speed
+  if (AU.slideGain){
+    const target = (P.grounded && !P.sludged) ? clamp((Math.abs(P.vx) - 200) / 5000, 0, 0.06) : 0;
+    AU.slideGain.gain.value += (target - AU.slideGain.gain.value) * Math.min(1, dt * 12);
+  }
+  if (P.stunFlashCd > 0) P.stunFlashCd -= dt;
+}
+
+function judgeLanding(slopeAng, inflated){
+  if (P.dist < 300) return;                       // grace on the starting runway
+  const vAng = Math.atan2(P.vy, P.vx);
+  const diff = Math.abs(angDiff(vAng, slopeAng));
+  const sp = Math.hypot(P.vx, P.vy);
+  const vn = Math.abs(-P.vx * Math.sin(slopeAng) + P.vy * Math.cos(slopeAng));
+  // cracks are for hubris: a gently gliding bubble (vy capped at 950) can NEVER crack —
+  // only a held dive can exceed this. Inflated hype bubbles stay fragile.
+  const slamVn = (inflated ? 450 : 960) + Math.max(0, 10 - P.hills) * 25;
+
+  if (diff < (game.flowT > 0 ? 0.75 : 0.45)){
+    // flush landing — grounded exuberance (flow state widens the window)
+    P.chain++; P.bestChain = Math.max(P.bestChain, P.chain);
+    P.mult = Math.min(9.9, 1 + P.chain * 0.25 + P.pets.length * 0.2);
+    P.vx = Math.min(2400, P.vx * (1.045 + 0.004 * P.mult) + 25);
+    addFlo(0.8 + P.chain * 0.15);
+    SFX.note(P.chain - 1);
+    P.squash = 0.5;
+    burst(P.x, P.y + P.r, 6, eraColor());
+    if (P.chain >= 2) popup(P.x, P.y - 70, '♪ ×' + P.chain, '#2a7a2a');
+    if (P.chain >= 5 && P.chain % 5 === 0){
+      popup(P.x, P.y - 100, 'in the groove!', '#6a2a9e');
+      game.tailwindT = Math.max(game.tailwindT || 0, 2.5);
+    }
+  } else if (diff < 1.0){
+    P.chain = 0;
+    P.mult = Math.max(1, 1 + P.pets.length * 0.2);
+    P.vx *= 0.97; P.squash = 0.7;
+    SFX.thud();
+  } else {
+    P.chain = 0; P.mult = Math.max(1, 1 + P.pets.length * 0.1);
+    P.vx *= 0.55; P.squash = 1;
+    SFX.thud();
+    // only a dive held all the way into the ground can crack the bubble —
+    // release before touchdown and the worst you lose is speed
+    if (vn > slamVn && holding){
+      addCrack(1, 'slam');
+      addFlo(-8);
+      popup(P.x, P.y - 80, 'CRACK (you held the dive too long)', '#b3232e');
+    }
+    game.shake = Math.max(game.shake, 6);
+  }
+  // success breeds fallout — big airtime spawns a fresh orphan downstream
+  if (P.airT > 2.3 && game.state === 'run'){
+    const gx = P.x + 1300 + evRng() * 500;
+    if (gx < genX - 100){
+      const g2 = groundAt(gx);
+      orphans.push({ x: gx, y: g2.y, variant:'orphan', state:'wait', t:0, r:16, blink:0, fallout:true });
+      popup(P.x, P.y - 110, 'big flight! (it had consequences)', '#6a2a9e');
+    }
+  }
+}
+
+// ---------------------------------------------------------------------
+// eras & medals
+// ---------------------------------------------------------------------
+const HYPE_Y = -360;
+function checkEra(){
+  const e = eraIndexForHill(P.hills);
+  if (e !== game.eraCur){
+    game.eraColFrom = eraInfo(game.eraCur).col;
+    game.eraColTo = eraInfo(e).col;
+    game.eraFade = 0;
+    game.eraCur = e;
+    const info = eraInfo(e);
+    setBanner('MORAL PANIC No.' + (e+1) + ': ' + info.name, info.sub);
+    SFX.boost();
+  }
+}
+function eraColor(){
+  return game.eraFade >= 1 ? game.eraColTo : hexLerp(game.eraColFrom, game.eraColTo, game.eraFade);
+}
+function checkMedals(){
+  for (const m of MEDALS){
+    if (P.hills === m.hills && !game['medal_'+m.hills+'_shown']){
+      game['medal_'+m.hills+'_shown'] = true;
+      if (!game.medals[m.name]){ game.medals[m.name] = true; LS.set('medals', game.medals); }
+      setBanner('★ ' + m.name + ' ★', m.hills + ' hills surfed');
+      SFX.medal();
+      if (m.name === 'DIGNITY' && game.state === 'run'){ game.state = 'earthrise'; game.earthT = 0; }
+    }
+  }
+}
+function setBanner(a,b){ game.banner = [a,b]; game.bannerT = 3.2; }
+
+// ---------------------------------------------------------------------
+// orphan risks — hard to quantify, easy to ignore
+// ---------------------------------------------------------------------
+function stepOrphans(dt){
+  const rEff = P.r * (1 + P.inflate * 0.6);
+  for (const o of orphans){
+    o.t += dt; o.blink += dt;
+    if (o.state === 'wait'){
+      o.y = groundAt(o.x).y;
+      const dx = P.x - o.x, dy = (P.y + rEff) - o.y;
+      const near = Math.abs(dx) < rEff + 26 && Math.abs(dy) < 70;
+      // a hug is a squeeze: you must be grounded AND holding. Rolling past
+      // with a slack thumb is ignoring it, however close you came.
+      if (near && P.grounded && holding){
+        if (o.variant === 'panic') hugPanic(o);
+        else adopt(o);
+      } else if (dx > 40){
+        flyOver(o);
+      }
+    }
+    else if (o.state === 'grow'){        // moral panic swelling with attention
+      o.r = Math.min(46, o.r + dt * 70);
+      if (o.t > 0.5){
+        // it doesn't detonate in place — it comes after you
+        o.state = 'leap';
+        o.lx = o.x; o.ly = o.y - o.r;
+        const lead = (P.x + P.vx * 0.35) - o.x;
+        o.lvx = clamp(lead * 2.4, -400, 2800);
+        o.vy = -820;
+        o.resolved = false; o.grazed = false;
+        SFX.ping();
+        burst(o.x, o.y - 20, 10, '#b3232e');
+      }
+    }
+    else if (o.state === 'deflate'){
+      o.r = Math.max(2, o.r - dt * 40);
+      if (o.r <= 3) o.state = 'gone';
+    }
+    else if (o.state === 'leap'){
+      o.vy += 1500 * dt;
+      o.lx += o.lvx * dt; o.ly += o.vy * dt;
+      o.r = Math.min(30, o.r + dt * 10);
+      const d = Math.hypot(o.lx - P.x, o.ly - P.y);
+      if (!o.resolved && d < rEff + o.r){
+        o.resolved = true; o.state = 'gone';
+        biteHit(o);
+      } else if (!o.resolved && d < rEff + o.r + 34){
+        o.grazeArmed = true;               // reward only if it never connects
+      }
+      if (o.grazeArmed && !o.resolved && !o.grazed &&
+          (o.lx < P.x - rEff - o.r || o.ly > groundAt(o.lx).y)){
+        o.grazed = true;
+        addYears(200);
+        addFlo(2);
+        popup(P.x, P.y - 90, 'close one! +6mo', '#8a6d00');
+        SFX.graze();
+        burst(o.lx, o.ly, 5, '#8a6d00');
+      }
+      if (o.ly > groundAt(o.lx).y + 60 && o.t > 0.8){ o.state = 'gone'; puff(o.lx, groundAt(o.lx).y, '#777'); }
+    }
+  }
+  orphans = orphans.filter(o => o.state !== 'gone' || o.t < 1);
+
+  // burrowed debts coming due
+  for (const b of pendingReturns){
+    if (b.done) continue;
+    if (P.x > b.returnX - 260 && !b.pinged){
+      b.pinged = true; SFX.ping();
+    }
+    if (P.x > b.returnX){
+      b.done = true;
+      const ox = P.x + 340;
+      const oy = groundAt(ox).y;
+      puff(ox, oy, '#555');
+      // leap high enough to reach even a lofty glider — debts collect at any altitude
+      const need = Math.max(0, oy - P.y);
+      const leapVy = -Math.min(1550, Math.max(760, Math.sqrt(2 * 1500 * (need + 90))));
+      const o = { x: ox, y: oy, variant: b.variant, state:'leap', t:0, r: 22, blink: 0,
+                  lx: ox, ly: oy - 10, lvx: -(P.vx * 0.55 + 260), vy: leapVy, resolved:false, grazed:false,
+                  bornYear: b.bornYear, stake: b.stake };
+      // the paparazzi's return comes with flash photography, as advertised
+      if (b.variant === 'papz'){ game.flashT = 0.12; SFX.flash(); }
+      // paparazzi pet counter-flash: a reformed monster saves your life
+      if (P.pets.some(p => p.variant === 'papz') && P.stunFlashCd <= 0){
+        P.stunFlashCd = 8;
+        o.vy = -300; o.lvx = -60; o.stunned = true;
+        game.flashT = 0.18; SFX.flash();
+        popup(P.x, P.y - 110, 'your paparazzi pet flashed it!', '#6a2a9e');
+      }
+      orphans.push(o);
+    }
+  }
+  pendingReturns = pendingReturns.filter(b => !b.done || P.x < b.returnX + 2000);
+
+  // the debt hum — you can hear what you ignored
+  if (AU.buzzGain){
+    let best = 0, pan = 0;
+    for (const b of pendingReturns){
+      if (b.done) continue;
+      const d = b.returnX - P.x;
+      if (d > 0 && d < 1600){
+        const v = (1 - d/1600) * 0.05;
+        if (v > best){ best = v; pan = clamp(d/800, 0, 1); }
+      }
+    }
+    AU.buzzGain.gain.value += (best - AU.buzzGain.gain.value) * Math.min(1, dt*6);
+    if (AU.buzzPan && AU.buzzPan.pan) AU.buzzPan.pan.value = pan;
+  }
+}
+const PETNAMES = ['Blip','Fuzz','Nano','Widget','Quark','Doodle','Mote','Sprocket','Pixel','Bitsy','Womble','Zephyr'];
+function adopt(o){
+  o.state = 'gone'; o.t = 2;
+  unlockNote(o.variant === 'orphan' ? 'orphan' : o.variant);
+  if (P.pets.length >= 8){
+    const grad = P.pets.shift();
+    popup(grad.px, grad.py - 50, 'graduated! +1yr', '#2a7a2a');
+    addYears(400);
+    burst(grad.px, grad.py, 10, '#2a7a2a');
+  }
+  const name = PETNAMES[P.adopted % PETNAMES.length];
+  P.pets.push({ variant: o.variant, name, px: P.x - 40, py: P.y + 20, bob: Math.random()*6 });
+  P.adopted++;
+  addFlo(4);
+  if (P.pets.length === 8){
+    popup(P.x, P.y - 150, 'full nest!', '#2a7a2a');
+    [0,2,4,7].forEach((n,i) => setTimeout(() => SFX.note(n), i*110));
+  }
+  P.mult = Math.min(9.9, 1 + P.chain * 0.25 + P.pets.length * 0.2);
+  game.slowmoHit = 0.1;
+  SFX.chirp();
+  burst(o.x, o.y - 14, 8, '#e0a3c0');
+  popup(o.x, o.y - 70, '"' + name + '" adopted ♥', '#c0508a');
+}
+function hugPanic(o){
+  o.state = 'grow'; o.t = 0;
+  unlockNote('panic');
+  SFX.panicGrow();
+}
+function flyOver(o){
+  if (o.variant === 'panic'){
+    o.state = 'deflate';
+    unlockNote('panic');
+    SFX.sigh();
+    P.vx = Math.min(2400, P.vx + 40);
+    addFlo(5);
+    return;
+  }
+  o.state = 'gone'; o.t = 2;
+  puff(o.x, o.y - 8, '#666');
+  SFX.puff();
+  addFlo(-2);                                  // neglect has a quiet cost
+  const hills = 2 + Math.floor(evRng()*2);
+  pendingReturns.push({ returnX: P.x + hills * 900 + evRng()*400, variant: o.variant,
+                        stake: STAKES[Math.floor(evRng() * STAKES.length)],
+                        bornYear: yearOf(P.dist), pinged:false, done:false });
+}
+function biteHit(o){
+  if (game.state !== 'run') return;
+  if (o.stunned){ puff(o.lx, o.ly, '#999'); return; }
+  const isPanic = o.variant === 'panic';
+  const firstTime = isPanic ? !firstPanic : !firstBite;
+  if (isPanic) firstPanic = true; else firstBite = true;
+  P.chain = 0;
+  P.vx *= 0.62;
+  P.mult = Math.max(1, P.mult * 0.5);
+  if (firstTime){
+    // the rule taught by a bruise, not a death
+    addFlo(-6);
+    popup(P.x, P.y - 120, isPanic ? 'ATTENTION IS ITS FOOD' : 'IT CAME BACK. THEY DO THAT.', '#b3232e');
+  } else {
+    // a shield absorbs the whole blow — the pet's loss (−6) is the only cost
+    const shielded = absorbOrShield(isPanic ? 'panic' : 'bite', { year: o.bornYear, stake: o.stake });
+    if (!shielded) addFlo(-12);
+  }
+  if (o.stake) popup(P.x, P.y - 90, '(it took a bite of ' + o.stake + ')', '#6a2a9e');
+  SFX.bite();
+  game.shake = Math.max(game.shake, 10);
+  game.slowmoHit = 0.06;
+}
+
+// pets trail behind like ducklings
+function stepPets(dt){
+  let tx = P.x - 46, ty = P.y + 8;
+  for (let i=0;i<P.pets.length;i++){
+    const pet = P.pets[i];
+    pet.bob += dt * 6;
+    pet.px += (tx - pet.px) * Math.min(1, dt * 7);
+    pet.py += (ty + Math.sin(pet.bob + i) * 6 - pet.py) * Math.min(1, dt * 7);
+    const g = groundAt(pet.px);
+    pet.py = Math.min(pet.py, g.y - 12);
+    tx = pet.px - 40; ty = pet.py;
+    // trending pet: the wind blows for you
+    if (pet.variant === 'trend') P.vx = Math.min(2400, P.vx + 14 * dt);
+  }
+}
+
+// ---------------------------------------------------------------------
+// swans, tokens, pizza
+// ---------------------------------------------------------------------
+function stepSwans(dt){
+  if (game.eraCur >= 5 && game.state === 'run'){
+    game.swanCd -= dt;
+    if (game.swanCd <= 0){
+      game.swanCd = 13 + evRng()*10;
+      swans.push({ x: P.x + (W/scaleFactor()) * 0.8 + 300, y: P.y - 40 + (evRng()-0.5)*160, t:0, resolved:false, grazed:false });
+      SFX.honk(1);
+    }
+  }
+  const rEff = P.r * (1 + P.inflate * 0.6);
+  for (const s of swans){
+    s.t += dt;
+    s.x -= (P.vx * 0.35 + 420) * dt;
+    s.y += Math.sin(s.t * 3) * 18 * dt;
+    const d = Math.hypot(s.x - P.x, s.y - P.y);
+    if (!s.resolved && d < rEff + 26){
+      s.resolved = true;
+      unlockNote('swan');
+      const shielded = absorbOrShield('swan');
+      P.vx *= 0.6; P.chain = 0;
+      if (!shielded) addFlo(-14);
+      game.shake = 14; SFX.bite();
+    } else if (!s.resolved && d < rEff + 62){
+      s.grazeArmed = true;                 // reward only once it has safely passed
+    }
+    if (s.grazeArmed && !s.resolved && !s.grazed && s.x < P.x - rEff - 30){
+      s.grazed = true;
+      unlockNote('swan');
+      addYears(800);
+      addFlo(4);
+      popup(P.x, P.y - 100, 'BLACK SWAN GRAZE +2yrs', '#33343d');
+      SFX.graze(); burst(s.x, s.y, 8, '#33343d');
+    }
+  }
+  swans = swans.filter(s => s.x > P.x - 900 && !(s.resolved && s.t > 1));
+}
+
+const SEREN_FX = ['geyser','repair','slowmo','pizza','magnet','tailwind','ducks','echo','mega','flow','friends','timegift'];
+function stepTokens(dt){
+  const rEff = P.r * (1 + P.inflate * 0.6);
+  for (const tk of tokens){
+    tk.t += dt;
+    const ty = tk.y + Math.sin(tk.t * 2.4) * 12;
+    if (!tk.taken && Math.hypot(tk.x - P.x, ty - P.y) < rEff + 24){
+      tk.taken = true;
+      unlockNote('seren');
+      catalyticSerendipity();
+    }
+  }
+  for (const pz of pizzas){
+    pz.t += dt;
+    if (!pz.landed){ pz.vy += 900 * dt; pz.y += pz.vy * dt; const g = groundAt(pz.x); if (pz.y > g.y - 10){ pz.y = g.y - 10; pz.landed = true; } }
+    if (!pz.taken && Math.hypot(pz.x - P.x, pz.y - P.y) < rEff + 20){
+      pz.taken = true;
+      if (pz.kind === 'duck'){
+        addFlo(3);
+        popup(pz.x, pz.y - 50, '+♥ quack', '#b3861a');
+        AU.tone(320,'square',0.1,0.25,{slideTo:210});
+        AU.tone(300,'square',0.09,0.2,{delay:0.12,slideTo:200});
+        burst(pz.x, pz.y, 6, '#b3861a');
+      } else {
+        addYears(PX_PER_YEAR); addFlo(2);
+        popup(pz.x, pz.y - 50, '+1 YEAR (pizza)', '#b3612e');
+        SFX.nom(); burst(pz.x, pz.y, 6, '#b3612e');
+      }
+    }
+  }
+}
+function catalyticSerendipity(){
+  const fx = SEREN_FX[Math.floor(evRng() * SEREN_FX.length)];
+  setBanner('CATALYTIC SERENDIPITY!', ({
+    geyser:'up you go', repair:'bubble patched', slowmo:'time, but gentler',
+    pizza:'pizza and a slice of future', magnet:'the orphans come to you', tailwind:'a favourable wind',
+    ducks:'a flotilla of quantum ducks', echo:'a tune from a kinder timeline',
+    mega:'unpoppable (briefly)', flow:'flow state', friends:'company arrives', timegift:'a gift of time'
+  })[fx]);
+  SFX.sparkle();
+  addFlo(5);
+  burst(P.x, P.y, 20, '#c9a227');
+  if (fx === 'geyser'){ P.vy = -1350; P.vx = Math.min(2400, P.vx + 260); P.grounded = false; }
+  else if (fx === 'repair'){ P.cracks = Math.max(0, P.cracks - 1); }
+  else if (fx === 'slowmo'){ game.slowmo = 3; }
+  else if (fx === 'pizza'){ for (let i=0;i<6;i++) pizzas.push({ x: P.x + 300 + i*160, y: P.y - 400 - evRng()*150, vy: 0, t:0, landed:false, taken:false }); }
+  else if (fx === 'magnet'){
+    let pulled = 0;
+    for (const o of orphans){
+      if (pulled >= 2) break;
+      if (o.state === 'wait' && o.variant !== 'panic' && Math.abs(o.x - P.x) < 900){ adopt(o); pulled++; }
+    }
+  }
+  else if (fx === 'tailwind'){ game.tailwindT = 5; }
+  else if (fx === 'ducks'){ for (let i=0;i<5;i++) pizzas.push({ kind:'duck', x: P.x + 280 + i*170, y: P.y - 380 - evRng()*140, vy: 0, t:0, landed:false, taken:false }); }
+  else if (fx === 'echo'){
+    [0,2,4,5,7,5,4,7].forEach((n,i) => setTimeout(() => SFX.note(n), i*140));
+    addFlo(4);
+  }
+  else if (fx === 'mega'){ game.megaT = 5; }
+  else if (fx === 'flow'){ game.flowT = 7; }
+  else if (fx === 'friends'){
+    for (let i = 0; i < 2; i++){
+      const fxp = P.x + 500 + i * 420;
+      if (fxp < genX - 100) orphans.push({ x: fxp, y: groundAt(fxp).y, variant:'orphan', state:'wait', t:0, r:16, blink:0 });
+    }
+  }
+  else if (fx === 'timegift'){
+    addYears(5 * PX_PER_YEAR);
+    popup(P.x, P.y - 130, '+5 YEARS', '#c9a227');
+  }
+}
+
+// ---------------------------------------------------------------------
+// emerging tech: grab a crate, then you have ~4 seconds to decide what
+// kind of technologist you are — altitude is the ethics
+// ---------------------------------------------------------------------
+function stepTechs(dt){
+  const rEff = P.r * (1 + P.inflate * 0.6);
+  for (const tk of techs){
+    tk.t += dt;
+    if (!tk.taken && Math.hypot(tk.x - P.x, tk.y + Math.sin(tk.t*2)*8 - P.y) < rEff + 26){
+      tk.taken = true;
+      unlockNote('tech');
+      if (P.carry) deployTech();                 // juggling? the old one ships as-is
+      P.carry = { name: tk.name, dom: tk.dom, col: TECH_DOMS[tk.dom] || '#4b4e59', timer: 5.0 };
+      popup(tk.x, tk.y - 40, tk.name, P.carry.col);
+      SFX.chirp();
+      burst(tk.x, tk.y, 6, P.carry.col);
+    }
+  }
+  if (P.carry && game.state === 'run'){
+    P.carry.timer -= dt;
+    // the last second stretches — the choice deserves a beat
+    if (!P.carry.slowed && P.carry.timer <= 1.0){
+      P.carry.slowed = true;
+      game.slowmoHit = Math.max(game.slowmoHit || 0, 0.4);
+      SFX.ping();
+    }
+    if (P.carry.timer <= 0) deployTech();
+  }
+}
+function deployTech(){
+  const c = P.carry;
+  P.carry = null;
+  if (!c || game.state !== 'run') return;
+  if (P.sludged){
+    popup(P.x, P.y - 100, '"' + c.name + '" sank into the doom', '#555');
+    puff(P.x, P.y, '#555');
+    SFX.sigh();
+  } else if (P.y < HYPE_Y){
+    // rushed to market: fast, profitable, consequences pending
+    addFlo(-15);
+    P.vx = Math.min(2400, P.vx + 260);
+    addYears(PX_PER_YEAR);
+    popup(P.x, P.y - 100, '"' + c.name + '" RUSHED TO MARKET −♥ +1yr', '#b3232e');
+    burst(P.x, P.y, 14, '#b3232e');
+    SFX.deployBad();
+    let spawned = 0;
+    for (let i = 0; i < 2; i++){
+      const gx = P.x + 900 + i * 600 + evRng() * 300;
+      if (gx < genX - 100){
+        orphans.push({ x: gx, y: groundAt(gx).y, variant:'orphan', state:'wait', t:0, r:16, blink:0 });
+        spawned++;
+      }
+    }
+    if (spawned && !game.consequencesShown){
+      game.consequencesShown = true;
+      popup(P.x, P.y - 130, '(unintended consequences ahead)', '#6a2a9e');
+    }
+  } else if (P.grounded || P.airT < 0.25){
+    addFlo(14);
+    P.vx = Math.min(2400, P.vx + 40);
+    popup(P.x, P.y - 100, '"' + c.name + '" — TECH FOR GOOD +♥♥', '#2a7a2a');
+    burst(P.x, P.y, 12, '#2a7a2a');
+    P.goodTech = (P.goodTech || 0) + 1;
+    // good tech visibly improves the world it lands in
+    for (let i = 0; i < 3; i++){
+      landmarks.push({ type:'bloom', x: P.x + 80 + i * 120 + Math.random() * 60, hue: Math.random() });
+      game.gardenRun = (game.gardenRun || 0) + 1;
+    }
+    // ...but even good tech casts a shadow, sometimes
+    if (evRng() < 0.25){
+      const gx = P.x + 1100 + evRng() * 400;
+      if (gx < genX - 100){
+        orphans.push({ x: gx, y: groundAt(gx).y, variant:'orphan', state:'wait', t:0, r:16, blink:0 });
+        if (!game.shadowShown){
+          game.shadowShown = true;
+          popup(P.x, P.y - 130, '(even good tech casts a shadow)', '#6a2a9e');
+        }
+      }
+    }
+    SFX.deployGood();
+  } else {
+    addFlo(3);
+    popup(P.x, P.y - 100, '"' + c.name + '" deployed +♥', '#4b4e59');
+    SFX.chirp();
+  }
+}
+
+// named risks: management is a choice you make at the moment of contact
+function stepRisks(dt){
+  const rEff = P.r * (1 + P.inflate * 0.6);
+  for (const rk of risks){
+    rk.t += dt;
+    if (rk.done) continue;
+    const gy = groundAt(rk.x).y;
+    if (Math.abs(P.x - rk.x) < rEff + 24 && Math.abs((P.y + rEff) - gy) < 100){
+      rk.done = true;
+      unlockNote('risk');
+      if (holding){
+        rk.managed = true;
+        addFlo(8);
+        popup(rk.x, gy - 90, '✓ ' + rk.name + ' — managed', '#2a7a2a');
+        burst(rk.x, gy - 30, 8, '#2a7a2a');
+        SFX.chirp();
+      } else {
+        addFlo(-12);
+        P.chain = 0;
+        P.vx *= 0.7;
+        popup(rk.x, gy - 90, rk.name + '! −♥♥', '#b3232e');
+        burst(rk.x, gy - 30, 14, '#b3232e');
+        game.shake = Math.max(game.shake, 9);
+        game.slowmoHit = Math.max(game.slowmoHit || 0, 0.06);
+        SFX.bite();
+      }
+    }
+  }
+}
+function drawRisks(){
+  const s = scaleFactor();
+  for (const rk of risks){
+    if (rk.done && rk.t > 1.2) continue;
+    const sx = w2sX(rk.x);
+    if (sx < -140 || sx > W + 140) continue;
+    const gy = w2sY(groundAt(rk.x).y);
+    const d = 19 * s * (rk.done ? Math.max(0, 1 - rk.t) : 1);
+    if (d < 2) continue;
+    const cy = gy - 34 * s;
+    const col = rk.managed ? '#2a7a2a' : '#8a6d00';
+    mline([[sx, cy - d],[sx + d, cy],[sx, cy + d],[sx - d, cy],[sx, cy - d]], col, 3, rk.x|0);
+    mtext(rk.managed ? '✓' : '!', sx, cy + 6 * s, 18 * s, col, 'center', 1, (rk.x|0)+1);
+    if (s > 0.55 && !rk.done) mtext(rk.name, sx, cy + d + 16 * s, Math.max(10, 11.5 * s), '#8a2430', 'center', 0.92, (rk.x|0)+2);
+  }
+}
+
+// PANIC! billboards are, it turns out, extremely smashable
+function stepSigns(){
+  for (const l of landmarks){
+    if (l.type === 'flag' && !l.passed && P.x > l.x){
+      l.passed = true;
+      setBanner('★ PAST YOUR BEST ★', 'uncharted future from here');
+      SFX.best();
+      continue;
+    }
+    if (l.type !== 'sign' || l.smashed) continue;
+    if (Math.abs(P.x - l.x) < 42){
+      const gy = groundAt(l.x).y;
+      if (P.y < gy - 50 && P.y > gy - 150){
+        l.smashed = true;
+        unlockNote('sign');
+        addFlo(4);
+        P.vx = Math.min(2400, P.vx + 40);
+        popup(l.x, gy - 140, 'PANIC, DEBUNKED! +♥', '#b3232e');
+        burst(l.x, gy - 96, 18, eraColor());
+        game.shake = Math.max(game.shake, 5);
+        game.slowmoHit = 0.05;
+        SFX.smash();
+      }
+    }
+  }
+}
+
+
+// ---------------------------------------------------------------------
+// particles + popups
+// ---------------------------------------------------------------------
+function burst(x,y,n,col){
+  for (let i=0;i<n;i++){
+    if (particles.length > 320) break;
+    const a = Math.random()*Math.PI*2, s = 60 + Math.random()*260;
+    particles.push({ x, y, vx: Math.cos(a)*s, vy: Math.sin(a)*s - 80, t: 0, life: 0.5 + Math.random()*0.4, col, r: 2+Math.random()*3 });
+  }
+}
+function puff(x,y,col){
+  for (let i=0;i<7;i++){
+    if (particles.length > 320) break;
+    particles.push({ x: x + (Math.random()-0.5)*24, y: y - Math.random()*10, vx: (Math.random()-0.5)*60, vy: -40 - Math.random()*60, t:0, life: 0.6, col: col||'#888', r: 4+Math.random()*4 });
+  }
+}
+function popup(x,y,str,col){
+  // pinned to the SCREEN, not the world — readable at any speed
+  const halfW = Math.min(W * 0.45, str.length * 5.5 + 12);
+  let sx = clamp(w2sX(x), halfW, W - halfW), sy = clamp(w2sY(y), 70, H-90);
+  // keep clear of the tutorial whispers band while they're teaching
+  const whispering = (game.runs <= 5 || !game.medals.DISRUPTION) && game.state === 'run' && (game.runT || 0) < 18.6;
+  if (whispering && sy > H * 0.24 && sy < H * 0.42) sy = H * 0.44;
+  // don't stack on a fresh neighbour — step down until clear
+  for (let guard = 0; guard < 8; guard++){
+    const clash = popups.some(p => p.t < 0.9 && Math.abs(p.sx - sx) < 150 && Math.abs(p.sy - sy) < 24);
+    if (!clash) break;
+    sy = Math.min(H - 60, sy + 26);
+  }
+  popups.push({ sx, sy, str, col: col||'#333', t: 0 });
+}
+function stepFx(dt){
+  for (const p of particles){ p.t += dt; p.x += p.vx*dt; p.y += p.vy*dt; p.vy += 300*dt; }
+  particles = particles.filter(p => p.t < p.life);
+  for (const p of popups){ p.t += dt; p.sy -= 24*dt; }
+  popups = popups.filter(p => p.t < 2.2);
+}
+
+// ---------------------------------------------------------------------
+// camera
+// ---------------------------------------------------------------------
+const cam = { x:0, y:0, zoom:0.9 };
+function stepCam(dt){
+  const sp = Math.hypot(P.vx, P.vy);
+  let zt = clamp(1.04 - sp/1900*0.34, 0.68, 1.04);
+  if (game.state === 'earthrise') zt = 0.34;
+  cam.zoom += (zt - cam.zoom) * Math.min(1, dt * 2.2);
+  const g = groundAt(P.x + 300);
+  const targetY = P.y * 0.6 + (g.y - 200) * 0.4;
+  cam.y += (targetY - cam.y) * Math.min(1, dt * 3.5);
+}
+function scaleFactor(){
+  // landscape scales by height (unchanged); portrait scales by width so you
+  // can actually see the road ahead on a phone held vertically
+  return (Math.min(H, W * 0.95) / 640) * cam.zoom;
+}
+function w2sX(wx){ return (wx - cam.x) * scaleFactor(); }
+function w2sY(wy){ return (wy - cam.y) * scaleFactor() + H * 0.44; }
+
+// ---------------------------------------------------------------------
+// whiteboard background (offscreen, remade on resize)
+// ---------------------------------------------------------------------
+let board = null;
+function makeBoard(){
+  if (!board) board = document.createElement('canvas');
+  board.width = Math.max(2, W); board.height = Math.max(2, H);
+  const b = board.getContext('2d');
+  b.fillStyle = '#f7f4ed'; b.fillRect(0,0,W,H);
+  const r = mulberry32(7);
+  // faint dry-erase smudges
+  for (let i=0;i<14;i++){
+    b.save();
+    b.translate(r()*W, r()*H);
+    b.rotate((r()-0.5)*0.8);
+    const grd = b.createLinearGradient(0,0,120+r()*220,0);
+    grd.addColorStop(0,'rgba(120,115,105,0)');
+    grd.addColorStop(0.5,'rgba(120,115,105,' + (0.025+r()*0.03) + ')');
+    grd.addColorStop(1,'rgba(120,115,105,0)');
+    b.fillStyle = grd;
+    b.fillRect(0,0,120+r()*220, 26+r()*40);
+    b.restore();
+  }
+  // one faint coffee ring, obviously
+  b.strokeStyle = 'rgba(150,100,60,0.07)'; b.lineWidth = 9;
+  b.beginPath(); b.arc(W*0.82, H*0.16, 42, 0.3, Math.PI*2.1); b.stroke();
+}
+
+// background doodles that drift by on parallax
+const DOODLES = ['atom','rocket','dna','eq','bulb','planet','pencil','duck'];
+function drawDoodle(kind, x, y, s, alpha, col){
+  cx.save();
+  cx.translate(x,y); cx.scale(s,s);
+  cx.globalAlpha = alpha;
+  cx.strokeStyle = col; cx.lineWidth = 2 / s;
+  cx.lineCap = 'round';
+  cx.beginPath();
+  if (kind==='atom'){
+    cx.ellipse(0,0,20,7,0.6,0,Math.PI*2); cx.moveTo(20,0);
+    cx.ellipse(0,0,20,7,-0.6,0,Math.PI*2); cx.moveTo(3,0);
+    cx.arc(0,0,3,0,Math.PI*2);
+  } else if (kind==='rocket'){
+    cx.moveTo(0,-18); cx.quadraticCurveTo(10,-4,6,12); cx.lineTo(-6,12); cx.quadraticCurveTo(-10,-4,0,-18);
+    cx.moveTo(-6,12); cx.lineTo(-11,20); cx.moveTo(6,12); cx.lineTo(11,20); cx.moveTo(0,13); cx.lineTo(0,20);
+  } else if (kind==='dna'){
+    for (let i=0;i<3;i++){ cx.moveTo(-8, i*12-14); cx.quadraticCurveTo(0, i*12-8, 8, i*12-2); cx.moveTo(8, i*12-14); cx.quadraticCurveTo(0, i*12-8, -8, i*12-2); }
+  } else if (kind==='eq'){
+    cx.moveTo(-16,-6); cx.lineTo(-6,-6); cx.moveTo(-11,-11); cx.lineTo(-11,-1); // +
+    cx.moveTo(0,-4); cx.lineTo(10,-4); cx.moveTo(0,-8); cx.lineTo(10,-8);       // =
+    cx.moveTo(-14,8); cx.quadraticCurveTo(-6,2,2,10); cx.quadraticCurveTo(8,14,14,6); // squiggle
+  } else if (kind==='bulb'){
+    cx.arc(0,-4,9,0.6,Math.PI-0.6,true); cx.moveTo(-5,4); cx.lineTo(-4,10); cx.lineTo(4,10); cx.lineTo(5,4);
+    cx.moveTo(-3,13); cx.lineTo(3,13);
+  } else if (kind==='planet'){
+    cx.arc(0,0,10,0,Math.PI*2); cx.moveTo(16,-3); cx.ellipse(0,0,17,5,-0.25,0,Math.PI*2);
+  } else if (kind==='pencil'){
+    cx.moveTo(-14,14); cx.lineTo(-8,8) ; cx.lineTo(12,-12); cx.lineTo(16,-8); cx.lineTo(-4,12); cx.lineTo(-14,14);
+    cx.moveTo(12,-12); cx.lineTo(16,-8);
+  } else if (kind==='duck'){
+    cx.arc(-3,2,7,0,Math.PI*2); cx.moveTo(4,-4); cx.arc(1,-5,4,0,Math.PI*2); cx.moveTo(5,-5); cx.lineTo(9,-4);
+  }
+  cx.stroke();
+  cx.restore();
+}
+
+// ---------------------------------------------------------------------
+// marker drawing helpers — everything wobbles like it was drawn by hand
+// ---------------------------------------------------------------------
+function jit(seed, i, amp){
+  return (hash1(seed*7919 + i*131 + game.boil*977) - 0.5) * 2 * amp;
+}
+function mline(pts, col, w, seed, alpha){
+  cx.save();
+  cx.globalAlpha = alpha===undefined?1:alpha;
+  cx.strokeStyle = col; cx.lineWidth = w; cx.lineCap='round'; cx.lineJoin='round';
+  cx.beginPath();
+  for (let i=0;i<pts.length;i++){
+    const x = pts[i][0] + jit(seed, i*2, 1.4), y = pts[i][1] + jit(seed, i*2+1, 1.4);
+    if (i===0) cx.moveTo(x,y); else cx.lineTo(x,y);
+  }
+  cx.stroke();
+  cx.restore();
+}
+function mcircle(x, y, r, col, w, seed, alpha){
+  const pts = [];
+  const n = Math.max(10, Math.floor(r/2.2));
+  for (let i=0;i<=n;i++){
+    const a = i/n * Math.PI*2;
+    pts.push([x + Math.cos(a)*r, y + Math.sin(a)*r]);
+  }
+  mline(pts, col, w, seed, alpha);
+}
+function mtext(str, x, y, size, col, align, alpha, seed){
+  cx.save();
+  cx.globalAlpha = alpha===undefined?1:alpha;
+  cx.fillStyle = col;
+  cx.font = Math.round(size) + 'px ' + FONT;
+  cx.textAlign = align || 'left';
+  cx.textBaseline = 'alphabetic';
+  const s = seed||1;
+  cx.translate(x + jit(s,0,1.5), y + jit(s,1,1.5));
+  cx.rotate(jit(s,2,0.012));
+  cx.fillText(str, 0, 0);
+  cx.restore();
+}
+
+// ---------------------------------------------------------------------
+// render
+// ---------------------------------------------------------------------
+function render(){
+  cx.setTransform(DPR,0,0,DPR,0,0);
+  // screen shake
+  if (game.shake > 0.2){
+    cx.translate((Math.random()-0.5)*game.shake, (Math.random()-0.5)*game.shake);
+  }
+  cx.drawImage(board, 0, 0);
+
+  const s = scaleFactor();
+  const col = eraColor();
+  const leftX = cam.x - 80/s, rightX = cam.x + (W+80)/s;
+
+  drawParallax(col);
+  drawHypeLine(col);
+  drawTerrain(col, leftX, rightX);
+  drawLandmarks(col);
+  drawOrphans(col);
+  drawRisks();
+  drawTokens();
+  drawSwans();
+  drawPets();
+  if (game.state !== 'dead') drawPlayer();
+  drawFx();
+
+  // hype glare + sludge dim
+  if (P.inflate > 0.15 && game.state==='run'){
+    cx.fillStyle = 'rgba(255,220,90,' + (P.inflate*0.15) + ')';
+    cx.fillRect(0,0,W,H);
+  }
+  if (P.sludged){
+    cx.fillStyle = 'rgba(40,40,50,0.18)'; cx.fillRect(0,0,W,H);
+  }
+  // the world literally dims as flourishing fades
+  if ((game.state==='run' || game.state==='earthrise') && P.flo < 22){
+    cx.fillStyle = 'rgba(80,80,95,' + (0.25 * (1 - P.flo/22)).toFixed(3) + ')';
+    cx.fillRect(0,0,W,H);
+  }
+  if (game.flashT > 0){
+    cx.fillStyle = 'rgba(255,255,255,' + Math.min(1, game.flashT*6) + ')'; cx.fillRect(0,0,W,H);
+  }
+  if (game.steady && game.state === 'run'){
+    cx.fillStyle = 'rgba(90,115,150,0.10)'; cx.fillRect(0,0,W,H);
+    mtext('taking stock… (−♥)', W/2, H - 24, 14, '#556b8a', 'center', 0.85, 305);
+  }
+
+  if (game.state === 'run' || game.state === 'earthrise') drawHUD(col);
+  if (game.state === 'earthrise') drawEarthrise();
+  if (game.state === 'erase') drawErase();
+  if (game.state === 'dead') drawDeathCard();
+  if (game.state === 'title') drawTitle();
+  if (game.notes) drawNotes();
+  if (game.help) drawHelp();
+  if (game.paused && (game.state==='run' || game.state==='earthrise')){
+    cx.fillStyle = 'rgba(247,244,237,0.75)'; cx.fillRect(0,0,W,H);
+    mtext('paused', W/2, H/2, 44, '#555', 'center', 1, 99);
+    mtext('(tap to resume)', W/2, H/2 + 36, 20, '#888', 'center', 1, 98);
+    mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 93, 0.8);
+    mtext('menu', 63, H-31, 14, '#77746a', 'center', 0.9, 94);
+    if (document.fullscreenEnabled){
+      mline([[W-112,H-52],[W-14,H-52],[W-14,H-20],[W-112,H-20],[W-112,H-52]], '#8a877e', 2, 92, 0.8);
+      mtext(document.fullscreenElement ? 'exit full' : 'fullscreen', W-63, H-31, 13, '#77746a', 'center', 0.9, 91);
+    }
+  }
+}
+
+function drawParallax(col){
+  const r = mulberry32(3);
+  for (let layer=0; layer<2; layer++){
+    const par = layer===0 ? 0.15 : 0.4;
+    const spacing = 560;
+    const alpha = layer===0 ? 0.10 : 0.14;
+    const startI = Math.floor((cam.x*par - 200)/spacing);
+    for (let i=startI; i<startI+Math.ceil(W/ (spacing*scaleFactor()/1.4))+3; i++){
+      const h = hash1(i*371 + layer*77);
+      let kind = DOODLES[Math.floor(h * (DOODLES.length-2))];
+      if (game.eraCur >= 5 && hash1(i*13+layer) < 0.3) kind = 'pencil';   // the AI is drawing you
+      const wx = i*spacing - cam.x*par;
+      const sx = (wx % (W+400) + (W+400)) % (W+400) - 200;
+      const sy = H*0.12 + hash1(i*17+layer*5)*H*0.35;
+      drawDoodle(kind, sx, sy, 1.1 + layer*0.5, alpha, '#7a7668');
+    }
+  }
+}
+
+function drawHypeLine(col){
+  const y = w2sY(HYPE_Y);
+  if (y > -40 && y < H+40){
+    cx.save();
+    cx.strokeStyle = '#d9a520'; cx.lineWidth = 2.5; cx.setLineDash([14,12]);
+    cx.globalAlpha = 0.6;
+    cx.beginPath(); cx.moveTo(0, y + jit(500,0,2)); cx.lineTo(W, y + jit(500,1,2)); cx.stroke();
+    cx.restore();
+    // hand-drawn sun of hype
+    const sx = W - 170, sy = Math.max(150, y - 70);
+    mcircle(sx, sy, 26, '#d9a520', 3, 41, 0.75);
+    for (let i=0;i<8;i++){
+      const a = i/8*Math.PI*2 + 0.3;
+      mline([[sx+Math.cos(a)*34, sy+Math.sin(a)*34],[sx+Math.cos(a)*46, sy+Math.sin(a)*46]], '#d9a520', 2.5, 42+i, 0.75);
+    }
+    mtext('hype', sx, sy + 6, 15, '#b3861a', 'center', 0.9, 44);
+  }
+}
+
+function drawTerrain(col, leftX, rightX){
+  const s = scaleFactor();
+  const step = 14 / s;
+  cx.save();
+  cx.beginPath();
+  let first = true;
+  const top = [];
+  for (let x = leftX; x <= rightX; x += step){
+    const y = groundAt(x).y;
+    const sx = w2sX(x), sy = w2sY(y);
+    top.push([sx, sy]);
+    if (first){ cx.moveTo(sx, sy); first = false; } else cx.lineTo(sx, sy);
+  }
+  cx.lineTo(W+100, H+100); cx.lineTo(-100, H+100); cx.closePath();
+  cx.fillStyle = 'rgba(140,135,120,0.06)';
+  cx.fill();
+  // cross-hatch, clipped to the ground
+  cx.clip();
+  cx.strokeStyle = col; cx.globalAlpha = 0.08; cx.lineWidth = 1.5;
+  const hs = 46;
+  const off = (-cam.x * s) % hs;
+  cx.beginPath();
+  for (let x = off - hs*3; x < W + H; x += hs){
+    cx.moveTo(x, 0); cx.lineTo(x - H, H);
+  }
+  cx.stroke();
+  cx.restore();
+  // marker outline (thinned point list to keep jitter chunky)
+  const outline = [];
+  for (let i=0;i<top.length;i+=2) outline.push(top[i]);
+  mline(outline, col, 4, 7);
+
+  // sludge pools
+  for (const seg of segs){
+    if (!seg.sludge) continue;
+    if (seg.x1 < leftX || seg.x0 > rightX) continue;
+    const sy = hillY(seg, 0.5) - seg.depth * 0.16;
+    const x0 = seg.x0 + (seg.x1-seg.x0)*0.30, x1 = seg.x0 + (seg.x1-seg.x0)*0.70;
+    cx.save();
+    cx.beginPath();
+    cx.moveTo(w2sX(x0), w2sY(sy));
+    for (let x=x0; x<=x1; x+= (x1-x0)/10){
+      cx.lineTo(w2sX(x), w2sY(sy + Math.sin(x*0.05 + game.time*2)*4));
+    }
+    cx.lineTo(w2sX(x1), w2sY(groundAt(x1).y));
+    cx.lineTo(w2sX(x0), w2sY(groundAt(x0).y));
+    cx.closePath();
+    cx.fillStyle = 'rgba(50,48,60,0.30)';
+    cx.fill();
+    cx.restore();
+    mtext('doom', w2sX((x0+x1)/2), w2sY(sy)+18, 13*scaleFactor()/0.9, '#41404d', 'center', 0.6, seg.idx);
+  }
+}
+
+
+function drawFlower(sx, gy, hue, seed){
+  const petalCol = hue < 0.33 ? '#c0508a' : (hue < 0.66 ? '#c9a227' : '#6a2a9e');
+  mline([[sx, gy],[sx, gy-16]], '#2a7a2a', 2, seed);
+  mline([[sx, gy-8],[sx+6, gy-12]], '#2a7a2a', 1.8, seed+1);
+  for (let i=0;i<5;i++){
+    const a = i/5*Math.PI*2 + hue*6;
+    mcircle(sx + Math.cos(a)*5, gy-21 + Math.sin(a)*5, 3.4, petalCol, 1.8, seed+2+i);
+  }
+  cx.fillStyle = '#b3861a';
+  cx.beginPath(); cx.arc(sx, gy-21, 2.4, 0, Math.PI*2); cx.fill();
+}
+function drawLandmarks(col){
+  for (const l of landmarks){
+    const sx = w2sX(l.x);
+    if (sx < -200 || sx > W+200) continue;
+    const gy = w2sY(groundAt(l.x).y);
+    if (l.type === 'sign'){
+      const info = eraInfo(l.era);
+      if (l.smashed){
+        // a debunked panic: tilted stump, board flat on the ground
+        mline([[sx, gy],[sx+8, gy-38]], '#6b5335', 4, l.x|0);
+        mline([[sx-46, gy-6],[sx+42, gy-2],[sx+44, gy-14],[sx-44, gy-18],[sx-46, gy-6]], info.col, 2.5, (l.x|0)+1, 0.6);
+        mtext('(debunked)', sx, gy-46, 11, '#8a877e', 'center', 0.8, (l.x|0)+3);
+      } else {
+        mline([[sx, gy],[sx, gy-80]], '#6b5335', 4.5, l.x|0);
+        const bw = 110;
+        mline([[sx-bw/2, gy-80],[sx+bw/2, gy-80],[sx+bw/2, gy-130],[sx-bw/2, gy-130],[sx-bw/2, gy-80]], info.col, 3.2, (l.x|0)+1);
+        mtext('PANIC!', sx, gy-109, 17, info.col, 'center', 1, l.x|0);
+        mtext(info.name.length > 12 ? info.name.slice(0,11)+'…' : info.name, sx, gy-89, 13.5, info.col, 'center', 1, (l.x|0)+2);
+      }
+    } else if (l.type === 'towel'){
+      mline([[sx, gy],[sx, gy-52]], '#6b5335', 3, l.x|0);
+      mline([[sx, gy-52],[sx+39, gy-52],[sx+39, gy-16],[sx, gy-16]], '#20509e', 3, (l.x|0)+1);
+      mtext("DON'T PANIC", sx+19, gy-62, 12.5, '#20509e', 'center', 0.9, l.x|0);
+    } else if (l.type === 'duck'){
+      drawDoodle('duck', sx, gy-15, 2.5, 0.9, '#b3861a');
+      mtext('quantum duck (est. 2020)', sx, gy-46, 13.5, '#b3861a', 'center', 0.85, l.x|0);
+    } else if (l.type === 'bloom'){
+      drawFlower(sx, gy, l.hue, l.x|0);
+    } else if (l.type === 'flag'){
+      // your record is a finish line — visible from a long way off
+      cx.save();
+      cx.strokeStyle = '#c9a227'; cx.lineWidth = 2; cx.setLineDash([10, 12]); cx.globalAlpha = 0.4;
+      cx.beginPath(); cx.moveTo(sx, 0); cx.lineTo(sx, gy); cx.stroke();
+      cx.restore();
+      mline([[sx, gy],[sx, gy-150]], '#6b5335', 4, l.x|0);
+      const wave = Math.sin(game.time * 4) * 6;
+      cx.save();
+      cx.fillStyle = 'rgba(201,162,39,0.85)';
+      cx.beginPath();
+      cx.moveTo(sx, gy - 150); cx.quadraticCurveTo(sx + 34, gy - 146 + wave, sx + 66, gy - 138 + wave);
+      cx.lineTo(sx + 62, gy - 122 + wave); cx.quadraticCurveTo(sx + 30, gy - 118 + wave, sx, gy - 112);
+      cx.closePath(); cx.fill();
+      cx.restore();
+      mline([[sx, gy-150],[sx+66, gy-138+wave],[sx+62, gy-122+wave],[sx, gy-112]], '#8a6d00', 2.5, (l.x|0)+1);
+      mtext('YOUR BEST', sx + 6, gy - 160, 16, '#8a6d00', 'left', 1, (l.x|0)+2);
+      mtext(String(l.yr), sx + 33, gy - 128 + wave, 15, '#5a4a10', 'center', 1, (l.x|0)+3);
+    }
+  }
+}
+
+// moral panics are scribble-fires — attention is fuel, and you can't hug fire
+function drawFire(sx, sy, r, o){
+  const dying = o.state === 'deflate';
+  const flick = 1 + Math.sin(game.time * 13 + (o.x || 0)) * 0.18;
+  const h = r * 2.3 * flick;
+  const cols = dying ? ['#9a958c', '#b5b0a6'] : ['#b3232e', '#c96a10', '#c9a227'];
+  for (let i = 0; i < (dying ? 2 : 3); i++){
+    const w2 = r * (1 - i * 0.28);
+    const hh = h * (1 - i * 0.24);
+    const wob = Math.sin(game.time * 11 + i * 2 + (o.x || 0)) * r * 0.3;
+    mline([[sx - w2, sy], [sx - w2 * 0.4, sy - hh * 0.55], [sx + wob * 0.5, sy - hh],
+           [sx + w2 * 0.5, sy - hh * 0.5], [sx + w2, sy]], cols[i], 2.6, (o.x | 0) + i * 3);
+  }
+  if (o.state === 'grow' || o.state === 'leap'){
+    mtext('!!', sx, sy - h - 8, Math.max(12, r * 0.8), '#b3232e', 'center', 1, (o.x | 0) + 9);
+  }
+}
+function drawOrphans(col){
+  for (const o of orphans){
+    if (o.state === 'gone') continue;
+    let ox = o.x, oy = o.y;
+    if (o.state === 'leap'){ ox = o.lx; oy = o.ly; }
+    const sx = w2sX(ox), sy = w2sY(oy);
+    if (sx < -100 || sx > W+150) continue;
+    const s = scaleFactor();
+    const r = o.r * s * 1.1;
+    if (o.variant === 'panic'){ drawFire(sx, sy, r, o); continue; }
+    const bodyCol = o.variant==='signal' ? '#207a8a' : (o.state==='leap' ? '#8a2430' : '#4b4e59');
+    // body
+    mcircle(sx, sy - r*0.9, r, bodyCol, 3, (o.x|0));
+    // legs
+    mline([[sx-r*0.4, sy-r*0.1],[sx-r*0.4, sy+2]], bodyCol, 3, (o.x|0)+3);
+    mline([[sx+r*0.4, sy-r*0.1],[sx+r*0.4, sy+2]], bodyCol, 3, (o.x|0)+4);
+    // eyes — big and wide
+    const blink = (o.blink % 3.5) > 3.3;
+    cx.fillStyle = '#222';
+    if (!blink){
+      cx.beginPath(); cx.arc(sx - r*0.32, sy - r*1.0, Math.max(2, r*0.14), 0, Math.PI*2);
+      cx.arc(sx + r*0.32, sy - r*1.0, Math.max(2, r*0.14), 0, Math.PI*2); cx.fill();
+    } else {
+      mline([[sx-r*0.45, sy-r*1.0],[sx-r*0.2, sy-r*1.0]], '#222', 2, 5);
+      mline([[sx+r*0.2, sy-r*1.0],[sx+r*0.45, sy-r*1.0]], '#222', 2, 5);
+    }
+    if (o.state === 'leap' || o.state === 'grow'){
+      // angry brows + teeth
+      mline([[sx-r*0.5, sy-r*1.35],[sx-r*0.15, sy-r*1.2]], '#222', 3, 6);
+      mline([[sx+r*0.5, sy-r*1.35],[sx+r*0.15, sy-r*1.2]], '#222', 3, 6);
+      const teeth = [];
+      for (let i=0;i<=6;i++){
+        teeth.push([sx - r*0.5 + i*r/6, sy - r*0.62 + (i%2 ? r*0.16 : 0)]);
+      }
+      mline(teeth, '#222', 2.5, 7);
+    } else {
+      // hopeful smile
+      cx.save(); cx.strokeStyle='#222'; cx.lineWidth=2;
+      cx.beginPath(); cx.arc(sx, sy - r*0.78, r*0.28, 0.25, Math.PI-0.25); cx.stroke();
+      cx.restore();
+    }
+    // paparazzi carries a camera; trend has an antenna
+    if (o.variant === 'papz'){
+      mline([[sx-r*1.15, sy-r*1.05],[sx-r*0.55, sy-r*1.05],[sx-r*0.55, sy-r*0.65],[sx-r*1.15, sy-r*0.65],[sx-r*1.15, sy-r*1.05]], '#333', 2.5, (o.x|0)+10);
+      mcircle(sx-r*0.85, sy-r*0.85, r*0.14, '#333', 2, (o.x|0)+11);
+    }
+    if (o.variant === 'trend'){
+      mline([[sx, sy-r*1.9],[sx+r*0.3, sy-r*2.4]], '#333', 2.5, (o.x|0)+12);
+      mtext('#', sx+r*0.45, sy-r*2.4, Math.max(10, r*0.5), '#333', 'center', 1, o.x|0);
+    }
+    if (o.tutorial && o.state==='wait'){
+      const bob = Math.sin(game.time*3)*6;
+      mline([[sx, sy - r*3.4 + bob],[sx, sy - r*2.4 + bob],[sx-8, sy-r*2.75+bob]], '#20509e', 3, 13);
+      mline([[sx, sy - r*2.4 + bob],[sx+8, sy-r*2.75+bob]], '#20509e', 3, 14);
+      mtext('HOLD to hug!', sx, sy - r*3.6 + bob, 18, '#20509e', 'center', 1, 15);
+    }
+  }
+  // '!' telegraphs for imminent returns
+  for (const b of pendingReturns){
+    if (b.done || !b.pinged) continue;
+    const ex = P.x + 340;
+    const sx = w2sX(ex), sy = w2sY(groundAt(ex).y);
+    mtext('!', sx, sy - 26 - Math.sin(game.time*10)*6, 34, '#b3232e', 'center', 1, 16);
+  }
+}
+
+function drawTokens(){
+  for (const tk of tokens){
+    if (tk.taken) continue;
+    const sx = w2sX(tk.x), sy = w2sY(tk.y + Math.sin(tk.t*2.4)*12);
+    if (sx<-60||sx>W+60) continue;
+    mcircle(sx, sy, 17*scaleFactor(), '#c9a227', 3, tk.x|0, 0.9);
+    mtext('?', sx, sy+7*scaleFactor(), 24*scaleFactor(), '#c9a227', 'center', 1, tk.x|0);
+  }
+  // emerging-tech crates: a little box with a bulb, name on a tag
+  for (const tk of techs){
+    if (tk.taken) continue;
+    const s = scaleFactor();
+    const sx = w2sX(tk.x), sy = w2sY(tk.y + Math.sin(tk.t*2)*8);
+    if (sx < -120 || sx > W+120) continue;
+    const col = TECH_DOMS[tk.dom] || '#4b4e59';
+    const b = 14.5 * s;
+    mline([[sx-b, sy-b],[sx+b, sy-b],[sx+b, sy+b],[sx-b, sy+b],[sx-b, sy-b]], col, 2.5, tk.x|0);
+    mline([[sx-b, sy-b*0.2],[sx+b, sy-b*0.2]], col, 1.6, (tk.x|0)+1, 0.6);
+    // bulb on top
+    mcircle(sx, sy - b - 7*s, 4.5*s, '#c9a227', 2, (tk.x|0)+2, 0.9);
+    mline([[sx, sy-b-1*s],[sx, sy-b-3*s]], '#c9a227', 2, (tk.x|0)+3, 0.9);
+    if (s > 0.55) mtext(tk.name, sx, sy + b + 15*s, Math.max(10, 12*s), col, 'center', 0.9, tk.x|0);
+    if (tk.tutorial){
+      const bob = Math.sin(game.time*3)*6;
+      mline([[sx, sy - b - 46 + bob],[sx, sy - b - 22 + bob],[sx-7, sy - b - 30 + bob]], '#20509e', 3, (tk.x|0)+5);
+      mline([[sx, sy - b - 22 + bob],[sx+7, sy - b - 30 + bob]], '#20509e', 3, (tk.x|0)+6);
+      mtext('catch!', sx, sy - b - 54 + bob, 17, '#20509e', 'center', 1, (tk.x|0)+7);
+    }
+  }
+  for (const pz of pizzas){
+    if (pz.taken) continue;
+    const sx = w2sX(pz.x), sy = w2sY(pz.y);
+    if (pz.kind === 'duck'){
+      drawDoodle('duck', sx, sy + Math.sin(pz.t*4)*3, 1.8, 0.95, '#b3861a');
+      continue;
+    }
+    cx.save();
+    cx.translate(sx, sy); cx.rotate(pz.t*(pz.landed?0:3));
+    cx.strokeStyle = '#b3612e'; cx.lineWidth = 2.5; cx.lineJoin='round';
+    const ps = 13*scaleFactor();
+    cx.beginPath(); cx.moveTo(0,-ps); cx.lineTo(ps*0.8, ps*0.7); cx.lineTo(-ps*0.8, ps*0.7); cx.closePath(); cx.stroke();
+    cx.fillStyle = '#b3232e';
+    cx.beginPath(); cx.arc(-2, 0, 2, 0, Math.PI*2); cx.arc(4, ps*0.35, 2, 0, Math.PI*2); cx.fill();
+    cx.restore();
+  }
+}
+
+function drawSwans(){
+  for (const sw of swans){
+    const sx = w2sX(sw.x), sy = w2sY(sw.y);
+    if (sx<-120||sx>W+320) continue;
+    const s = scaleFactor()*1.15;
+    // black swan silhouette
+    cx.save();
+    cx.translate(sx, sy); cx.scale(s, s);
+    cx.fillStyle = '#26262e';
+    cx.beginPath();
+    cx.ellipse(0, 0, 20, 10, 0, 0, Math.PI*2);
+    cx.fill();
+    cx.strokeStyle = '#26262e'; cx.lineWidth = 5; cx.lineCap = 'round';
+    cx.beginPath(); cx.moveTo(14,-4); cx.quadraticCurveTo(26,-18, 20,-26); cx.stroke();
+    cx.beginPath(); cx.arc(19,-27,4,0,Math.PI*2); cx.fillStyle='#26262e'; cx.fill();
+    cx.strokeStyle = '#c96a10'; cx.lineWidth=3;
+    cx.beginPath(); cx.moveTo(22,-28); cx.lineTo(28,-26); cx.stroke();
+    const flap = Math.sin(sw.t*9)*10;
+    cx.strokeStyle = '#26262e'; cx.lineWidth = 4;
+    cx.beginPath(); cx.moveTo(-4,-2); cx.quadraticCurveTo(-14, -14 - flap, -26, -8 - flap); cx.stroke();
+    cx.restore();
+    if (sw.t < 1.2) mtext('HONK', sx, sy - 40*s, 16, '#26262e', 'center', 1 - sw.t*0.6, sw.x|0);
+  }
+}
+
+function drawPets(){
+  for (let i=0;i<P.pets.length;i++){
+    const pet = P.pets[i];
+    const sx = w2sX(pet.px), sy = w2sY(pet.py);
+    const s = scaleFactor();
+    const r = 11 * s;
+    const colMap = { orphan:'#4b4e59', papz:'#5c4b70', trend:'#3c6b5a', signal:'#207a8a' };
+    mcircle(sx, sy, r, colMap[pet.variant]||'#4b4e59', 2.5, i*31+2);
+    cx.fillStyle = '#222';
+    cx.beginPath(); cx.arc(sx - r*0.3, sy - r*0.2, 1.8*s, 0, Math.PI*2); cx.arc(sx + r*0.3, sy - r*0.2, 1.8*s, 0, Math.PI*2); cx.fill();
+    cx.save(); cx.strokeStyle = '#222'; cx.lineWidth = 1.8;
+    cx.beginPath(); cx.arc(sx, sy + r*0.15, r*0.35, 0.3, Math.PI - 0.3); cx.stroke();
+    cx.restore();
+    if (pet.variant==='papz') mcircle(sx - r, sy - r*0.6, r*0.3, '#333', 1.8, i*31+5);
+    if (pet.variant==='trend') mtext('#', sx + r*0.9, sy - r*0.8, 10*s, '#333', 'center', 1, i*31+6);
+  }
+}
+
+function drawPlayer(){
+  const s = scaleFactor();
+  const sx = w2sX(P.x), sy = w2sY(P.y);
+  const rr = P.r * (1 + P.inflate * 0.6) * s;
+  const wob = Math.sin(game.time * 3.1) * 1.5 * s + (P.overT > 0 ? Math.sin(game.time*30)*3*s : 0);
+  const squashY = 1 - P.squash * 0.22, squashX = 1 + P.squash * 0.22;
+
+  cx.save();
+  cx.translate(sx, sy);
+  cx.scale(squashX, squashY);
+
+  // bubble body
+  const grd = cx.createRadialGradient(-rr*0.3, -rr*0.35, rr*0.1, 0, 0, rr + wob);
+  grd.addColorStop(0, 'rgba(190,225,245,0.28)');
+  grd.addColorStop(0.8, 'rgba(150,200,235,0.14)');
+  grd.addColorStop(1, 'rgba(120,180,225,0.30)');
+  cx.fillStyle = grd;
+  cx.beginPath(); cx.arc(0, 0, rr + wob, 0, Math.PI*2); cx.fill();
+  cx.restore();
+
+  mcircle(sx, sy, (rr + wob) * squashX, game.megaT > 0 ? '#c9a227' : '#5c93b8', game.megaT > 0 ? 3.5 : 2.5, 21);
+  // specular gleam
+  cx.save();
+  cx.strokeStyle = 'rgba(255,255,255,0.85)'; cx.lineWidth = 3 * s; cx.lineCap='round';
+  cx.beginPath(); cx.arc(sx, sy, rr*0.7, -2.4, -1.7); cx.stroke();
+  cx.restore();
+  // cracks
+  for (let i=0;i<P.cracks;i++){
+    const a = 0.8 + i * 1.9;
+    const cxr = sx + Math.cos(a)*rr*0.55, cyr = sy + Math.sin(a)*rr*0.55;
+    mline([[cxr, cyr],[cxr + 8*s, cyr - 7*s],[cxr + 4*s, cyr - 14*s],[cxr + 12*s, cyr - 18*s]], '#456', 2, 60+i);
+  }
+
+  // the stick figure, seated, riding the future
+  cx.save();
+  cx.translate(sx, sy);
+  cx.rotate(P.lean * 0.55);
+  cx.scale(s, s);
+  cx.strokeStyle = '#2b2b33'; cx.lineWidth = 2.6; cx.lineCap = 'round';
+  const headR = 6.5;
+  const hy = -10;
+  cx.beginPath(); cx.arc(0, hy, headR, 0, Math.PI*2); cx.stroke();
+  // face
+  cx.fillStyle = '#2b2b33';
+  const scared = (!P.grounded && P.vy > 1200) || P.overT > 0;
+  cx.beginPath(); cx.arc(-2.2, hy-1.5, 0.9, 0, Math.PI*2); cx.arc(2.2, hy-1.5, 0.9, 0, Math.PI*2); cx.fill();
+  cx.beginPath();
+  if (scared){ cx.arc(0, hy+2.6, 1.8, 0, Math.PI*2); cx.stroke(); }
+  else { cx.arc(0, hy+1.6, 2.6, 0.35, Math.PI-0.35); cx.stroke(); }
+  // body seated
+  cx.beginPath(); cx.moveTo(0, hy+headR); cx.lineTo(0, 8); cx.stroke();
+  // legs crossed
+  cx.beginPath(); cx.moveTo(0, 8); cx.lineTo(8, 13); cx.moveTo(0, 8); cx.lineTo(-2, 15); cx.lineTo(6, 16); cx.stroke();
+  // arms — one up when soaring ("wheee"), braced when diving
+  cx.beginPath();
+  if (!P.grounded && !holding){ cx.moveTo(0,-2); cx.lineTo(8,-11); cx.moveTo(0,-2); cx.lineTo(-8,-9); }
+  else if (holding){ cx.moveTo(0,-2); cx.lineTo(9,3); cx.moveTo(0,-2); cx.lineTo(-9,3); }
+  else { cx.moveTo(0,-2); cx.lineTo(9,-3); cx.moveTo(0,-2); cx.lineTo(-8,2); }
+  cx.stroke();
+  cx.restore();
+
+  // over-inflation warning
+  if (P.overT > 0){
+    mtext('!!', sx, sy - rr - 12, 26, '#b3232e', 'center', 1, 71);
+  }
+  // carried tech orbits the bubble while you decide who you are
+  if (P.carry){
+    const a = game.time * 3.2;
+    const ox2 = sx + Math.cos(a) * (rr + 16), oy2 = sy + Math.sin(a) * (rr + 16);
+    const bs = 6 * s;
+    mline([[ox2-bs, oy2-bs],[ox2+bs, oy2-bs],[ox2+bs, oy2+bs],[ox2-bs, oy2+bs],[ox2-bs, oy2-bs]], P.carry.col, 2, 72);
+    mcircle(ox2, oy2 - bs - 4*s, 2.5*s, '#c9a227', 1.6, 73, 0.9);
+  }
+}
+
+function drawFx(){
+  for (const p of particles){
+    const a = 1 - p.t/p.life;
+    cx.fillStyle = p.col;
+    cx.globalAlpha = a * 0.8;
+    cx.beginPath(); cx.arc(w2sX(p.x), w2sY(p.y), p.r*scaleFactor(), 0, Math.PI*2); cx.fill();
+  }
+  cx.globalAlpha = 1;
+  for (const p of popups){
+    const a = p.t < 1.6 ? 1 : 1 - (p.t-1.6)/0.6;
+    const size = Math.min(20, p.str.length > 24 ? (W - 60) / p.str.length * 1.9 : 20);
+    mtext(p.str, p.sx, p.sy, Math.max(13, size), p.col, 'center', clamp(a,0,1), (p.sx|0)+3);
+  }
+}
+
+function drawHUD(col){
+  const yr = yearOf(P.dist);
+  mtext('YEAR ' + yr, 22, 46, Math.min(40, W/10), '#2b2b33', 'left', 1, 80);
+  const best = game.daily ? game.bestDaily : game.best;
+  if (best > 0) mtext('best ' + best, 24, 72, 18, '#8a877e', 'left', 1, 81);
+  if (game.daily) mtext("TODAY'S FUTURE", 24, 94, 15, '#6a2a9e', 'left', 1, 82);
+
+  // HUMAN FLOURISHING — the actual game, so it gets the big dial
+  const bx0 = 24, bw = Math.min(340, W * 0.46), bh = 17;
+  const by0 = game.daily ? 116 : 96;
+  const frac = clamp(P.flo / 100, 0, 1);
+  const fw = bw * frac;
+  const barCol = P.flo < 18 ? '#b3232e' : (P.flo >= 100 ? '#c9a227' : '#c0508a');
+  cx.save();
+  cx.globalAlpha = 0.5;
+  cx.fillStyle = barCol;
+  cx.fillRect(bx0, by0, fw, bh);
+  cx.restore();
+  mline([[bx0, by0],[bx0 + bw, by0],[bx0 + bw, by0 + bh],[bx0, by0 + bh],[bx0, by0]], '#77746a', 2.5, 87);
+  for (const tk2 of [0.25, 0.5, 0.75]){
+    mline([[bx0 + bw * tk2, by0 + bh - 5],[bx0 + bw * tk2, by0 + bh]], '#77746a', 1.5, 88);
+  }
+  const pulse = 1 + (game.floPulse || 0) * 0.6;
+  mtext('♥', bx0 + fw, by0 + bh / 2 + 6, 19 * pulse, barCol, 'center', 1, 89);
+  mtext('FLOURISHING', bx0, by0 - 7, 13, '#a99aa3', 'left', 0.9, 90);
+  mtext(Math.round(P.flo) + '%', bx0 + bw + 12, by0 + bh - 2, 18, barCol, 'left', 1, 91);
+  if (P.flo < 18){
+    mtext('fading!', bx0, by0 + bh + 16, 14, '#b3232e', 'left', 0.6 + Math.sin(game.time * 6) * 0.4, 79);
+  }
+
+  // pace ticker — it only goes up
+  const paceMul = (paceMin() / 200 / (1 + (P.mult-1)*0.05));
+  const braked = (P.paceBrake || 0) > 0.03;
+  mtext('PACE ' + (braked ? '▼ ' : '▲ ') + paceMul.toFixed(2) + 'x', W - 22, 40, Math.min(20, W/20), braked ? '#556b8a' : col, 'right', 1, 83);
+  if (P.mult > 1.01) mtext('EXUBERANCE ×' + P.mult.toFixed(1), W - 22, 66, 18, P.inflate>0.55?'#b3232e':'#2a7a2a', 'right', 1, 84);
+
+  // bubble integrity
+  const bx = W - 40, by = 96;
+  mcircle(bx, by, 13, '#5c93b8', 2, 85);
+  for (let i=0;i<P.cracks;i++){
+    mline([[bx-6+i*6, by-6],[bx-2+i*6, by+2],[bx-6+i*6, by+7]], '#b3232e', 2, 86+i);
+  }
+  // pet row
+  for (let i=0;i<P.pets.length;i++){
+    mcircle(W - 30 - i*20, 130, 7, '#4b4e59', 1.8, 90+i);
+  }
+  // carried tech: name, countdown, and a live reading of your intentions
+  if (P.carry){
+    const c = P.carry;
+    const ctx2 = P.sludged ? ['sinking into the doom…', '#555']
+      : (P.y < HYPE_Y ? ['riding the hype…', '#b3232e']
+      : (P.grounded ? ['grounded — tech for good', '#2a7a2a']
+      : ['deploying soon — choose your altitude', '#77746a']));
+    const nm = (W < 640 && c.name.length > 20) ? c.name.slice(0, 18) + '…' : c.name;
+    mtext(nm + ' · ' + Math.max(1, Math.ceil(c.timer)), W/2, 42, Math.min(18, W/26), c.col, 'center', 1, 302);
+    mtext(ctx2[0], W/2, 62, 13, ctx2[1], 'center', 0.9, 303);
+  }
+  // banner — kept clear of the flourishing bar
+  if (game.banner && game.bannerT > 0){
+    const a = Math.min(1, game.bannerT / 0.4) * Math.min(1, (3.2-game.bannerT)/0.3 + 1);
+    const by2 = Math.max(H * 0.26, 168);
+    mtext(game.banner[0], W/2, by2, Math.min(34, W / (game.banner[0].length * 0.42)), col, 'center', clamp(a,0,1), 95);
+    mtext(game.banner[1], W/2, by2 + 30, Math.min(19, W/24), '#77746a', 'center', clamp(a,0,1)*0.9, 96);
+  }
+  // tutorial whispers — timed so they can actually be read; they keep
+  // appearing until the first medal is earned
+  if (game.runs <= 5 || !game.medals.DISRUPTION){
+    const msgs = [[0.6, 4.0, 'HOLD: heavy. LET GO: float.'], [4.0, 7.4, 'hold down the slopes, let go at the bottom'], [7.4, 10.8, 'land the way the hill tilts → ♪'], [10.8, 14.4, 'raise FLOURISHING — hug blobs, hold through risks'], [14.4, 18.2, 'SHIFT or two fingers = slow down and think (−♥)']];
+    for (const m of msgs){
+      if (game.runT > m[0] && game.runT < m[1]){
+        const a = Math.min(1, (game.runT - m[0]) / 0.4, (m[1] - game.runT) / 0.4);
+        mtext(m[2], W/2, H*0.32, Math.min(26, W / (m[2].length * 0.55)), '#20509e', 'center', a * 0.9, 97);
+      }
+    }
+  }
+}
+
+function drawEarthrise(){
+  const a = Math.min(1, game.earthT / 1.2);
+  // a sketched Earth rises over the whiteboard
+  const ex = W*0.78, ey = H*0.24, er = 55;
+  mcircle(ex, ey, er, '#20509e', 3.5, 300, a);
+  cx.save();
+  cx.globalAlpha = a*0.8; cx.strokeStyle = '#1e7d3c'; cx.lineWidth = 2.5; cx.lineCap='round';
+  cx.beginPath();
+  cx.moveTo(ex-30, ey-18); cx.quadraticCurveTo(ex-10, ey-34, ex+12, ey-22);
+  cx.moveTo(ex-38, ey+12); cx.quadraticCurveTo(ex-16, ey+2, ex-6, ey+18);
+  cx.moveTo(ex+18, ey+8); cx.quadraticCurveTo(ex+32, ey+2, ex+38, ey+16);
+  cx.stroke();
+  cx.restore();
+  mtext('a future we want,', W/2, H*0.5 - 16, 34, '#2b2b33', 'center', a, 301);
+  mtext('not one that we fear.', W/2, H*0.5 + 24, 34, '#2b2b33', 'center', a, 302);
+  if (game.earthT > 4){
+    game.state = 'run';
+    P.overT = 0;                            // no post-cutscene ambush
+    P.inflate = Math.min(P.inflate, 0.4);
+  }
+}
+
+function drawErase(){
+  const ex = game.eraseX;
+  cx.fillStyle = '#f7f4ed';
+  cx.fillRect(0, 0, ex, H);
+  // the hand and the eraser
+  const hy = H*0.4 + Math.sin(ex*0.02)*30;
+  cx.save();
+  cx.translate(ex, hy);
+  // eraser
+  cx.fillStyle = '#3a3a44';
+  cx.fillRect(-14, -55, 26, 110);
+  cx.fillStyle = '#8a97a8';
+  cx.fillRect(-8, -55, 14, 110);
+  // hand (marker sketch of one)
+  cx.strokeStyle = '#9a8a78'; cx.lineWidth = 5; cx.lineCap='round';
+  cx.beginPath();
+  cx.moveTo(12, -20); cx.quadraticCurveTo(60, -60, 110, -50);
+  cx.moveTo(12, 0); cx.quadraticCurveTo(64, -20, 112, -34);
+  cx.moveTo(12, 20); cx.quadraticCurveTo(60, 24, 110, -16);
+  cx.stroke();
+  cx.restore();
+  if (ex > W + 130){
+    game.state = 'dead';
+    game.deadAt = game.time;
+  }
+}
+
+const DEADPAN = [
+  'A future without flourishing is just a date.',
+  'Hard to quantify. Easy to ignore.',
+  'Your outmoded strategy just became the risk.',
+  'Risk is a threat to value. So was that landing.',
+  'The future arrived slightly ahead of schedule.',
+  'Somewhere, a stick figure is drawing a lesson from this.',
+  'Awareness. Agility. Resilience. You had at least one.',
+];
+function deathLines(){
+  const d = game.deadInfo;
+  switch (d.cause){
+    case 'bite': return ['BLINDSIDED!', (d.detail.year ? ('This is the orphan you flew over in ' + d.detail.year + '. It waited.') : 'An ignored risk kept its appointment.') + (d.detail.stake ? (' It was ' + d.detail.stake + '.') : '')];
+    case 'slam': return ['SPLAT.', 'The future is a soap bubble. That was the ground.'];
+    case 'hype': return ['POP.', 'Nothing burst the bubble but the bubble.'];
+    case 'swan': return ['BLACK SWAN.', 'Nobody sees them coming. You almost did.'];
+    case 'panic': return ['MORAL PANIC!', 'You hugged it. It loved the attention.'];
+    case 'empty': return ['THE LIGHTS WENT OUT.', 'You went far. Flourishing didn\'t make the trip.'];
+    default: return ['ERASED.', 'It happens to every good idea once.'];
+  }
+}
+function drawDeathCard(){
+  const d = game.deadInfo; if (!d) return;
+  cx.fillStyle = 'rgba(247,244,237,0.9)'; cx.fillRect(0,0,W,H);
+  const cw = Math.min(W - 40, 480), ch = Math.min(H - 60, 430);
+  const x0 = (W-cw)/2, y0 = (H-ch)/2;
+  // card
+  mline([[x0,y0],[x0+cw,y0],[x0+cw,y0+ch],[x0,y0+ch],[x0,y0]], '#2b2b33', 3.5, 200);
+  const lines = deathLines();
+  mtext(lines[0], W/2, y0+58, 44, '#b3232e', 'center', 1, 201);
+  wrapText(lines[1], W/2, y0+96, cw-70, 19, '#4b4e59', 202);
+  // culprit doodle for bites
+  if (d.cause==='bite' || d.cause==='swan' || d.cause==='panic'){
+    const oy = y0+150;
+    mcircle(W/2, oy, 16, d.cause==='swan' ? '#26262e' : '#8a2430', 3, 203);
+    mline([[W/2-8, oy-20],[W/2-2, oy-14]], '#222', 2.5, 204);
+    mline([[W/2+8, oy-20],[W/2+2, oy-14]], '#222', 2.5, 205);
+    const teeth=[]; for(let i=0;i<=5;i++) teeth.push([W/2-9+i*3.6, oy+4+(i%2?3:0)]);
+    mline(teeth, '#222', 2, 206);
+  }
+  const yr = 'YEAR ' + d.year;
+  mtext('you made it to', W/2, y0+196, 17, '#77746a', 'center', 1, 207);
+  mtext(yr, W/2, y0+238, 46, '#2b2b33', 'center', 1, 208);
+  if (game.newBest){
+    mtext('★ new best ★', W/2, y0+266, 20, '#c9a227', 'center', 1, 209);
+    mtext('“a future we want, not one that we fear”', W/2, y0+290, 15, '#8a6d00', 'center', 1, 210);
+  } else {
+    const best = game.daily ? game.bestDaily : game.best;
+    const short = best - d.year;
+    mtext('best ' + best + (game.daily ? " (today's future)" : '') + (short > 0 && short <= 5 ? ' — ' + short + 'yr short!' : ''), W/2, y0+268, Math.min(17, W/26), '#77746a', 'center', 1, 211);
+  }
+  mtext(d.hills + ' hills · ' + d.pets + ' risks adopted · streak ♪×' + d.bestChain, W/2, y0+312, Math.min(15, W/32), '#77746a', 'center', 1, 212);
+  mtext('flourishing peaked at ' + d.floPeak + '%' + (d.goodTech > 0 ? ' · ' + d.goodTech + '× tech for good' : '') + (d.grown > 0 ? ' · ' + d.grown + 'yr bloomed' : ''), W/2, y0+334, Math.min(14, W/34), '#c0508a', 'center', 1, 218);
+  const deadpan = DEADPAN[(d.year + d.hills) % DEADPAN.length];
+  mtext('“' + deadpan + '”', W/2, y0+358, 14, '#4b4e59', 'center', 0.9, 213);
+  const pulse = 0.7 + Math.sin(game.time*4)*0.3;
+  mtext('tap to be redrawn', W/2, y0+ch-24, 22, '#20509e', 'center', pulse, 214);
+  drawCorners();
+  mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 216, 0.7);
+  mtext('menu', 63, H-31, 14, '#77746a', 'center', 0.9, 217);
+  if (game.daily){
+    mline([[W-112,H-52],[W-14,H-52],[W-14,H-20],[W-112,H-20],[W-112,H-52]], '#6a2a9e', 2, 219, 0.8);
+    mtext(game.copied ? 'copied ✓' : 'copy result', W-63, H-31, 13, '#6a2a9e', 'center', 0.95, 220);
+  }
+}
+function wrapText(str, x, y, maxW, size, col, seed){
+  cx.font = size + 'px ' + FONT;
+  const words = str.split(' ');
+  let line = '', ln = 0;
+  for (const w of words){
+    if (cx.measureText(line + w).width > maxW && line){
+      mtext(line, x, y + ln*(size+6), size, col, 'center', 1, seed+ln);
+      line = w + ' '; ln++;
+    } else line += w + ' ';
+  }
+  if (line) mtext(line.trim(), x, y + ln*(size+6), size, col, 'center', 1, seed+ln);
+}
+
+const TIPS = [
+  'hold to dive · release to soar',
+  'hug small risks before they grow teeth',
+  'what could possibly go wrong?',
+  'the pace rises — unless someone slows it',
+  'beware the hype line',
+  'panics are fires — attention is fuel',
+];
+function drawTitle(){
+  // the meadow: every bloom you have ever planted lives here
+  const garden = LS.get('garden', 0);
+  const nFlowers = Math.min(32, Math.ceil(garden / 4));
+  for (let i = 0; i < nFlowers; i++){
+    const wx = cam.x + 100 + hash1(i * 131) * 2600;
+    const sx = w2sX(wx), gy = w2sY(groundAt(wx).y);
+    if (sx > -20 && sx < W + 20) drawFlower(sx, gy, hash1(i * 7), i * 13);
+  }
+  // soft wash so the title reads over the drifting hills
+  cx.fillStyle = 'rgba(247,244,237,0.62)';
+  cx.fillRect(0, 0, W, H);
+  mtext('HYPERBUBBLE', W/2, H*0.26, Math.min(72, W/8), '#2b2b33', 'center', 1, 400);
+  mtext('the future is a soap bubble. ride it anyway.', W/2, H*0.26 + 38, Math.min(21, W/26), '#77746a', 'center', 1, 401);
+
+  // idle bubble + figure
+  const bx = W/2, by = H*0.46 + Math.sin(game.time*1.6)*8;
+  const grd = cx.createRadialGradient(bx-12, by-14, 4, bx, by, 40);
+  grd.addColorStop(0,'rgba(190,225,245,0.3)'); grd.addColorStop(1,'rgba(120,180,225,0.28)');
+  cx.fillStyle = grd; cx.beginPath(); cx.arc(bx,by,40,0,Math.PI*2); cx.fill();
+  mcircle(bx, by, 40, '#5c93b8', 2.5, 402);
+  cx.save(); cx.translate(bx,by); cx.strokeStyle='#2b2b33'; cx.lineWidth=2.6; cx.lineCap='round';
+  cx.beginPath(); cx.arc(0,-14,8,0,Math.PI*2); cx.stroke();
+  cx.fillStyle='#2b2b33';
+  cx.beginPath(); cx.arc(-2.6,-16,1.1,0,Math.PI*2); cx.arc(2.6,-16,1.1,0,Math.PI*2); cx.fill();
+  cx.beginPath(); cx.arc(0,-12,3,0.3,Math.PI-0.3); cx.stroke();
+  const waving = (game.titleT || 0) > 22;
+  cx.beginPath(); cx.moveTo(0,-6); cx.lineTo(0,10);
+  if (waving){
+    const wa = Math.sin(game.time * 7) * 0.5;
+    cx.moveTo(0,-2); cx.lineTo(10 + wa*4, -16 - wa*3);
+  } else { cx.moveTo(0,-2); cx.lineTo(10,-12); }
+  cx.moveTo(0,-2); cx.lineTo(-10,-4);
+  cx.moveTo(0,10); cx.lineTo(9,16); cx.moveTo(0,10); cx.lineTo(-4,18); cx.lineTo(6,19); cx.stroke();
+  cx.restore();
+  if (waving && (game.titleT % 11) < 4){
+    mtext('go on then.', bx + 66, by - 24, 15, '#77746a', 'center', 0.85, 409);
+  }
+
+  const tip = TIPS[Math.floor(game.time/3.4) % TIPS.length];
+  mtext(tip, W/2, H*0.60, Math.min(19, W/23), '#20509e', 'center', 0.9, 403);
+
+  const pulse = 0.65 + Math.sin(game.time*4)*0.35;
+  mtext('tap to surf', W/2, H*0.70, 30, '#2b2b33', 'center', pulse, 404);
+  const today = new Date();
+  const dstr = today.getDate() + ' ' + ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'][today.getMonth()];
+  const dailyMsg = W < 620
+    ? "tap here for TODAY'S FUTURE (" + dstr + ') — same seed for all'
+    : "press T, or tap here, for TODAY'S FUTURE (" + dstr + ') — one seed, shared by everyone';
+  mtext(dailyMsg, W/2, H*0.78, Math.min(14, W/26), '#6a2a9e', 'center', 0.85, 405);
+  if (game.best > 0){
+    const held = game.resetHold ? game.time - game.resetHold : 0;
+    if (held > 0.15){
+      const p2 = Math.min(1, held / 1.6);
+      mtext('forgetting…', W/2, H*0.84, 16, '#b3232e', 'center', 0.4 + p2*0.6, 406);
+      cx.fillStyle = 'rgba(179,35,46,0.4)';
+      cx.fillRect(W/2 - 80, H*0.84 + 8, 160 * p2, 4);
+    } else {
+      mtext('best year: ' + game.best, W/2, H*0.84, 16, '#77746a', 'center', 1, 406);
+      mtext('(hold to forget)', W/2, H*0.84 + 17, 10, '#a9a69c', 'center', 0.4, 411);
+    }
+  } else if (game.resetFlash && game.time - game.resetFlash < 2.5){
+    mtext('the past, erased.', W/2, H*0.84, 15, '#8a877e', 'center', 0.8, 406);
+  }
+  mtext('drawn from the notebooks of a certain professor of the future', W/2, H - 14, Math.min(13, W/31), '#a9a69c', 'center', 0.75, 408);
+  mtext('v23', W - 18, H - 14, 12, '#c3beb4', 'right', 0.8, 410);
+  drawCorners();
+  mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 446, 0.7);
+  mtext('how to play', 63, H-31, 13, '#77746a', 'center', 0.9, 447);
+  mline([[W-186,H-52],[W-40,H-52],[W-40,H-20],[W-186,H-20],[W-186,H-52]], '#c0508a', 2, 448, 0.7);
+  mtext('the ideas behind this', W-113, H-31, 12, '#c0508a', 'center', 0.9, 449);
+}
+// tappable corners on title/death screens (also keyboard N / M)
+function drawCorners(){
+  mline([[14,20],[112,20],[112,52],[14,52],[14,20]], '#8a877e', 2, 440, 0.7);
+  mtext('field notes', 63, 41, 14, '#77746a', 'center', 0.9, 441);
+  mline([[W-112,20],[W-14,20],[W-14,52],[W-112,52],[W-112,20]], '#8a877e', 2, 442, 0.7);
+  mtext(AU.muted ? 'sound: off' : 'sound: on', W-63, 41, 14, '#77746a', 'center', 0.9, 443);
+}
+
+function drawWrapped(str, x, y, maxW, size, col, seed){
+  cx.font = size + 'px ' + FONT;
+  const words = str.split(' ');
+  let line = '', ln = 0;
+  for (const w of words){
+    if (cx.measureText(line + w).width > maxW && line){
+      mtext(line.trim(), x, y + ln*(size+7), size, col, 'center', 1, seed+ln);
+      line = w + ' '; ln++;
+    } else line += w + ' ';
+  }
+  if (line.trim()){ mtext(line.trim(), x, y + ln*(size+7), size, col, 'center', 1, seed+ln); ln++; }
+  return y + ln*(size+7);
+}
+const HELP_LINES = [
+  ['#2b2b33', '— THE BUTTON —'],
+  ['#20509e', 'press and hold anywhere: the bubble turns HEAVY and drops. let go: it floats up, light. that is the whole control.'],
+  ['#4b4e59', 'ride the hills like a skier: hold on the way DOWN a slope to gain speed, let go near the bottom — the next slope throws you into the sky.'],
+  ['#2a7a2a', 'land gently on a downhill, moving the way it tilts (like a ski jumper), and you get a chime ♪ — chains of chimes mean serious speed.'],
+  ['#2b2b33', '— THE POINT —'],
+  ['#c0508a', 'the pink bar is HUMAN FLOURISHING, the real score. it leaks constantly. raise it by caring for the things below. at 0 the lights go out; past 100 it blooms into extra years.'],
+  ['#4b4e59', 'your bubble takes 3 cracks. gliding never cracks it — dives held into the ground, bites and swans do.'],
+  ['#2b2b33', '— THE THINGS YOU MEET —'],
+  ['#c0508a', 'wide-eyed BLOBS are orphan risks. HOLD as you roll past one to adopt it: it becomes a pet that follows you and blocks one hit. skip it and it burrows — then comes back with teeth.'],
+  ['#b3232e', 'scribble-FIRES are moral panics. never touch — attention is their fuel. fly past and they die out.'],
+  ['#8a6d00', 'DIAMOND SIGNS are named risks — deepfake scandals, data breaches, gene drive escapes. HOLD as you hit one to manage it (+♥). hit it slack-thumbed and it costs you dearly.'],
+  ['#207a8a', 'CRATES are emerging tech. catch one; five seconds later it deploys wherever you are. on the ground = tech for good (+♥♥). above the dashed hype line = fast but reckless.'],
+  ['#556b8a', 'overwhelmed? hold SHIFT — or rest two fingers on the screen — to STEADY: time slows while you think, and held long enough, THE PACE ITSELF eases for a while. it costs ♥ the whole time.'],
+  ['#77746a', 'pause: P, or a quick two-finger tap. M mutes. B toggles music.'],
+];
+function drawHelp(){
+  cx.fillStyle = 'rgba(247,244,237,0.97)'; cx.fillRect(0,0,W,H);
+  const maxW = Math.min(W - 60, 560);
+  const countFor = (str, s) => {
+    cx.font = s + 'px ' + FONT;
+    const words = str.split(' ');
+    let line = '', n = 1;
+    for (const w of words){
+      if (cx.measureText(line + w).width > maxW && line){ line = w + ' '; n++; }
+      else line += w + ' ';
+    }
+    return n;
+  };
+  const totalFor = s => {
+    const gap = Math.max(7, s * 0.75);
+    let t = 0;
+    for (const l of HELP_LINES) t += countFor(l[1], s) * (s + 7) + gap;
+    return t;
+  };
+  // auto-fit the copy to whatever window this is
+  const titleSize = Math.min(34, H / 11);
+  const avail = H - titleSize - 80;
+  let size = Math.min(16, W / 26);
+  while (size > 8.5 && totalFor(size) > avail) size -= 0.5;
+  mtext('HOW TO PLAY', W/2, titleSize + 22, titleSize, '#2b2b33', 'center', 1, 600);
+  let y = titleSize + 52;
+  const gap = Math.max(7, size * 0.75);
+  for (let i = 0; i < HELP_LINES.length; i++){
+    y = drawWrapped(HELP_LINES[i][1], W/2, y, maxW, size, HELP_LINES[i][0], 610 + i*4) + gap;
+  }
+  mtext('tap to close', W/2, Math.min(y + 10, H - 14), Math.min(16, size + 2), '#20509e', 'center', 0.8 + Math.sin(game.time*4)*0.2, 660);
+}
+// a little portrait of each thing, so the notes read at a glance
+function drawNoteIcon(id, x, y, seed){
+  const blob = (col) => {
+    mcircle(x, y - 2, 9, col, 2.2, seed);
+    cx.fillStyle = '#222';
+    cx.beginPath(); cx.arc(x - 3, y - 4, 1.3, 0, Math.PI*2); cx.arc(x + 3, y - 4, 1.3, 0, Math.PI*2); cx.fill();
+    cx.save(); cx.strokeStyle = '#222'; cx.lineWidth = 1.6;
+    cx.beginPath(); cx.arc(x, y - 1, 3, 0.3, Math.PI - 0.3); cx.stroke(); cx.restore();
+    mline([[x - 4, y + 6],[x - 4, y + 9]], col, 2, seed + 1);
+    mline([[x + 4, y + 6],[x + 4, y + 9]], col, 2, seed + 2);
+  };
+  switch (id){
+    case 'orphan': blob('#4b4e59'); break;
+    case 'papz': blob('#5c4b70');
+      mline([[x - 15, y - 6],[x - 8, y - 6],[x - 8, y - 1],[x - 15, y - 1],[x - 15, y - 6]], '#333', 1.8, seed + 3);
+      mcircle(x - 11.5, y - 3.5, 1.6, '#333', 1.4, seed + 4); break;
+    case 'trend': blob('#3c6b5a');
+      mline([[x, y - 11],[x + 4, y - 16]], '#333', 1.8, seed + 3);
+      mtext('#', x + 7, y - 14, 9, '#333', 'center', 1, seed + 4); break;
+    case 'panic':
+      mline([[x - 8, y + 9],[x - 4, y - 2],[x - 1, y - 12],[x + 3, y - 3],[x + 8, y + 9]], '#b3232e', 2.2, seed);
+      mline([[x - 4, y + 9],[x - 1, y - 5],[x + 4, y + 9]], '#c96a10', 2, seed + 1); break;
+    case 'swan':
+      cx.save(); cx.fillStyle = '#26262e';
+      cx.beginPath(); cx.ellipse(x, y + 3, 9, 5, 0, 0, Math.PI*2); cx.fill();
+      cx.strokeStyle = '#26262e'; cx.lineWidth = 2.5; cx.lineCap = 'round';
+      cx.beginPath(); cx.moveTo(x + 6, y + 1); cx.quadraticCurveTo(x + 11, y - 8, x + 8, y - 11); cx.stroke();
+      cx.beginPath(); cx.arc(x + 8, y - 11, 2, 0, Math.PI*2); cx.fill();
+      cx.strokeStyle = '#c96a10'; cx.lineWidth = 1.6;
+      cx.beginPath(); cx.moveTo(x + 9.5, y - 12); cx.lineTo(x + 13, y - 11); cx.stroke();
+      cx.restore(); break;
+    case 'risk':
+      mline([[x, y - 11],[x + 10, y],[x, y + 11],[x - 10, y],[x, y - 11]], '#8a6d00', 2.2, seed);
+      mtext('!', x, y + 4, 12, '#8a6d00', 'center', 1, seed + 1); break;
+    case 'doom':
+      cx.save(); cx.fillStyle = 'rgba(50,48,60,0.45)';
+      cx.beginPath(); cx.ellipse(x, y + 5, 12, 5, 0, 0, Math.PI*2); cx.fill(); cx.restore();
+      mline([[x - 9, y + 2],[x - 3, y + 4],[x + 3, y + 1],[x + 9, y + 3]], '#41404d', 1.8, seed); break;
+    case 'seren':
+      mcircle(x, y, 10, '#c9a227', 2.2, seed, 0.95);
+      mtext('?', x, y + 5, 14, '#c9a227', 'center', 1, seed + 1); break;
+    case 'sign':
+      mline([[x, y + 10],[x, y - 2]], '#6b5335', 2.2, seed);
+      mline([[x - 10, y - 2],[x + 10, y - 2],[x + 10, y - 12],[x - 10, y - 12],[x - 10, y - 2]], '#b3232e', 2, seed + 1);
+      mtext('P!', x, y - 4.5, 8.5, '#b3232e', 'center', 1, seed + 2); break;
+    case 'tech':
+      mline([[x - 8, y - 4],[x + 8, y - 4],[x + 8, y + 9],[x - 8, y + 9],[x - 8, y - 4]], '#207a8a', 2, seed);
+      mcircle(x, y - 9, 3.2, '#c9a227', 1.8, seed + 1, 0.95); break;
+  }
+}
+let notesRects = [];
+function drawNoteFocus(id){
+  const n = NOTES_DEF.find(nd => nd.id === id);
+  if (!n){ game.notesFocus = null; return; }
+  cx.fillStyle = 'rgba(247,244,237,0.97)'; cx.fillRect(0,0,W,H);
+  const cw = Math.min(W - 60, 520);
+  cx.save();
+  cx.translate(W/2, H * 0.26);
+  cx.scale(2.6, 2.6);
+  drawNoteIcon(id, 0, 0, 570);
+  cx.restore();
+  mtext(n.name, W/2, H * 0.26 + 74, Math.min(27, W/16), '#2b2b33', 'center', 1, 571);
+  drawWrapped(n.how, W/2, H * 0.26 + 112, cw - 30, Math.min(18, W/23), '#4b4e59', 572);
+  mtext('tap to go back', W/2, H - 24, 16, '#20509e', 'center', 0.8 + Math.sin(game.time*4)*0.2, 573);
+}
+function drawNotes(){
+  if (game.notesFocus){ drawNoteFocus(game.notesFocus); return; }
+  cx.fillStyle = 'rgba(247,244,237,0.96)'; cx.fillRect(0,0,W,H);
+  const met = NOTES_DEF.filter(n => notesSeen[n.id]).length;
+  mtext('FIELD NOTES', W/2, 54, 38, '#2b2b33', 'center', 1, 500);
+  mtext(met + ' of ' + NOTES_DEF.length + ' met so far — a card appears when you meet the thing', W/2, 80, Math.min(15, W/30), '#77746a', 'center', 1, 501);
+  const cols = W > 700 ? 2 : 1;
+  const cw = Math.min(W/cols - 30, 420);
+  const rows = Math.ceil(NOTES_DEF.length / cols);
+  const rowSpace = (H - 150) / rows;
+  const ch2 = Math.min(60, rowSpace - 6);
+  const fs = ch2 < 52 ? 10.5 : 12;
+  let i = 0;
+  notesRects = [];
+  for (const n of NOTES_DEF){
+    const seen = !!notesSeen[n.id];
+    const cxi = i % cols, cyi = Math.floor(i / cols);
+    const x = W/2 + (cxi - (cols-1)/2) * (cw + 20) - cw/2;
+    const y = 104 + cyi * rowSpace;
+    notesRects.push({ id: n.id, x, y, w: cw, h: ch2, seen });
+    mline([[x,y],[x+cw,y],[x+cw,y+ch2],[x,y+ch2],[x,y]], seen ? '#2b2b33' : '#c9c5ba', 2.5, 510+i);
+    if (seen){
+      drawNoteIcon(n.id, x + 26, y + ch2/2, 560 + i*7);
+      const maxLn = ch2 >= 52 ? 2 : 1;                // never let text cross the border
+      mtext(n.name, x + 50, y + 17, Math.min(15, ch2 * 0.3), '#2b2b33', 'left', 1, 520+i);
+      cx.font = fs + 'px ' + FONT; cx.fillStyle = '#4b4e59'; cx.textAlign = 'left';
+      const words = n.how.split(' ');
+      let line = '', ln = 0;
+      for (const w of words){
+        if (cx.measureText(line + w).width > cw - 64 && line){
+          if (ln >= maxLn - 1){ line = line.trim().slice(0, -1) + '…'; break; }
+          cx.fillText(line, x + 50, y + 31 + ln*(fs+2)); line = w + ' '; ln++;
+        } else line += w + ' ';
+      }
+      if (line) cx.fillText(line.trim(), x + 50, y + 31 + ln*(fs+2));
+    } else {
+      mtext('? ? ?', x + 14, y + Math.min(24, ch2*0.45), 15, '#c9c5ba', 'left', 1, 520+i);
+      if (ch2 >= 50) mtext('not met yet — it is out there', x + 14, y + 42, 11, '#c9c5ba', 'left', 1, 530+i);
+    }
+    i++;
+  }
+  mtext('tap a card to read it in full · tap anywhere else to close', W/2, H - 22, Math.min(16, W/28), '#20509e', 'center', 0.8 + Math.sin(game.time*4)*0.2, 540);
+}
+// taps inside the notes overlay: card → expand; expanded → back; elsewhere → close
+function notesTap(x, y){
+  if (game.notesFocus){ game.notesFocus = null; return; }
+  for (const r of notesRects){
+    if (r.seen && x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h){
+      game.notesFocus = r.id;
+      SFX.chirp();
+      return;
+    }
+  }
+  game.notes = false;
+  game.notesFocus = null;
+}
+
+// ---------------------------------------------------------------------
+// main loop
+// ---------------------------------------------------------------------
+let lastT = 0, acc = 0;
+const DT = 1/120;
+let holdTStart = 0;
+
+function frame(t){
+  requestAnimationFrame(frame);
+  if (!lastT) lastT = t;
+  // belt-and-braces: some mobile browsers change the viewport without a resize event
+  if (window.innerWidth !== W || window.innerHeight !== H) resize();
+  let dt = Math.min(0.1, (t - lastT) / 1000);
+  lastT = t;
+  game.time += dt;
+  game.boil = Math.floor(game.time * 2.5);
+
+  // shake/flash decay in real time; gameplay effect timers only tick while live
+  game.shake *= Math.pow(0.001, dt);
+  if (game.flashT > 0) game.flashT -= dt;
+  game.floPulse = Math.max(0, (game.floPulse || 0) - dt);
+  const live = (game.state === 'run' || game.state === 'earthrise') && !game.paused && !game.notes;
+  if (game.bannerT > 0 && (live || (game.state !== 'run' && game.state !== 'earthrise'))) game.bannerT -= dt;
+  if (live && game.slowmo > 0) game.slowmo -= dt;
+  if (live && game.slowmoHit > 0){ game.slowmoHit -= dt; dt *= 0.25; }
+  else if (live && game.slowmo > 0) dt *= 0.5;
+  // steadying: slow the world to think — deliberation spends flourishing
+  game.steady = (steadyKey || activePtrs.size >= 2) && game.state === 'run' && !game.paused && !game.notes && !game.help;
+  if (game.steady) dt *= 0.55;
+  if (live && game.tailwindT > 0){ game.tailwindT -= dt; P.vx = Math.min(2400, P.vx + 120*dt); }
+  if (live && game.megaT > 0) game.megaT -= dt;
+  if (live && game.flowT > 0){
+    game.flowT -= dt;
+    // rainbow trail while in flow
+    if (game.state === 'run' && !game.paused && Math.random() < dt * 24 && particles.length < 300){
+      const cols = ['#b3232e','#c96a10','#c9a227','#2a7a2a','#20509e','#6a2a9e'];
+      particles.push({ x: P.x - 30, y: P.y + (Math.random()-0.5)*40, vx: -60, vy: (Math.random()-0.5)*40,
+                       t: 0, life: 0.8, col: cols[(Math.random()*6)|0], r: 3 + Math.random()*3 });
+    }
+  }
+
+  // ---- state transitions on tap ----
+  if (tapQueued){
+    if (game.help){ game.help = false; tapQueued = false; }
+    else if (game.notes){
+      tapQueued = false;
+      if (game.notesFocus) game.notesFocus = null;
+      else game.notes = false;
+    }
+    else if (game.state === 'title'){
+      tapQueued = false; startRun(false);
+    } else if (game.state === 'dead'){
+      tapQueued = false;
+      // don't let a panicked mash skip the death card unread
+      if (game.time - (game.deadAt || 0) > 0.6) startRun(game.daily);
+    } else if ((game.state === 'run' || game.state === 'earthrise') && game.paused){
+      tapQueued = false; game.paused = false;
+    } else {
+      tapQueued = false; // consumed by gameplay hold
+    }
+  }
+
+  if ((game.state === 'run' || game.state === 'earthrise') && !game.paused && !game.notes){
+    game.runT = (game.runT || 0) + dt;
+    acc += dt;
+    let guard = 0;
+    while (acc >= DT && guard < 12){
+      acc -= DT; guard++;
+      stepPlayer(DT);
+      if (game.state !== 'run' && game.state !== 'earthrise') break;
+      stepOrphans(DT);
+      stepPets(DT);
+      stepSwans(DT);
+      stepTokens(DT);
+      stepTechs(DT);
+      stepRisks(DT);
+      stepSigns();
+    }
+    ensureTerrain(P.x);
+    stepCam(dt);
+  }
+  stepFx(dt);
+  if (game.state === 'title'){
+    // ambient world drifting by behind the title
+    game.titleT = (game.titleT || 0) + dt;
+    cam.x += dt * 55;
+    ensureTerrain(cam.x + 800);
+    const gy = groundAt(cam.x + W * 0.5).y;
+    cam.y += (gy - 300 - cam.y) * Math.min(1, dt * 1.5);
+    cam.zoom += (0.8 - cam.zoom) * Math.min(1, dt);
+  }
+  if (game.state === 'erase') game.eraseX += W * dt / 0.7;
+  // flourishing visibly drips out of the bubble in the hype glare
+  if (live && game.state === 'run' && P.y < HYPE_Y && Math.random() < dt * 10 && particles.length < 300){
+    particles.push({ x: P.x, y: P.y + P.r, vx: (Math.random()-0.5)*40, vy: 130, t: 0, life: 0.7, col: '#c0508a', r: 2.5 });
+  }
+  if (game.state === 'earthrise' && !game.paused) game.earthT += dt;
+  if (game.paused) AU.hushLoops();
+  if (game.eraFade < 1) game.eraFade = Math.min(1, game.eraFade + dt / 1.5);
+  if (AU.slideGain && game.state !== 'run') AU.slideGain.gain.value *= 0.9;
+  if (AU.buzzGain && game.state !== 'run') AU.buzzGain.gain.value *= 0.9;
+  if (AU.squealGain && game.state !== 'run') AU.squealGain.gain.value = 0;
+  if (game.state === 'run' && !game.paused){
+    cam.x = P.x - (W * 0.30) / scaleFactor();
+  } else if (game.state === 'earthrise' || game.state === 'erase' || game.state === 'dead'){
+    cam.x = P.x - (W * 0.30) / scaleFactor();
+  }
+
+  render();
+}
+
+// keyboard T on title = daily run
+window.addEventListener('keydown', e => {
+  if (aboutOpen()) return;
+  if ((e.key === 't' || e.key === 'T') && game.state === 'title'){
+    if (game.notes){ game.notes = false; return; }
+    if (game.help){ game.help = false; return; }
+    AU.init(); AU.resume(); MUS.ensure(); startRun(true);
+  }
+});
+// title/death screen tap zones: corner buttons + the daily band
+cv.addEventListener('pointerdown', e => {
+  const x = e.clientX, y = e.clientY;
+  // pause menu: "menu" chip returns to the title screen; "fullscreen" chip toggles
+  if ((game.state === 'run' || game.state === 'earthrise') && game.paused && y > H - 64 && x < 122){
+    tapQueued = false; game.paused = false; game.state = 'title'; return;
+  }
+  if ((game.state === 'run' || game.state === 'earthrise') && game.paused && y > H - 64 && x > W - 122){
+    tapQueued = false; toggleFullscreen(); return;
+  }
+  if (game.state !== 'title' && game.state !== 'dead') return;
+  if (game.help){ tapQueued = false; game.help = false; return; }
+  // subtle: press-and-hold the best-year line to forget it
+  if (game.state === 'title' && game.best > 0 && !game.notes &&
+      Math.abs(y - H*0.84) < 26 && Math.abs(x - W/2) < 170){
+    tapQueued = false; game.resetHold = game.time; return;
+  }
+  if (game.state === 'dead' && game.daily && y > H - 64 && x > W - 122){
+    tapQueued = false;
+    const d = game.deadInfo || {};
+    const t2 = new Date();
+    const ds = t2.getDate() + ' ' + ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'][t2.getMonth()];
+    const s = "HYPERBUBBLE — Today's Future " + ds + ': year ' + d.year + ' · flourishing peak ' + d.floPeak + '%' +
+      (d.goodTech ? ' · ' + d.goodTech + '× tech for good' : '') + (d.grown ? ' · ' + d.grown + 'yr bloomed' : '');
+    try { navigator.clipboard.writeText(s); game.copied = true; } catch(err){}
+    return;
+  }
+  if (y < 60 && x < 122){ tapQueued = false; game.notes = !game.notes; game.notesFocus = null; return; }
+  if (y < 60 && x > W - 122){ tapQueued = false; AU.setMuted(!AU.muted); return; }
+  if (game.notes){ tapQueued = false; notesTap(x, y); return; }
+  if (y > H - 64 && x < 122){
+    tapQueued = false;
+    if (game.state === 'dead'){ game.state = 'title'; game.deadInfo = null; }
+    else game.help = true;                     // title: "how to play"
+    return;
+  }
+  if (game.state === 'title' && y > H - 64 && x > W - 192 && x < W - 34){
+    tapQueued = false;
+    openAbout();
+    return;
+  }
+  if (game.state === 'title' && y > H*0.74 && y < H*0.82){
+    tapQueued = false;
+    startRun(true);
+  }
+});
+
+// duck landmark when you reach the year 2120 (a 2020science joke, off by a century on purpose)
+setInterval(() => {
+  const yr = game.state === 'run' ? yearOf(P.dist) : 0;
+  if (yr >= 2118 && yr <= 2122 && !game.duckPlaced){
+    game.duckPlaced = true;
+    const gx = P.x + 900;
+    if (gx < genX) landmarks.push({ type:'duck', x: gx });
+  }
+}, 700);
+
+resize();
+resetWorld();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
