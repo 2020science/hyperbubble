@@ -1273,19 +1273,33 @@ function yearOf(dist){ return YEAR0 + Math.floor(dist / PX_PER_YEAR); }
 function hillDepthFor(n){
   return (105 + Math.min(190, n * 3)) * (0.72 + runRng() * 0.55);
 }
-// v62: crates deal from a per-run shuffled deck — no repeats until all have been seen.
-// the shuffle draws from runRng, so dailies still share one identical future.
-function dealTech(){
-  if (!game.techDeck || game.techDeckPos >= game.techDeck.length){
-    game.techDeck = TECH.map((_, i) => i);
-    for (let i = game.techDeck.length - 1; i > 0; i--){
-      const j = Math.floor(runRng() * (i + 1));
-      const t2 = game.techDeck[i]; game.techDeck[i] = game.techDeck[j]; game.techDeck[j] = t2;
+// v63: fair dealers — every roster shuffles into a deck and deals WITHOUT repeats
+// until the whole deck has been seen, then reshuffles. gameplay decks draw from the
+// seeded streams (dailies still share one identical future); marginalia stays cosmetic.
+// list and rng are thunks so declaration order never matters.
+function makeDealer(listFn, rngFn){
+  let deck = null, pos = 0, n = 0;
+  const deal = () => {
+    const list = listFn();
+    if (!deck || n !== list.length || pos >= deck.length){
+      n = list.length;
+      deck = list.map((_, i) => i);
+      for (let i = deck.length - 1; i > 0; i--){
+        const j = Math.floor(rngFn() * (i + 1));
+        const t2 = deck[i]; deck[i] = deck[j]; deck[j] = t2;
+      }
+      pos = 0;
     }
-    game.techDeckPos = 0;
-  }
-  return TECH[game.techDeck[game.techDeckPos++]];
+    return list[deck[pos++]];
+  };
+  deal.reset = () => { deck = null; pos = 0; };
+  return deal;
 }
+const dealTech  = makeDealer(() => TECH,       () => runRng());
+const dealRisk  = makeDealer(() => RISK_NAMES, () => runRng());
+const dealStake = makeDealer(() => STAKES,     () => evRng());
+const dealSeren = makeDealer(() => SEREN_FX,   () => evRng());
+const dealMarg  = makeDealer(() => MARGINALIA, () => Math.random());
 function genHill(){
   const n = genHillN;
   const era = eraIndexForHill(n);
@@ -1344,7 +1358,7 @@ function genHill(){
   }
   if (era >= 2 && !firstOfEra && runRng() < 0.13){
     const rt = runRng() < 0.5 ? 0.28 : 0.72;
-    risks.push({ x: genX + L * rt, name: RISK_NAMES[Math.floor(runRng() * RISK_NAMES.length)], t: 0, done: false });
+    risks.push({ x: genX + L * rt, name: dealRisk(), t: 0, done: false });
   }
   if (n === 42) landmarks.push({ type:'towel', x: genX + L*0.5, seg });
   // v62: the towel keeps in touch — a slow story at multiples of 42
@@ -1440,7 +1454,8 @@ function startRun(daily){
   game.rainbowT = 0; game.balloonT = 0; game.paradeT = 0; game.confettiT = 0; game.snowT = 0;
   game.redrawT = 0; game.starsT = 0; game.bigT = 0; game.petDanceT = 0; game.kiteT = 0; game.goldT = 0;
   game.cameo = null; game.cameoCd = 75; game.echoPlaced = false;
-  game.techDeck = null; game.techDeckPos = 0;   // v62: a fresh crate deck every run
+  // v63: fresh decks every run (marginalia's deck spans the whole session on purpose)
+  dealTech.reset(); dealRisk.reset(); dealStake.reset(); dealSeren.reset();
 
   // flat-ish runway (idx<0 hills are gentle)
   resetWorld();
@@ -1498,6 +1513,9 @@ function killPlayer(cause, detail){
                     grown: Math.floor(P.bloom / 10), opt: !!game.optRun, gentle: !!game.gentleRun, soft: !!game.soft, floPeak: Math.round(P.floPeak), goodTech: P.goodTech || 0 };
   P.carry = null;
   game.quickDeaths = P.hills < 10 ? (game.quickDeaths || 0) + 1 : 0;   // v58: the mercy counter (session only)
+  // v63: the card's closing line is drawn once per death (was a year+hills hash — same death, same line)
+  game.deadInfo.quip = Math.random() < 0.5 ? RUMORS[Math.floor(Math.random() * RUMORS.length)]
+                                           : DEADPAN[Math.floor(Math.random() * DEADPAN.length)];
   if (game.daily){
     if (yr > game.bestDaily && !game.tainted){ game.bestDaily = yr; LS.set('daily_'+game.dayKey, yr); game.newBest = true; }
   }
@@ -2007,7 +2025,7 @@ function flyOver(o){
   addFlo(-2);                                  // neglect has a quiet cost
   const hills = 2 + Math.floor(evRng()*2);
   pendingReturns.push({ returnX: P.x + hills * 900 + evRng()*400, variant: o.variant,
-                        stake: STAKES[Math.floor(evRng() * STAKES.length)],
+                        stake: dealStake(),
                         bornYear: yearOf(P.dist), pinged:false, done:false });
 }
 function biteHit(o){
@@ -2136,7 +2154,7 @@ function stepTokens(dt){
   }
 }
 function catalyticSerendipity(){
-  const fx = SEREN_FX[Math.floor(evRng() * SEREN_FX.length)];
+  const fx = dealSeren();   // v63: dealt, not rolled — 'never the same thing twice' is now literally true per run
   setBanner('CATALYTIC SERENDIPITY!', ({
     geyser:'up you go', repair:'bubble patched', slowmo:'time, but gentler',
     pizza:'pizza and a slice of future', magnet:'the orphans come to you', tailwind:'a favourable wind',
@@ -2469,7 +2487,7 @@ function stepFloats(dt){
       const gx = P.x + (W / scaleFactor()) * 0.9 + 260;
       const gy2 = groundAt(gx).y;
       floats.push({ x: gx, y: gy2 - 130 - Math.random() * 190, t: 0, hit: false,
-                    msg: MARGINALIA[Math.floor(Math.random() * MARGINALIA.length)],
+                    msg: dealMarg(),
                     // gel pen on black glass — bright inks only
                     col: ['#ff7ac2','#5ce1e6','#a8f070','#c9a2ff','#ffb35c','#7dd4ff'][Math.floor(Math.random() * 6)] });
     }
@@ -4089,8 +4107,8 @@ function drawDeathCard(){
   mtext(d.hills + ' hills · ' + d.pets + ' risks adopted · streak ♪×' + d.bestChain, W/2, y0+Math.round(312*ky), Math.min(15, W/32), '#77746a', 'center', 1, 212);
   mtext('flourishing peaked at ' + d.floPeak + '%' + (d.goodTech > 0 ? ' · ' + d.goodTech + '× tech for good' : '') + (d.grown > 0 ? ' · ' + d.grown + 'yr bloomed' : ''), W/2, y0+Math.round(334*ky), Math.min(14, W/34), '#c0508a', 'center', 1, 218);
   const deadpan = d.cause === 'sublime' ? 'This was always the point.'
-    : ((d.year + d.hills) % 2 ? RUMORS[(d.year * 3 + d.hills) % RUMORS.length]
-                              : DEADPAN[(d.year + d.hills) % DEADPAN.length]);
+    : (d.quip || ((d.year + d.hills) % 2 ? RUMORS[(d.year * 3 + d.hills) % RUMORS.length]
+                                         : DEADPAN[(d.year + d.hills) % DEADPAN.length]));
   wrapText('“' + deadpan + '”', W/2, y0+Math.round(352*ky), cw-70, Math.min(13, W/34), '#4b4e59', 213);
   const pulse = 0.7 + Math.sin(game.time*4)*0.3;
   if (game.tainted) mtext('⚑ test flight — nothing was recorded', W/2, y0+ch-46, 12, '#b3232e', 'center', 0.85, 221);
@@ -4218,7 +4236,7 @@ function drawTitle(){
   mtext('☁ gentle mode: ' + (game.gentle ? 'on' : 'off'), W/2 - 95, H*0.90, 12, game.gentle ? '#556b8a' : '#a9a69c', 'center', game.gentle ? 0.9 : 0.5, 413);
   mtext('✎ marginalia: ' + (game.marg ? 'on' : 'off'), W/2 + 95, H*0.90, 12, game.marg ? '#8a6d00' : '#a9a69c', 'center', game.marg ? 0.9 : 0.5, 414);
   mtext('drawn from the notebooks of a certain professor of the future', W/2, H - 14, Math.min(13, W/31), '#a9a69c', 'center', 0.75, 408);
-  mtext('v62 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
+  mtext('v63 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
   drawCorners();
   mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 446, 0.7);
   mtext('how to play', 63, H-31, 13, '#77746a', 'center', 0.9, 447);
