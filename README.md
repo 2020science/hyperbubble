@@ -4,6 +4,8 @@
 
 A one-button browser game about navigating advanced technology transitions — inspired by, and built from, the work of [Andrew Maynard](https://andrewmaynard.net) (Arizona State University) on risk innovation, emerging technologies, and human flourishing. Designed and coded by Anthropic's Claude (Fable 5) in collaboration with Maynard. Implemented at https://fvture.net/hyperbubble/
 
+NOTE: version 3 added Jukt 25, 2026 and deployed at https://fvture.net/hyperbubble/
+
 ## Play
 
 Open `index.html` in any modern browser. That's it — the entire game is **one self-contained HTML file**: procedural hand-drawn graphics, a fully synthesized 80s soundtrack, no libraries, no build step, no internet required.
@@ -26,7 +28,8 @@ How it was made (a structured competition of AI game designers, adversarial mult
 |---|---|
 | `index.html` | The game (hosted entry point) |
 | `hyperbubble.html` | The same game, by its own name |
-| `hyperbubble-v2.html` | Asecond generation build containing a few unlisted surprises (and the one that index.html represents)|
+| `hyperbubble-v2.html` | A second generation build containing a few unlisted surprises |
+| `hyperbubble-v3.html` | A third generation build with a number of additions and tweaks |
 | `HYPERBUBBLE-making-of.md` | How an AI and a professor built this |
 | `social-card.png` | Link-preview image (1200×630) |
 | `favicon.*`, `apple-touch-icon.png`, `icon-*.png`, `site.webmanifest` | Icons + PWA manifest — add to home screen on a phone for chrome-free play |
