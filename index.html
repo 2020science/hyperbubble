@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>HYPERBUBBLE — the future is a soap bubble. Ride it anyway.</title>
+<title>HYPERBUBBLE — embrace the tech, navigate the risks, manage the hype. How far can you get?</title>
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -16,12 +16,12 @@
      IMPORTANT: preview crawlers can only fetch images from a PUBLIC URL — they cannot read
      embedded data or local files. When you host this game, upload social-card.png next to
      this file and replace YOUR-DOMAIN-HERE below with your real domain. -->
-<meta property="og:title" content="HYPERBUBBLE — the future is a soap bubble. Ride it anyway.">
+<meta property="og:title" content="HYPERBUBBLE — embrace the tech, navigate the risks, manage the hype. How far can you get?">
 <meta property="og:description" content="A one-button game about navigating advanced technology transitions: hug orphan risks, starve moral panics, deploy tech for good, and keep human flourishing alive.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://fvture.net/hyperbubble/social-card.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="HYPERBUBBLE — the future is a soap bubble. Ride it anyway.">
+<meta name="twitter:title" content="HYPERBUBBLE — embrace the tech, navigate the risks, manage the hype. How far can you get?">
 <meta name="twitter:image" content="https://fvture.net/hyperbubble/social-card.png">
 <style>
   html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#f6f3ec;-webkit-user-select:none;user-select:none;}
@@ -96,7 +96,7 @@
 <p>A towel waits at hill 42. A quantum duck stands near year 2120 — est. 2020, off by a century on purpose. A robot starts waving around 2057 and does not stop; you will see it again. Somewhere in the mid-2100s, reality resyncs — it is almost certainly nothing. Somewhere in the 2400s, a very large ship passes, very politely; fly up and say hello. At year 2742, against considerable odds: a whale, and some petunias. The century banners tell a long story about jetpacks — it ends in forgiveness. Tap the sun three times and the future gets friendlier: the sun smiles, and your records wear ☀, because honesty is mandatory. Leave the title screen alone for 22 seconds and someone waves at you. In the AI era, some of the background doodles are pencils, drawing the world. And there is always a coffee ring on the whiteboard. There has to be.</p>
 <p>This generation of the game also keeps a small pool of <em>wonders</em> — a bench, a cold pool, a man in a white suit, an elephant made of leaves, and a handful more. At most one appears per run, and most runs carry none, so meeting one means something. The weather has private moods too. And if you do nothing at all for twelve seconds, the game notices, kindly. That's all you're getting from me — some things are better found than told.</p>
 
-<div class="foot">Now close this and go play. The future is a soap bubble. Ride it anyway.</div>
+<div class="foot">Now close this and go play. Embrace the tech, navigate the risks, manage the hype — and see how far you get.</div>
 <a class="back" id="howtoClose2" style="display:inline-block;margin-top:18px">← back to the game</a>
 </div></div>
 <div id="about"><div class="page">
@@ -4228,7 +4228,7 @@ function drawTitle(){
   cx.fillStyle = 'rgba(247,244,237,0.62)';
   cx.fillRect(0, 0, W, H);
   mtext('HYPERBUBBLE', W/2, H*0.26, Math.min(72, W/8), '#2b2b33', 'center', 1, 400);
-  mtext('the future is a soap bubble. ride it anyway.', W/2, H*0.26 + 38, Math.min(21, W/26), '#77746a', 'center', 1, 401);
+  mtext('embrace the tech, navigate the risks, manage the hype — how far can you get?', W/2, H*0.26 + 38, Math.min(21, W/38), '#77746a', 'center', 1, 401);
   if (game.optimist) mtext('☀ techno-optimist mode', W/2, H*0.26 + 58, 13, '#b3861a', 'center', 0.85, 412);
 
   // idle bubble + figure
@@ -4284,7 +4284,7 @@ function drawTitle(){
   mtext('☁ gentle mode: ' + (game.gentle ? 'on' : 'off'), W/2 - 95, H*0.90, 12, game.gentle ? '#556b8a' : '#a9a69c', 'center', game.gentle ? 0.9 : 0.5, 413);
   mtext('✎ marginalia: ' + (game.marg ? 'on' : 'off'), W/2 + 95, H*0.90, 12, game.marg ? '#8a6d00' : '#a9a69c', 'center', game.marg ? 0.9 : 0.5, 414);
   mtext('drawn from the notebooks of a certain professor of the future', W/2, H - 14, Math.min(13, W/31), '#a9a69c', 'center', 0.75, 408);
-  mtext('v4 · build 68 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
+  mtext('v4 · build 71 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
   drawCorners();
   mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 446, 0.7);
   mtext('how to play', 63, H-31, 13, '#77746a', 'center', 0.9, 447);
