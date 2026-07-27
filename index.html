@@ -27,27 +27,27 @@
   html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#f6f3ec;-webkit-user-select:none;user-select:none;}
   canvas{display:block;touch-action:none;cursor:pointer;}
   /* the serious pages behind the playful game — both live in this same file (v60: #howto joined) */
-  #about, #howto{ display:none; position:fixed; inset:0; z-index:10; overflow-y:auto;
+  #about, #howto, #codex, #board{ display:none; position:fixed; inset:0; z-index:10; overflow-y:auto;
     background:#f7f4ed; color:#2b2b33; -webkit-user-select:text; user-select:text;
     font-family:"Chalkboard SE","Comic Sans MS","Segoe Print",cursive; }
-  #about .page, #howto .page{ max-width:660px; margin:0 auto; padding:44px 24px 80px; line-height:1.65; font-size:17px; }
-  #about h1, #howto h1{ font-size:32px; margin:0 0 4px; }
-  #about .tagline, #howto .tagline{ color:#77746a; margin:0 0 32px; font-size:16px; }
-  #about h2, #howto h2{ font-size:20px; margin:38px 0 10px; border-bottom:3px solid rgba(192,80,138,0.35);
+  #about .page, #howto .page, #codex .page, #board .page{ max-width:660px; margin:0 auto; padding:44px 24px 80px; line-height:1.65; font-size:17px; }
+  #about h1, #howto h1, #codex h1, #board h1{ font-size:32px; margin:0 0 4px; }
+  #about .tagline, #howto .tagline, #codex .tagline, #board .tagline{ color:#77746a; margin:0 0 32px; font-size:16px; }
+  #about h2, #howto h2, #codex h2, #board h2{ font-size:20px; margin:38px 0 10px; border-bottom:3px solid rgba(192,80,138,0.35);
     display:inline-block; padding-bottom:2px; }
-  #about p, #howto p{ margin:0 0 16px; color:#4b4e59; }
-  #about strong, #howto strong{ color:#2b2b33; }
-  #about a, #howto a{ color:#20509e; text-decoration:none; border-bottom:1.5px dashed rgba(32,80,158,0.4); }
-  #about a:hover, #howto a:hover{ border-bottom-style:solid; }
-  #about ul, #howto ul{ margin:0 0 16px; padding-left:22px; color:#4b4e59; }
-  #about li, #howto li{ margin-bottom:10px; }
-  #about .map, #howto .map{ background:rgba(192,80,138,0.06); border:2px solid rgba(120,115,105,0.25);
+  #about p, #howto p, #codex p, #board p{ margin:0 0 16px; color:#4b4e59; }
+  #about strong, #howto strong, #codex strong, #board strong{ color:#2b2b33; }
+  #about a, #howto a, #codex a, #board a{ color:#20509e; text-decoration:none; border-bottom:1.5px dashed rgba(32,80,158,0.4); }
+  #about a:hover, #howto a:hover, #codex a:hover, #board a:hover{ border-bottom-style:solid; }
+  #about ul, #howto ul, #codex ul, #board ul{ margin:0 0 16px; padding-left:22px; color:#4b4e59; }
+  #about li, #howto li, #codex li, #board li{ margin-bottom:10px; }
+  #about .map, #howto .map, #codex .map, #board .map{ background:rgba(192,80,138,0.06); border:2px solid rgba(120,115,105,0.25);
     border-radius:6px; padding:18px 20px; margin:20px 0; }
-  #about .map dt, #howto .map dt{ font-weight:bold; color:#2b2b33; margin-top:12px; }
-  #about .map dt:first-child, #howto .map dt:first-child{ margin-top:0; }
-  #about .map dd, #howto .map dd{ margin:2px 0 0 0; color:#4b4e59; font-size:15.5px; }
-  #about .back, #howto .back{ display:inline-block; margin-bottom:26px; font-size:15px; cursor:pointer; }
-  #about .foot, #howto .foot{ margin-top:48px; padding-top:16px; border-top:2px solid rgba(120,115,105,0.25);
+  #about .map dt, #howto .map dt, #codex .map dt, #board .map dt{ font-weight:bold; color:#2b2b33; margin-top:12px; }
+  #about .map dt:first-child, #howto .map dt:first-child, #codex .map dt:first-child, #board .map dt:first-child{ margin-top:0; }
+  #about .map dd, #howto .map dd, #codex .map dd, #board .map dd{ margin:2px 0 0 0; color:#4b4e59; font-size:15.5px; }
+  #about .back, #howto .back, #codex .back, #board .back{ display:inline-block; margin-bottom:26px; font-size:15px; cursor:pointer; }
+  #about .foot, #howto .foot, #codex .foot, #board .foot{ margin-top:48px; padding-top:16px; border-top:2px solid rgba(120,115,105,0.25);
     color:#77746a; font-size:14px; }
   /* v61: little hand-drawn portraits beside the things you'll meet */
   #howto svg.icon{ float:left; width:42px; height:42px; margin:2px 14px 4px 0; }
@@ -55,6 +55,14 @@
 </head>
 <body>
 <canvas id="c"></canvas>
+<div id="board"><div class="page">
+<a class="back" id="boardClose">← back to the game</a>
+<div id="boardBody"></div>
+</div></div>
+<div id="codex"><div class="page">
+<a class="back" id="codexClose">← back to the game</a>
+<div id="codexBody"></div>
+</div></div>
 <div id="howto"><div class="page">
 <a class="back" id="howtoClose">← back to the game</a>
 <h1>How to play</h1>
@@ -63,7 +71,7 @@
 <h2>The one button</h2>
 <p>Press and hold — the <strong>SPACE BAR</strong>, the <strong>DOWN ARROW</strong>, a mouse button, or a finger held anywhere on the screen — and your bubble turns heavy and drops. Let go and it floats back up. That's the entire control scheme. I promise there is no hidden second button.</p>
 <p>The trick is to ride the hills the way a skier would: hold on the way down a slope to gather speed, let go just before the bottom, and the next slope throws you into the sky. Land gently on a downhill slope — moving the way it tilts — and you'll hear a chime. Keep landing like that and the chimes climb a scale, your <strong>EXUBERANCE</strong> multiplier grows (up to ×9.9), and the game quietly starts to sing. This takes about three runs to find, and it's worth all three. A smaller pleasure while you practice: skim just above a hillside without touching it, and the game pays you a little +♥ for the nerve.</p>
-<p>One rule worth holding onto: floating and gliding can never hurt you. Diving can. Hold all the way into the ground and the bubble cracks — three cracks end the run (five in gentle mode). So when in doubt, do nothing. Surprisingly good advice, in the game and in general.</p>
+<p>One rule worth holding onto: floating and gliding can never hurt you. Diving can — hold all the way into the ground and the bubble cracks. So does a bite from a risk you ignored. Three cracks end the run (five in gentle mode). So when in doubt, do nothing. Surprisingly good advice, in the game and in general.</p>
 
 <h2>What the numbers mean</h2>
 <p>The <strong>YEAR</strong> is how far you've come — it's the score. The pink bar is <strong>HUMAN FLOURISHING</strong>, and it's really the whole game: it leaks away as the pace of change rises, and it refills when you look after the things you meet (watch for the +♥ signs). If it empties, the lights go out. Push it past 100 and the future starts blooming — literally: flowers appear, and every flower you ever grow joins the meadow on the title screen, forever.</p>
@@ -71,7 +79,7 @@
 <p>And mind the dashed line high in the sky — the hype line. Soar above it and the bubble inflates: bigger, floatier, more fragile, and flourishing drains fast up there. Stay too long and it pops, and nothing will have burst the bubble but the bubble.</p>
 
 <h2>The things you'll meet</h2>
-<p><svg class="icon" viewBox="0 0 34 34" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6.4c4.8-.3 8.3 3.4 8.1 8.2.3 4.6-3.6 8-8.2 7.8-4.7.3-8-3.5-7.9-8-.2-4.5 3.3-8.2 8-8z" stroke="#4b4e59" stroke-width="2.2"/><circle cx="13.6" cy="12.6" r="1.5" fill="#222"/><circle cx="20.4" cy="12.4" r="1.5" fill="#222"/><path d="M13.8 16.6c1 1.7 5.3 1.8 6.3-.1" stroke="#222" stroke-width="1.7"/><path d="M13 22.6l-.2 3.4M21.2 22.4l.2 3.4" stroke="#4b4e59" stroke-width="2.2"/></svg>The <strong>wide-eyed blobs</strong> are orphan risks — risks nobody has claimed yet. Hold your button as you roll past one and you adopt it: it gets a name, trails behind you like a duckling, and will one day take a hit meant for you. Fly past it instead and it burrows underground... then returns a few hills later with teeth, and the end-of-run card will tell you exactly what it took: trust, dignity, the quiet. From era 4, some blobs carry cameras or antennas — nastier than the plain ones if ignored, but adopt them and the paparazzo's flash starts defending you, and the trending one lends you a permanent tailwind. Keep eight pets, and adopting a ninth graduates your eldest, with a gift.</p>
+<p><svg class="icon" viewBox="0 0 34 34" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6.4c4.8-.3 8.3 3.4 8.1 8.2.3 4.6-3.6 8-8.2 7.8-4.7.3-8-3.5-7.9-8-.2-4.5 3.3-8.2 8-8z" stroke="#4b4e59" stroke-width="2.2"/><circle cx="13.6" cy="12.6" r="1.5" fill="#222"/><circle cx="20.4" cy="12.4" r="1.5" fill="#222"/><path d="M13.8 16.6c1 1.7 5.3 1.8 6.3-.1" stroke="#222" stroke-width="1.7"/><path d="M13 22.6l-.2 3.4M21.2 22.4l.2 3.4" stroke="#4b4e59" stroke-width="2.2"/></svg>The <strong>wide-eyed blobs</strong> are orphan risks — risks nobody has claimed yet. Hold your button as you roll past one and you adopt it: it gets a name, trails behind you like a duckling, and will one day take a hit meant for you. Fly past it instead and it burrows underground... then returns a few hills later with teeth. That's a <strong>bite</strong>: it knocks the bubble like a crash, takes a real chunk of flourishing, and the end-of-run card will tell you exactly what it took: trust, dignity, the quiet. From era 4, some blobs carry cameras or antennas — nastier than the plain ones if ignored, but adopt them and the paparazzo's flash starts defending you, and the trending one lends you a permanent tailwind. Keep eight pets, and adopting a ninth graduates your eldest, with a gift.</p>
 <p><svg class="icon" viewBox="0 0 34 34" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8.4 28l3.8-10.6 3.2-10.8 3.6 9.2 5.4 12.4" stroke="#b3232e" stroke-width="2.2"/><path d="M12.6 28l3-12.8 4.6 12.6" stroke="#c96a10" stroke-width="2"/></svg>The <strong>scribbly fires</strong> are moral panics, and attention is their fuel. Touch one and it flares up and comes after you. Fly past without touching and it dies down on its own — and flourishing grows a little. Three of them marching together is a mob. Never hug a mob.</p>
 <p><svg class="icon" viewBox="0 0 34 34" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 4.6l11.6 12.2L17.2 29.4 5.2 17.2 17 4.6z" stroke="#8a6d00" stroke-width="2.2"/><path d="M17 11.2l.2 8M17.1 22.4l0 .3" stroke="#8a6d00" stroke-width="2.6"/></svg>The <strong>diamond signs</strong> are risks with names — DEEPFAKE SCANDAL, DATA BREACH, and friends. Hold your button at the moment you hit one and you've managed it (+♥). Coast into it slack-thumbed and it costs you dearly. Or fly over it entirely, if you can.</p>
 <p><svg class="icon" viewBox="0 0 34 34" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="7" r="3.4" stroke="#c9a227" stroke-width="1.9"/><path d="M7.4 13.4l19.4.3-.3 13.6-19.2-.2.1-13.7z" stroke="#207a8a" stroke-width="2.2"/><path d="M7.6 19.8l19-.2M17.2 13.6l-.3 13.4" stroke="#207a8a" stroke-width="1.5"/></svg>The <strong>crates</strong> are emerging technologies. Catch one and a five-second timer starts; when it runs out, the technology deploys wherever you happen to be — so <em>where you are is the decision</em>. On the ground: tech for good — flowers, +♥♥. Above the hype line: RUSHED TO MARKET — a burst of speed and a year gained now, new problems hatching downstream. Some of these technologies are real, some are almost real, and some are nonsense. I'm not telling you which is which. Being unsure is the point.</p>
@@ -87,7 +95,7 @@
 <p>Press <strong>T</strong> (or tap the purple band on the title screen) and you'll play TODAY'S FUTURE — the identical future everyone in the world is playing today, under the same name. Your daily best is kept separately, and the end-of-run card grows a copy chip, for comparing results with people you enjoy arguing with.</p>
 
 <h2>The home screen, briefly</h2>
-<p><strong>field notes</strong> is the bestiary of everything you've met so far. <strong>the ideas behind this</strong> is where the game came from. <strong>sound</strong> is sound. <strong>gentle mode ☁</strong> makes the whole game kinder — built for younger players, and there's no shame in it. <strong>marginalia ✎</strong> lets the professor's stray thoughts drift by mid-run; catching one earns a sparkle, a chime, and absolutely nothing else — which is somehow still the best trade in the game. One warning that matters: press-and-hold your best-year line and the game starts <em>forgetting everything</em>. It shows you a progress bar so you have time to change your mind.</p>
+<p><strong>field notes</strong> is the bestiary of everything you've met so far. <strong>the ideas behind this</strong> is where the game came from. <strong>sound</strong> is sound. <strong>gentle mode ☁</strong> makes the whole game kinder — built for younger players, and there's no shame in it. <strong>marginalia ✎</strong> lets the professor's stray thoughts drift by mid-run; catching one earns a sparkle, a chime, and absolutely nothing else — which is somehow still the best trade in the game. And <strong>the board</strong>, top-center, is the worldwide leaderboard — pseudonyms only, and a run is posted only when you choose to, from the end-of-run card. One warning that matters: press-and-hold your best-year line and the game starts <em>forgetting everything</em>. It shows you a progress bar so you have time to change your mind.</p>
 
 <h2>Keys, all of them</h2>
 <p><strong>SPACE</strong> / <strong>↓</strong> — the button · <strong>SHIFT</strong> — steady · <strong>P</strong> or <strong>ESC</strong> — pause (on a phone: a quick two-finger tap) · <strong>T</strong> — today's future · <strong>N</strong> — field notes · <strong>H</strong> — this page · <strong>M</strong> — sound · <strong>B</strong> — music · <strong>F</strong> — fullscreen</p>
@@ -750,10 +758,152 @@ HOWTO.addEventListener('click', e => {
   closeHowto();
 });
 function howtoOpen(){ return HOWTO.style.display === 'block'; }
+// v72: THE CATALOGUE — a quiet index of everything the future has in stock.
+// opened with C on the title screen; documented nowhere else on purpose.
+const CODEX = document.getElementById('codex');
+function buildCodex(){
+  const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const DOMNAMES = { nano:'nanotechnology', ai:'artificial intelligence', mat:'materials', qtm:'quantum',
+    bio:'biotech', geo:'planet & climate', mov:'movement', spc:'space', nrg:'energy',
+    neu:'minds & brains', food:'food', wild:'the wild ones' };
+  let h = '<h1>The catalogue</h1><p class="tagline">Everything the future has in stock — '
+    + TECH.length + ' technologies, ' + RISK_NAMES.length + ' named risks, '
+    + (ERAS.length + FUTURE_PANICS.length) + ' moral panics, and ' + STAKES.length
+    + ' things worth losing. Indexed for the thorough; the game never explains it.</p>';
+  h += '<h2>The moral panics</h2><p>'
+    + ERAS.map(e => '<strong>' + esc(e.name) + '</strong> — ' + esc(e.sub)).join(' · ')
+    + ' · ' + FUTURE_PANICS.map(fp => '<strong>' + esc(fp[0]) + '</strong> — ' + esc(fp[1])).join(' · ') + '</p>';
+  h += '<h2>The named risks</h2><p>' + RISK_NAMES.map(esc).join(' · ') + '</p>';
+  h += '<h2>The technologies</h2><p>Some are real, some are almost real, some are nonsense. Still not saying which.</p>';
+  for (const dk in DOMNAMES){
+    const names = TECH.filter(t => t[0] === dk).map(t => esc(t[1]));
+    if (names.length) h += '<p><strong>' + DOMNAMES[dk] + ' (' + names.length + ')</strong> — ' + names.join(' · ') + '</p>';
+  }
+  h += '<h2>What a bite can take</h2><p>' + STAKES.map(esc).join(' · ') + '</p>';
+  h += '<div class="foot">The wonders, the serendipities, and the secrets are deliberately not listed. Some things are better found than told.</div>';
+  document.getElementById('codexBody').innerHTML = h;
+}
+function openCodex(){ if (!CODEX.dataset.built){ buildCodex(); CODEX.dataset.built = '1'; } CODEX.style.display = 'block'; CODEX.scrollTop = 0; }
+function closeCodex(){ CODEX.style.display = 'none'; }
+document.getElementById('codexClose').addEventListener('click', closeCodex);
+CODEX.addEventListener('click', e => {
+  if (e.target.closest && e.target.closest('a')) return;
+  closeCodex();
+});
+function codexOpen(){ return CODEX.style.display === 'block'; }
+// v74: THE BOARD — the worldwide leaderboard. talks to hyperbubbleboard.fvture.net;
+// pseudonymous by design: generated handles (or arcade initials) — nothing typed freely,
+// nothing to moderate, no personal data. runs post ONLY when the player taps the chip.
+const BOARD_API = 'https://hyperbubbleboard.fvture.net';
+const BOARD = document.getElementById('board');
+const HANDLE_ADJ = ['punctual','modest','ambitious','freelance','municipal','diplomatic','optimistic','borrowed',
+  'quantum','gentle','part-time','curious','low-flying','second-hand','bureaucratic','shy'];
+const HANDLE_NOUN = ['comet','pigeon','dragon','biscuit','barometer','postbox','satellite','prophecy',
+  'puddle','sourdough','toaster','boffin','kite','snail','swan','printer'];
+const HANDLE_BLOCK = ['ASS','FUK','FUC','FCK','SEX','CUM','DIK','KKK','NIG','FAG','TIT'];
+function makeHandle(){
+  return HANDLE_ADJ[Math.floor(Math.random()*HANDLE_ADJ.length)] + ' ' +
+         HANDLE_NOUN[Math.floor(Math.random()*HANDLE_NOUN.length)] + ' ' + (10 + Math.floor(Math.random()*90));
+}
+function getHandle(){
+  let h = LS.get('handle', '');
+  if (!h){ h = makeHandle(); LS.set('handle', h); }
+  return h;
+}
+let boardTab = 'open';
+function boardName(t){
+  return t==='open' ? 'the open board' : t==='gentle' ? '☁ gentle' : t==='opt' ? '☀ techno-optimist'
+       : t==='both' ? '☁☀ both' : "today's future";
+}
+function localDayKey(){ const t = new Date(); return t.getFullYear()*10000 + (t.getMonth()+1)*100 + t.getDate(); }
+function openBoard(tab){
+  if (tab) boardTab = tab;
+  BOARD.style.display = 'block'; BOARD.scrollTop = 0;
+  renderBoard(null); fetchBoard();
+}
+function closeBoard(){ BOARD.style.display = 'none'; }
+function boardOpen(){ return BOARD.style.display === 'block'; }
+async function fetchBoard(bust){
+  try {
+    let u = BOARD_API + '/top?board=' + boardTab;
+    if (boardTab === 'daily') u += '&day=' + localDayKey();
+    if (bust || (game.lastPostAt && Date.now() - game.lastPostAt < 60000))
+      u += '&b=' + Date.now();                  // fresh reads for a minute after posting
+    const r = await fetch(u);
+    const j = await r.json();
+    if (boardOpen()) renderBoard(j.scores || []);
+  } catch(e){ if (boardOpen()) renderBoard('error'); }
+}
+function renderBoard(rows){
+  const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const me = getHandle();
+  let h = game.namePick
+    ? '<h1>The board</h1><p class="tagline">Your run is ready to go up as <strong>' + esc(me)
+      + '</strong>. Happy with that name? It sticks. <a id="bPost">(post it)</a> · <a id="bReroll">(new name)</a> · <a id="bInit">(use initials)</a></p>'
+    : '<h1>The board</h1><p class="tagline">Best run per name, pseudonyms only — posted from the end-of-run card, never automatically. You are <strong>' + esc(me)
+      + '</strong> <a id="bReroll">(new name)</a> <a id="bInit">(use initials)</a> — a new name applies from your next post; old entries keep the old one.</p>';
+  h += '<p>' + ['open','gentle','opt','both','daily'].map(t =>
+    t === boardTab ? '<strong>' + boardName(t) + '</strong>' : '<a data-tab="' + t + '">' + boardName(t) + '</a>').join(' · ') + '</p>';
+  if (rows === null) h += '<p>fetching the future…</p>';
+  else if (rows === 'error') h += '<p>the board is out of reach — try again in a moment. (it does need the internet.)</p>';
+  else if (!rows.length) h += '<p>nobody here yet. the future is wide open.</p>';
+  else h += '<ol style="padding-left:30px">' + rows.map(r =>
+    '<li' + (r.handle === me ? ' style="color:#20509e"' : '') + '><strong>YEAR ' + esc(r.year) + '</strong>'
+    + (r.glyphs ? ' ' + esc(r.glyphs) : '') + ' — ' + esc(r.handle)
+    + (r.hills ? ' <span style="color:#8a877e;font-size:13px">' + esc(r.hills) + ' hills · ♥' + esc(r.flo) + '</span>' : '')
+    + '</li>').join('') + '</ol>';
+  h += '<div class="foot">the open board takes everyone — glyphs show who had help · the mode boards are apples-to-apples · year 4500 is the end of the story, and so of the board · ⁂ sublimed · ✿ soft landing · ☁ gentle · ☀ techno-optimist</div>';
+  document.getElementById('boardBody').innerHTML = h;
+  const bp = document.getElementById('bPost');
+  if (bp) bp.onclick = () => { game.namePick = false; doPost(); };
+  const rr = document.getElementById('bReroll');
+  if (rr) rr.onclick = () => { LS.set('handle', makeHandle()); renderBoard(rows); };
+  const bi = document.getElementById('bInit');
+  if (bi) bi.onclick = () => {
+    const v = (window.prompt('arcade style — two or three letters:') || '').toUpperCase().trim();
+    if (/^[A-Z]{2,3}$/.test(v) && !HANDLE_BLOCK.includes(v)){ LS.set('handle', v); renderBoard(rows); }
+  };
+  BOARD.querySelectorAll('a[data-tab]').forEach(a => a.onclick = () => { boardTab = a.dataset.tab; renderBoard(null); fetchBoard(); });
+}
+function boardFor(d){ return game.daily ? 'daily' : (d.gentle && d.opt ? 'both' : d.gentle ? 'gentle' : d.opt ? 'opt' : 'open'); }
+function postRun(){
+  const d = game.deadInfo;
+  if (!d || game.posted){ openBoard(); return; }
+  // v75: the very first post pauses to let you settle your name before it goes up
+  if (!LS.get('named', false)){ game.namePick = true; openBoard(boardFor(d)); return; }
+  doPost();
+}
+async function doPost(){
+  const d = game.deadInfo;
+  if (!d || game.posted){ openBoard(); return; }
+  // v79: the boards are filters of one universe — every run reaches the open board,
+  // mode runs also reach their mode board, daily runs also reach today's future.
+  const mode = d.gentle && d.opt ? 'both' : d.gentle ? 'gentle' : d.opt ? 'opt' : null;
+  const targets = (game.daily ? ['daily'] : []).concat(mode ? [mode] : []).concat(['open']);
+  const body = { handle: getHandle(), year: Math.min(4500, Math.floor(d.year)),
+                 hills: d.hills | 0, flo: Math.max(0, Math.min(100, d.floPeak | 0)),
+                 glyphs: (d.cause === 'sublime' ? '⁂' : '') + (d.soft ? '✿' : '') + (d.gentle ? '☁' : '') + (d.opt ? '☀' : ''),
+                 day: game.dayKey };
+  game.posted = true; game.lastPostAt = Date.now();
+  LS.set('named', true);
+  openBoard(targets[0]);
+  try {
+    for (const b of targets)
+      await fetch(BOARD_API + '/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...body, board: b }) });
+  } catch(e){}
+  fetchBoard(true);
+}
+document.getElementById('boardClose').addEventListener('click', closeBoard);
+BOARD.addEventListener('click', e => {
+  if (e.target.closest && e.target.closest('a')) return;
+  closeBoard();
+});
 
 window.addEventListener('keydown', e => {
   if (aboutOpen()){ if (e.code === 'Escape') closeAbout(); return; }
   if (howtoOpen()){ if (e.code === 'Escape') closeHowto(); return; }
+  if (codexOpen()){ if (e.code === 'Escape') closeCodex(); return; }
+  if (boardOpen()){ if (e.code === 'Escape') closeBoard(); return; }
   if (e.repeat) return;
   if (e.code === 'Space' || e.code === 'ArrowDown'){ e.preventDefault(); press(); }
   else if (e.key === 'm' || e.key === 'M'){ AU.setMuted(!AU.muted); }
@@ -770,6 +920,9 @@ window.addEventListener('keydown', e => {
   }
   else if (e.key === 'h' || e.key === 'H'){
     if (game.state==='title'||game.state==='dead') openHowto();
+  }
+  else if (e.key === 'c' || e.key === 'C'){
+    if (game.state==='title'||game.state==='dead') openCodex();   // the catalogue — unadvertised
   }
   // ⚑ TEST MODE — the professor's back door. ` toggles; while on, the run records nothing.
   else if (e.code === 'Backquote'){
@@ -828,6 +981,7 @@ window.addEventListener('pointerup', e => {
       LS.set('alumni', []);                         // the graduates disperse
       LS.set('echo', 0);                            // the pale flower is forgotten too
       game.runs = 0; LS.set('runs', 0);             // even the tutorial starts over
+      LS.set('handle', ''); LS.set('named', false); // v76: the board forgets your name too
       game.resetFlash = game.time;
       SFX.erase();
     }
@@ -1305,7 +1459,19 @@ const dealTech  = makeDealer(() => TECH,       () => runRng());
 const dealRisk  = makeDealer(() => RISK_NAMES, () => runRng());
 const dealStake = makeDealer(() => STAKES,     () => evRng());
 const dealSeren = makeDealer(() => SEREN_FX,   () => evRng());
-const dealMarg  = makeDealer(() => MARGINALIA, () => Math.random());
+// v80: the marginalia deck persists across sessions (hb_margdeck) — no note repeats
+// until all 75 have drifted by, even across reloads. rebuilds itself if the list changes.
+function dealMarg(){
+  let st = LS.get('margdeck', null);
+  if (!st || !Array.isArray(st.d) || st.n !== MARGINALIA.length || st.p >= st.d.length){
+    const d = MARGINALIA.map((_, i) => i);
+    for (let i = d.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); const t = d[i]; d[i] = d[j]; d[j] = t; }
+    st = { d, n: MARGINALIA.length, p: 0 };
+  }
+  const msg = MARGINALIA[st.d[st.p++]];
+  LS.set('margdeck', st);
+  return msg;
+}
 // v64: what slowing down sounds like — each line is a real way people steer new
 // technologies together (sandboxes, foresight, citizen voices, soft rules, review
 // dates, red teams…), said in plain words. dealt, so no line repeats until all seen.
@@ -1511,6 +1677,7 @@ function startRun(daily){
   game.rushAdopted = 0; game.redeemShown = false; game.lastGoodDom = null; game.hybridShown = false;
   game.centGiftShown = false; game.luckShown = false;
   game.steadyT = 0; game.wasSteady = false; game.slowLine = null; game.softenShown = false;   // v64
+  game.posted = false; game.namePick = false; game.boardChip = null;   // v74–78: board state
   if (game.gentle){ P.flo = Math.max(P.flo, 40); P.floPeak = P.flo; }
   game.flo50 = false; game.flo75 = false; game.flo100 = false; game.consequencesShown = false;
   game.shadowShown = false; game.lowWarned = false; game.duckPlaced = false; game.robotStage = 0;
@@ -4117,9 +4284,9 @@ function deathLines(){
 function drawDeathCard(){
   const d = game.deadInfo; if (!d) return;
   cx.fillStyle = 'rgba(247,244,237,0.9)'; cx.fillRect(0,0,W,H);
-  const cw = Math.min(W - 40, 480), ch = Math.min(H - 60, 430);
+  const cw = Math.min(W - 40, 480), ch = Math.min(H - 56, 500);   // v75/77: room for the board chip
   const x0 = (W-cw)/2, y0 = (H-ch)/2;
-  const ky = ch / 430;   // compress the layout on short screens
+  const ky = ch / 500;   // compress the layout on short screens
   // card
   mline([[x0,y0],[x0+cw,y0],[x0+cw,y0+ch],[x0,y0+ch],[x0,y0]], '#2b2b33', 3.5, 200);
   const lines = deathLines();
@@ -4152,16 +4319,24 @@ function drawDeathCard(){
     const short = best - d.year;
     mtext('best ' + best + (game.daily ? " (today's future)" : '') + (short > 0 && short <= 5 ? ' — ' + short + 'yr short!' : ''), W/2, y0+Math.round(268*ky), Math.min(17, W/26), '#77746a', 'center', 1, 211);
   }
-  mtext(d.hills + ' hills · ' + d.pets + ' risks adopted · streak ♪×' + d.bestChain, W/2, y0+Math.round(312*ky), Math.min(15, W/32), '#77746a', 'center', 1, 212);
-  mtext('flourishing peaked at ' + d.floPeak + '%' + (d.goodTech > 0 ? ' · ' + d.goodTech + '× tech for good' : '') + (d.grown > 0 ? ' · ' + d.grown + 'yr bloomed' : ''), W/2, y0+Math.round(334*ky), Math.min(14, W/34), '#c0508a', 'center', 1, 218);
+  mtext(d.hills + ' hills · ' + d.pets + ' risks adopted · streak ♪×' + d.bestChain, W/2, y0+Math.round(304*ky), Math.min(15, W/32), '#77746a', 'center', 1, 212);
+  mtext('flourishing peaked at ' + d.floPeak + '%' + (d.goodTech > 0 ? ' · ' + d.goodTech + '× tech for good' : '') + (d.grown > 0 ? ' · ' + d.grown + 'yr bloomed' : ''), W/2, y0+Math.round(324*ky), Math.min(14, W/34), '#c0508a', 'center', 1, 218);
   const deadpan = d.cause === 'sublime' ? 'This was always the point.'
     : (d.quip || ((d.year + d.hills) % 2 ? RUMORS[(d.year * 3 + d.hills) % RUMORS.length]
                                          : DEADPAN[(d.year + d.hills) % DEADPAN.length]));
-  wrapText('“' + deadpan + '”', W/2, y0+Math.round(352*ky), cw-70, Math.min(13, W/34), '#4b4e59', 213);
+  const qB = wrapText('“' + deadpan + '”', W/2, y0+Math.round(342*ky), cw-70, Math.min(13, W/34), '#4b4e59', 213);
   const pulse = 0.7 + Math.sin(game.time*4)*0.3;
   if (game.tainted) mtext('⚑ test flight — nothing was recorded', W/2, y0+ch-46, 12, '#b3232e', 'center', 0.85, 221);
-  mtext(d.cause === 'sublime' ? 'tap to ride again' : 'tap to be redrawn', W/2, y0+ch-24, 22, '#20509e', 'center', pulse, 214);
+  mtext(d.cause === 'sublime' ? 'tap to ride again' : 'tap to be redrawn', W/2, y0+ch-14, 22, '#20509e', 'center', pulse, 214);
   drawCorners();
+  if (!game.tainted && d.year >= 2027){
+    // v78: centered in the actual space the quote leaves, however many lines it wrapped to
+    const tapTop = y0 + ch - 38;
+    const cTop = Math.max(qB + 12, qB + (tapTop - qB - 34) / 2);
+    mline([[W/2-80, cTop],[W/2+80, cTop],[W/2+80, cTop+32],[W/2-80, cTop+32],[W/2-80, cTop]], '#20509e', 2.2, 222, 0.9);
+    mtext(game.posted ? 'see the board' : 'post to the board', W/2, cTop + 21, 15, '#20509e', 'center', 0.95, 223);
+    game.boardChip = { t: cTop, b: cTop + 32 };
+  } else game.boardChip = null;
   mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 216, 0.7);
   mtext('menu', 63, H-31, 14, '#77746a', 'center', 0.9, 217);
   if (game.daily){
@@ -4180,6 +4355,7 @@ function wrapText(str, x, y, maxW, size, col, seed){
     } else line += w + ' ';
   }
   if (line) mtext(line.trim(), x, y + ln*(size+6), size, col, 'center', 1, seed+ln);
+  return y + ln * (size + 6);   // v78: the baseline of the last drawn line
 }
 
 const TIPS = [
@@ -4284,7 +4460,10 @@ function drawTitle(){
   mtext('☁ gentle mode: ' + (game.gentle ? 'on' : 'off'), W/2 - 95, H*0.90, 12, game.gentle ? '#556b8a' : '#a9a69c', 'center', game.gentle ? 0.9 : 0.5, 413);
   mtext('✎ marginalia: ' + (game.marg ? 'on' : 'off'), W/2 + 95, H*0.90, 12, game.marg ? '#8a6d00' : '#a9a69c', 'center', game.marg ? 0.9 : 0.5, 414);
   mtext('drawn from the notebooks of a certain professor of the future', W/2, H - 14, Math.min(13, W/31), '#a9a69c', 'center', 0.75, 408);
-  mtext('v4 · build 71 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
+  // v74: the board — top-center chip
+  mline([[W/2-62, 22],[W/2+62, 22],[W/2+62, 54],[W/2-62, 54],[W/2-62, 22]], '#8a6d00', 2, 424, 0.75);
+  mtext('the board', W/2, 43, 14, '#8a6d00', 'center', 0.9, 425);
+  mtext('v4 · build 80 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
   drawCorners();
   mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 446, 0.7);
   mtext('how to play', 63, H-31, 13, '#77746a', 'center', 0.9, 447);
@@ -4581,7 +4760,7 @@ function frame(t){
 
 // keyboard T on title = daily run
 window.addEventListener('keydown', e => {
-  if (aboutOpen() || howtoOpen()) return;
+  if (aboutOpen() || howtoOpen() || codexOpen() || boardOpen()) return;
   if ((e.key === 't' || e.key === 'T') && game.state === 'title'){
     if (game.notes){ game.notes = false; return; }
     AU.init(); AU.resume(); MUS.ensure(); startRun(true);
@@ -4620,6 +4799,9 @@ cv.addEventListener('pointerdown', e => {
     try { navigator.clipboard.writeText(s); game.copied = true; } catch(err){}
     return;
   }
+  if (game.state === 'title' && y < 60 && Math.abs(x - W/2) < 70){ tapQueued = false; openBoard(); return; }
+  if (game.state === 'dead' && game.boardChip &&
+      y > game.boardChip.t - 6 && y < game.boardChip.b + 6 && Math.abs(x - W/2) < 84){ tapQueued = false; postRun(); return; }
   if (y < 60 && x < 122){ tapQueued = false; game.notes = !game.notes; game.notesFocus = null; return; }
   if (y < 60 && x > W - 122){ tapQueued = false; AU.setMuted(!AU.muted); return; }
   if (game.notes){ tapQueued = false; notesTap(x, y); return; }
