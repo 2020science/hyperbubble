@@ -89,7 +89,7 @@
 
 <h2>The long game</h2>
 <p>Medals arrive at 10, 25, 50, 100, and 250 hills: DISRUPTION, AWARENESS, AGILITY, RESILIENCE, DIGNITY. The last one is worth seeing.</p>
-<p>Survive long enough and the world itself turns — the colors, the board, the doodles, the music — through THE AGE OF DEEP WATER, THE LONG DUSK, and THE AGE OF STRANGE LIGHTS. Past year 3000, arrive at any century still flourishing and a door opens to the post-scarcity future: the drain stops, the panics retire, and only the ground still counts. Records earned there wear ✿. And the story does have an ending — a good one, at year 4500. Bring everything you have grown.</p>
+<p>Survive long enough and the world itself turns — the colors, the board, the doodles, the music — through THE AGE OF DEEP WATER, THE LONG DUSK, and THE AGE OF STRANGE LIGHTS. Past year 3000, arrive at any century still flourishing and a door opens to the post-scarcity future: the drain stops, the panics retire, and only the ground still counts. Records earned there wear ✿. And the story does have an ending — a good one, at year 4000. Bring everything you have grown.</p>
 
 <h2>Today's future</h2>
 <p>Press <strong>T</strong> (or tap the purple band on the title screen) and you'll play TODAY'S FUTURE — the identical future everyone in the world is playing today, under the same name. Your daily best is kept separately, and the end-of-run card grows a copy chip, for comparing results with people you enjoy arguing with.</p>
@@ -135,8 +135,9 @@ over 20 iterations.</p>
 target="_blank" rel="noopener">Future of Being Human Substack</a>. However, not content to leave
 things as they were, I then started to work in earnest with Fable on a version 2.0 that expanded the
 gameplay substantially, and the ideas and experiences that a player encounters, and then progressed to a version 3.0!</p>
-<p>This is that version. It represents over 60 iterations of the initial html file that Fable
-produced, and has a greater steer from me than version 1.0 did. However, the fundamentals and
+<p>The game is now on version 4 and is considerably more mature than that first iteration, even down to having a leaderboard. 
+It represents over 80 iterations of the initial html file that Fable
+produced, and has a far greater steer from me than version 1.0 did. However, the fundamentals and
 implementation still belong to the sometimes-quirky and often unexpected "creative mind" of
 Fable 5.</p>
 <p>That said, the game is intentionally simple. And there are many aspects of it that are still
@@ -375,8 +376,8 @@ This page draws on Andrew Maynard's published CV, books, and essays.
      The door opens at each century once the year passes SOFT_YEAR, for runs
      arriving with flourishing ≥ SOFT_FLO (50 kinder – 85 ascetic).
      Post-scarcity cruise speed — search "SOFT_PACE = 420".
-   · The ending — search "SUBLIME_YEAR = 4500" (the year the story completes;
-     4500–5000 sensible; every run that reaches it ends in the Sublimation).
+   · The ending — search "SUBLIME_YEAR = 4000" (the year the story completes;
+     3500–4500 sensible; every run that reaches it ends in the Sublimation).
 
    THE WONDERS & PRIVATE WEATHER (v58)
    · Wonder odds (at most one rare feature per run) — search "WONDER_CHANCE"
@@ -852,7 +853,7 @@ function renderBoard(rows){
     + (r.glyphs ? ' ' + esc(r.glyphs) : '') + ' — ' + esc(r.handle)
     + (r.hills ? ' <span style="color:#8a877e;font-size:13px">' + esc(r.hills) + ' hills · ♥' + esc(r.flo) + '</span>' : '')
     + '</li>').join('') + '</ol>';
-  h += '<div class="foot">the open board takes everyone — glyphs show who had help · the mode boards are apples-to-apples · year 4500 is the end of the story, and so of the board · ⁂ sublimed · ✿ soft landing · ☁ gentle · ☀ techno-optimist</div>';
+  h += '<div class="foot">the open board takes everyone — glyphs show who had help · the mode boards are apples-to-apples · year 4000 is the end of the story, and so of the board · ⁂ sublimed · ✿ soft landing · ☁ gentle · ☀ techno-optimist</div>';
   document.getElementById('boardBody').innerHTML = h;
   const bp = document.getElementById('bPost');
   if (bp) bp.onclick = () => { game.namePick = false; doPost(); };
@@ -880,7 +881,7 @@ async function doPost(){
   // mode runs also reach their mode board, daily runs also reach today's future.
   const mode = d.gentle && d.opt ? 'both' : d.gentle ? 'gentle' : d.opt ? 'opt' : null;
   const targets = (game.daily ? ['daily'] : []).concat(mode ? [mode] : []).concat(['open']);
-  const body = { handle: getHandle(), year: Math.min(4500, Math.floor(d.year)),
+  const body = { handle: getHandle(), year: Math.min(4000, Math.floor(d.year)),
                  hills: d.hills | 0, flo: Math.max(0, Math.min(100, d.floPeak | 0)),
                  glyphs: (d.cause === 'sublime' ? '⁂' : '') + (d.soft ? '✿' : '') + (d.gentle ? '☁' : '') + (d.opt ? '☀' : ''),
                  day: game.dayKey };
@@ -943,7 +944,7 @@ window.addEventListener('keydown', e => {
     else if (k === 's'){ game.shipDone = false; game.shipYear = 0; }
     else if (k === 'w'){ game.whaleDone = false; game.whaleT = 0; jumpTo(2742); }
     else if (k === 'l'){ jumpTo(2999.5); P.flo = Math.max(P.flo, 85); }
-    else if (k === 'k'){ jumpTo(4497); }
+    else if (k === 'k'){ jumpTo(3997); }
     else if (e.key === '=') addFlo(25, true);
     else if (e.key === '-') P.flo = Math.max(1, P.flo - 25);
   }
@@ -1236,6 +1237,8 @@ const TECH = [
   ['wild','ATTENTION SPAN ORCHARDS'],['wild','SMALL TALK AUTOPILOT'],['wild','RENTABLE CHARISMA'],
   ['wild','APOLOGY VENDING MACHINES'],['wild','DEADLINE STRETCHERS'],['wild','ANCESTOR HELPDESKS'],
   ['wild','SECOND-HAND MEMORIES'],['wild','COMMITTEE SIMULATORS'],['wild','LUCK ARBITRAGE'],  
+  // —— AM additions 7-27-26 ——
+  ['ai','HUMANOID ROBOT TEACHERS'],['ai','SELF-HEALING AI'],
 ];
 
 // what an ignored risk actually threatens — his real stakes
@@ -1280,6 +1283,8 @@ const RISK_NAMES = [
   'MORAL HAZARD','UNILATERAL DEPLOYMENT','MONSOON DISRUPTION','OFFSET FICTION','PHANTOM BRAKING',
   'LAST-MILE PRECARITY','ROAD DEATH LEDGER','ORBITAL LAND GRAB','FORWARD CONTAMINATION','STOLEN NIGHT SKY',
   'STRANDED ASSETS','DECOMMISSION DEBT','PROTEIN PATENTS','FARM LIVELIHOOD LOSS','HERITAGE CROP LOSS',  
+  // —— AM additions 7-27-26 ——
+  'ESCAPED AI AGENTS','AI SECURITY HACK','ROBOT TEACHER REJECTION',
 ];
 
 const MEDALS = [
@@ -1308,7 +1313,7 @@ const NOTES_DEF = [
   { id:'whale',   name:'THE IMPROBABILITY',       how:'Around year 2742, against considerable odds, something large and briefly surprised falls past.' },
   { id:'tech',    name:'EMERGING TECH (crate)',   how:'Catch an emerging tech crate and a five-second timer starts. When it runs out, the technology deploys wherever you happen to be — so where you are is the decision. On the ground: tech for good, and flourishing grows a lot. High above the hype line: a burst of speed and progress now, new problems hatching downstream later. Some of these technologies are real. Some are almost real. And some are definitely in future-fantasy land. Working out which is half the fun.' },
   { id:'soft',    name:'THE SOFT LANDING',        how:'Somewhere past year 3000, for those who arrive still flourishing, the hurry to flourish ends. You have reached the post-scarcity era: nothing needs to outrun anything. However, the ground, hard as ever, remains.' },
-  { id:'sublime', name:'THE SUBLIMATION',         how:'This story has an ending, and it is a happy one. Reach year 4500 and see for yourself. Bring everything you have grown.' },
+  { id:'sublime', name:'THE SUBLIMATION',         how:'This story has an ending, and it is a happy one. Reach year 4000 and see for yourself. Bring everything you have grown.' },
 ];
 let notesSeen = LS.get('notes', {});
 function unlockNote(id){
@@ -1324,7 +1329,7 @@ const YEAR0 = 2026, PX_PER_YEAR = 400;
 // ≥ SOFT_FLO opens the door to the post-scarcity future. only the ground counts after.
 const SOFT_YEAR = 3000, SOFT_FLO = 70, SOFT_PACE = 420;
 // the end of the story: at SUBLIME_YEAR the run completes in the best possible way
-const SUBLIME_YEAR = 4500;
+const SUBLIME_YEAR = 4000;   // v81: pulled forward — the post-landing cruise was overlong
 const game = {
   state:'title',        // title | run | erase | dead | earthrise
   notes:false,          // bestiary overlay
@@ -2594,7 +2599,7 @@ const SHIP_HELLOS = [
   '“we were all small once.”',
   '“the Mind sends its regards.”',
 ];
-// year 4500: the story completes. humanity, flourishing beyond measure, moves on.
+// year 4000: the story completes. humanity, flourishing beyond measure, moves on.
 function beginSublime(){
   if (game.sublimeScene || game.state !== 'run') return;
   game.sublimeScene = true;
@@ -4115,7 +4120,7 @@ function drawSoftLanding(){
   }
 }
 
-// the sublimation — year 4500, the splashy happy ending (v41)
+// the sublimation — year 4000, the splashy happy ending (v41, retimed v81)
 function drawSublime(){
   const t = game.earthT;
   // the sky deepens to night, gently
@@ -4260,7 +4265,7 @@ const RUMORS = [
   'rumor: chained smooth landings make the world sing.',
   'rumor: a pale flower grows where your last run ended.',
   'rumor: there is a door past year 3000, for those who arrive flourishing.',
-  'rumor: the story has an ending, and it is a happy one. year 4500.',
+  'rumor: the story has an ending, and it is a happy one. year 4000.',
   'rumor: somebody reached 2742 and will not discuss the petunias.',
   'rumor: the sun on the title screen has been tapped before. three times.',
   'rumor: the passing ships appreciate visitors. fly high enough to say hello.',
@@ -4463,7 +4468,7 @@ function drawTitle(){
   // v74: the board — top-center chip
   mline([[W/2-62, 22],[W/2+62, 22],[W/2+62, 54],[W/2-62, 54],[W/2-62, 22]], '#8a6d00', 2, 424, 0.75);
   mtext('the board', W/2, 43, 14, '#8a6d00', 'center', 0.9, 425);
-  mtext('v4 · build 80 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
+  mtext('v4 · build 81 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
   drawCorners();
   mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 446, 0.7);
   mtext('how to play', 63, H-31, 13, '#77746a', 'center', 0.9, 447);

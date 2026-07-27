@@ -3,8 +3,8 @@
 // Endpoints:
 //   GET  /top?board=open|gentle|opt|both|daily[&day=YYYYMMDD]   → top 50, cached 30s at the edge
 //   POST /submit  {board, handle, year, hills, flo, glyphs, day?} → upsert best-per-player
-// Security posture: CORS locked to fvture.net; strict input validation; year hard-capped at 4500
-// (the Sublimation is the ceiling the game itself enforces); per-IP rate limit; body-size cap;
+// Security posture: CORS locked to fvture.net; strict input validation; year hard-capped at 4000
+// (the Sublimation at year 4000 is the ceiling the game itself enforces); per-IP rate limit;
 // boards pruned to 500 rows so the table can never grow unbounded. No names typed by players,
 // no accounts, no personal data stored — handle + numbers + timestamp only.
 
@@ -85,7 +85,7 @@ async function submit(req, env){
   if (!BOARDS.includes(board)) return json({ error: 'bad board' }, 400);
 
   const year  = b.year, hills = b.hills ?? 0, flo = b.flo ?? 0;
-  if (!Number.isInteger(year)  || year  < 2027 || year  > 4500) return json({ error: 'bad year' }, 400);
+  if (!Number.isInteger(year)  || year  < 2027 || year  > 4000) return json({ error: 'bad year' }, 400);
   if (!Number.isInteger(hills) || hills < 0    || hills > 3000) return json({ error: 'bad hills' }, 400);
   if (!Number.isInteger(flo)   || flo   < 0    || flo   > 100)  return json({ error: 'bad flo' }, 400);
 
@@ -102,14 +102,17 @@ async function submit(req, env){
     if (![utcDay(-1), utcDay(0), utcDay(1)].includes(day)) return json({ error: 'bad day' }, 400);
   }
 
+  // v81: one row per (board, name, day, MODE) — the same player's gentle and plain
+  // runs live side by side on the open board. mode derived server-side from the glyphs.
+  const mode = (glyphs.match(/[☁☀]/gu) || []).join('');
   await env.DB.prepare(
-    `INSERT INTO scores (board, handle, day, year, hills, flo, glyphs, ts)
-     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)
-     ON CONFLICT (board, handle, day) DO UPDATE SET
+    `INSERT INTO scores (board, handle, day, mode, year, hills, flo, glyphs, ts)
+     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)
+     ON CONFLICT (board, handle, day, mode) DO UPDATE SET
        year = excluded.year, hills = excluded.hills, flo = excluded.flo,
        glyphs = excluded.glyphs, ts = excluded.ts
      WHERE excluded.year > scores.year`
-  ).bind(board, handle, day, year, hills, flo, glyphs, Date.now()).run();
+  ).bind(board, handle, day, mode, year, hills, flo, glyphs, Date.now()).run();
 
   // keep each board tidy — the table can never grow past 500 rows per board/day
   await env.DB.prepare(
