@@ -6,7 +6,7 @@ A one-button browser game about navigating powerful new technologies while keepi
 
 ## Play
 
-**Play it now at [fvture.net/hyperbubble](https://fvture.net/hyperbubble/)** — or just open `index.html` in any modern browser. The entire game is **one self-contained HTML file**: procedural hand-drawn graphics, a fully synthesized soundtrack, no libraries, no build step, no account, and (apart from the optional leaderboard) no internet required. On a phone, "add to home screen" gives you chrome-free play.
+**Play it now at [playhyperbubble.com](https://playhyperbubble.com)** (also at [fvture.net/hyperbubble](https://fvture.net/hyperbubble/), its original home) — or just open `index.html` in any modern browser. The entire game is **one self-contained HTML file**: procedural hand-drawn graphics, a fully synthesized soundtrack, no libraries, no build step, no account, and (apart from the optional leaderboard) no internet required. On a phone, "add to home screen" gives you chrome-free play.
 
 **One button.** Press and hold anywhere: the bubble turns heavy and drops. Let go: it floats. Ride the hills like a skier — hold on the way down, release at the bottom, fly.
 
@@ -22,7 +22,7 @@ Nearly every rule is borrowed from real frameworks: risk as a threat to value, [
 
 ## The leaderboard
 
-The board at [fvture.net/hyperbubble](https://fvture.net/hyperbubble/) is deliberately boring about data: **no accounts, no emails, no typed names, nothing personal** — players post under generated pseudonyms ("punctual comet 47") or arcade initials, only when they choose to, from the end-of-run card. The backend is the ~120-line Cloudflare Worker in [`leaderboard-worker/`](leaderboard-worker/), storing exactly five things per entry: a board name, a pseudonym, a year, a hill count, and a flourishing peak.
+The board is deliberately boring about data: **no accounts, no emails, no typed names, nothing personal** — players post under generated pseudonyms ("punctual comet 47") or arcade initials, only when they choose to, from the end-of-run card. The backend is the ~120-line Cloudflare Worker in [`leaderboard-worker/`](leaderboard-worker/), storing exactly five things per entry: a board name, a pseudonym, a year, a hill count, and a flourishing peak.
 
 If you fork this game and host it elsewhere, the board won't work for you as-is — the Worker only accepts requests from its own origins (see `ORIGINS` in the code). Deploy your own Worker + D1 database (schema included) and point `BOARD_API` in `index.html` at it.
 

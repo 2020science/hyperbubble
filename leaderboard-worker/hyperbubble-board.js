@@ -13,7 +13,7 @@ const BLOCK = ['ASS','FUK','FUC','FCK','FKU','SEX','CUM','DIK','DCK','COK','KKK'
 // 'null' is the Origin a file:// page sends — allowed so Andrew's local copies work.
 // CORS is browser courtesy, not the security boundary (validation above is); reflecting
 // these origins leaks nothing. Vary keeps the edge cache honest per origin.
-const ORIGINS = ['https://fvture.net', 'http://localhost:8321', 'null'];
+const ORIGINS = ['https://playhyperbubble.com', 'https://www.playhyperbubble.com', 'https://fvture.net', 'http://localhost:8321', 'null'];
 let CORS = {
   'Access-Control-Allow-Origin': 'https://fvture.net',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
