@@ -136,8 +136,8 @@ over 20 iterations.</p>
 target="_blank" rel="noopener">Future of Being Human Substack</a>. However, not content to leave
 things as they were, I then started to work in earnest with Fable on a version 2.0 that expanded the
 gameplay substantially, and the ideas and experiences that a player encounters, and then progressed to a version 3.0!</p>
-<p>The game is now on version 4 and is considerably more mature than that first iteration, even down to having a leaderboard. 
-It represents over 80 iterations of the initial html file that Fable
+<p>The game is now on version 5 and is considerably more mature than that first iteration, even down to having a leaderboard.
+It represents over 90 iterations of the initial html file that Fable
 produced, and has a far greater steer from me than version 1.0 did. However, the fundamentals and
 implementation still belong to the sometimes-quirky and often unexpected "creative mind" of
 Fable 5.</p>
@@ -406,20 +406,21 @@ This page draws on Andrew Maynard's published CV, books, and essays.
 
    THE DELIGHT LAYER (v5 — the pool of whimsy, deepened; all cosmetic, zero economy,
    with ONE exception at Andrew's call: passing the clacks tower pays +♥)
-   · Tier odds per run — search "DELIGHT_VISITOR" (0.10 · orange tree, the story ducks),
-     "DELIGHT_EVENT" (0.035 · dish, reader, a shower), "DELIGHT_UNICORN" (0.010 ·
-     the photograph). The shelves themselves are the DELIGHT_TIERS list beside them;
-     each deals from a persistent no-repeat deck (hb_ddeck_*), like the marginalia.
+   · Tier odds per run — search "DELIGHT_VISITOR" (0.22 · orange tree, the story ducks),
+     "DELIGHT_EVENT" (0.12 · dish, reader, a shower), "DELIGHT_UNICORN" (0.03 ·
+     the photograph). Raised in build 92 so a child playing a handful of runs meets
+     at least one delight; the no-repeat decks (hb_ddeck_*) keep the long tail rare.
+     The shelves themselves are the DELIGHT_TIERS list beside them.
      (The turtle was tried and cut at Andrew's call, build 85 — do not reintroduce.)
    · The showers (v5.3) — six kinds on their own shelf (DELIGHT_TIERS.s): a fall of
      sheep, an ascent of kites, loose pages, umbrellas, rising bubbles, towels.
      One shower event = one kind, dealt no-repeat; each lasts ~13s (search "showerT = 13").
-   · Playgrounds (v5.1) recur on their own clock — first mid-21xx (search
-     "2050 + Math.floor"), then one every 100–300 years (search "100 + Math.floor"),
+   · Playgrounds (v5.1) recur on their own clock — the first early, 2045–2154 (search
+     "2045 + Math.floor"), then one every 100–300 years (search "100 + Math.floor"),
      six rotating builds (junk, swings, slide, roundabout, seesaw, the pen — PLAY_VARIANTS).
    · The clacks (v5.4: ONE semaphore tower on a hill, arms snapping position to
      position; pass it for "GNU Terry Pratchett" and +♥) — search "CLACKS_CHANCE"
-     (~1 in 40 runs; evRng, so a daily's tower and its ♥ are shared worldwide) ·
+     (~1 in 25 runs; evRng, so a daily's tower and its ♥ are shared worldwide) ·
      its hill — search "18 + Math.floor(cHill"
    · Fountain-ink marginalia — search "INK_CHANCE" · death-card blot — "BLOT_CHANCE"
    · The unfinished sentence on rushed-tech deaths — search "COULD_CHANCE"
@@ -1173,10 +1174,11 @@ const WONDER_CHANCE = 0.6;
 // world-fact daily players share (the whale's year) rides evRng in startRun instead.
 // Tier odds = how often a run carries one item of that tier; per-tier decks persist in
 // localStorage (hb_ddeck_*) so nothing repeats until its whole shelf has been seen.
-const DELIGHT_VISITOR = 0.10;   // ~1 in 10 runs   (safe 0.05–0.2)
-const DELIGHT_EVENT   = 0.035;  // ~1 in 30 runs   (safe 0.02–0.08)
-const DELIGHT_UNICORN = 0.010;  // ~1 in 100 runs  (safe 0.005–0.03)
-const CLACKS_CHANCE   = 0.025;  // a far tower, blinking. never explained. (~1 in 40 runs)
+const DELIGHT_VISITOR = 0.22;   // ~1 in 4–5 runs  (safe 0.1–0.35; raised build 92 — a child
+const DELIGHT_EVENT   = 0.12;   // ~1 in 8 runs     playing a handful of times should meet
+const DELIGHT_UNICORN = 0.03;   // ~1 in 33 runs    at least one delight; the DECKS keep the
+const CLACKS_CHANCE   = 0.04;   // ~1 in 25 runs    long tail — six showers still take dozens
+                                //                  of runs to exhaust. safe: halve or double.
 const INK_CHANCE      = 0.04;   // a marginalia note arrives in fountain ink on paper
 const BLOT_CHANCE     = 0.03;   // a dried blot in the death card's corner
 const COULD_CHANCE    = 0.15;   // rushed-tech deaths: the sentence that never finishes
@@ -1909,9 +1911,10 @@ function startRun(daily){
   game.dVis = Math.random() < DELIGHT_VISITOR ? dealDelight('v') : null;
   game.dEvt = Math.random() < DELIGHT_EVENT ? dealDelight('e') : null;
   game.dUni = Math.random() < DELIGHT_UNICORN ? dealDelight('u') : null;
-  game.dVisHill = 16 + Math.floor(Math.random() * 34);
-  game.dEvtHill = 20 + Math.floor(Math.random() * 40);
-  game.dUniHill = 24 + Math.floor(Math.random() * 46);
+  // v5.9: earlier hills, so short runs (children, beginners) can actually reach them
+  game.dVisHill = 10 + Math.floor(Math.random() * 28);
+  game.dEvtHill = 12 + Math.floor(Math.random() * 32);
+  game.dUniHill = 18 + Math.floor(Math.random() * 40);
   // v5.4: the clacks tower — a landmark now, not wallpaper. evRng so a daily's tower
   // (and its +♥) is shared worldwide; both draws consumed unconditionally.
   const cRoll = evRng(), cHill = evRng();
@@ -1922,8 +1925,8 @@ function startRun(daily){
   game.dishGlowT = 0; game.forceCould = false; game.forceBlot = false;
   game.titleDuckSet = false; game.titleDuck = 0; game.titlePol = null;
   game.showerDone = false; game.showerT = 0; game.showerKind = null;
-  // v5.1: the playground clock — the first appears mid-21xx, then every 100–300 years
-  game.nextPlayYear = 2050 + Math.floor(Math.random() * 180);
+  // v5.1: the playground clock — the first appears early, then every 100–300 years
+  game.nextPlayYear = 2045 + Math.floor(Math.random() * 110);
   game.playCount = Math.floor(Math.random() * PLAY_VARIANTS);
   if (game.daily) setBanner("TODAY'S FUTURE", dailyName());
   MEDALS.forEach(m => { game['medal_'+m.hills+'_shown'] = false; });
@@ -5096,7 +5099,7 @@ function drawTitle(){
   // v74: the board — top-center chip
   mline([[W/2-62, 22],[W/2+62, 22],[W/2+62, 54],[W/2-62, 54],[W/2-62, 22]], '#8a6d00', 2, 424, 0.75);
   mtext('the board', W/2, 43, 14, '#8a6d00', 'center', 0.9, 425);
-  mtext('v5 · build 91 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
+  mtext('v5 · build 92 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
   drawCorners();
   mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 446, 0.7);
   mtext('how to play', 63, H-31, 13, '#77746a', 'center', 0.9, 447);
