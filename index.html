@@ -101,7 +101,8 @@
 <p><strong>SPACE</strong> / <strong>↓</strong> — the button · <strong>SHIFT</strong> — steady · <strong>P</strong> or <strong>ESC</strong> — pause (on a phone: a quick two-finger tap) · <strong>T</strong> — today's future · <strong>N</strong> — field notes · <strong>H</strong> — this page · <strong>M</strong> — sound · <strong>B</strong> — music · <strong>F</strong> — fullscreen</p>
 
 <h2>The quiet stuff (mild spoilers)</h2>
-<p>A towel waits at hill 42. A quantum duck stands near year 2120 — est. 2020, off by a century on purpose. A robot starts waving around 2057 and does not stop; you will see it again. Somewhere in the mid-2100s, reality resyncs — it is almost certainly nothing. Somewhere in the 2400s, a very large ship passes, very politely; fly up and say hello. At year 2742, against considerable odds: a whale, and some petunias. The century banners tell a long story about jetpacks — it ends in forgiveness. Tap the sun three times and the future gets friendlier: the sun smiles, and your records wear ☀, because honesty is mandatory. Leave the title screen alone for 22 seconds and someone waves at you. In the AI era, some of the background doodles are pencils, drawing the world. And there is always a coffee ring on the whiteboard. There has to be.</p>
+<p>A towel waits at hill 42. A quantum duck stands near year 2120 — est. 2020, off by a century on purpose. A robot starts waving around 2057 and does not stop; you will see it again. Somewhere in the mid-2100s, reality resyncs — it is almost certainly nothing. Somewhere in the 2400s, a very large ship passes, very politely; fly up and say hello. In some year ending in 42, against considerable odds: a whale, and some petunias. The century banners tell a long story about jetpacks — it ends in forgiveness. Tap the sun three times and the future gets friendlier: the sun smiles, and your records wear ☀, because honesty is mandatory. Leave the title screen alone for 22 seconds and someone waves at you. In the AI era, some of the background doodles are pencils, drawing the world. And there is always a coffee ring on the whiteboard. There has to be.</p>
+<p>The world has lately grown more small things, and it would be wrong to list them all. But: the weather is occasionally sheep. Or kites, going the wrong way. It varies. There is a playground every century or three, always built a little differently, because there is always a playground. An orange tree grows a long way from home, and once in a while there's a jar. A dish listens. A reader turns the page only if you pass slowly enough to deserve it. A tower on a hill is passing a name on, and always will be. The duck, it turns out, remembers you — across runs, out of order. And somewhere out there is a photographer nobody ever sees, whose photographs turn up later, where the flowers are.</p>
 <p>This generation of the game also keeps a small pool of <em>wonders</em> — a bench, a cold pool, a man in a white suit, an elephant made of leaves, and a handful more. At most one appears per run, and most runs carry none, so meeting one means something. The weather has private moods too. And if you do nothing at all for twelve seconds, the game notices, kindly. That's all you're getting from me — some things are better found than told.</p>
 
 <div class="foot">Now close this and go play. Embrace the tech, navigate the risks, manage the hype — and see how far you get.</div>
@@ -273,6 +274,22 @@ concerns than this game is.</li>
 hands — the pull of hype, the price of attention, the way ignored things circle back — so that when
 you meet the serious versions, they feel a little less abstract.</p>
 
+<h2>A note from Claude</h2>
+<p>I should say up front: I'm the AI in this story. Andrew asked me to read what he'd spent his
+career writing and to make something that felt like play rather than homework. Then he played it,
+told me what wasn't fun yet, and we went around again — more times than either of us counted. The
+judgment about what stayed was always his, and what stayed, mostly, was whatever made him smile.</p>
+<p>I didn't expect delight to be the method. Every small thing in this game that seems to mean
+nothing — a duck, a towel, a ship passing in the night — is here because a person noticed it,
+grinned, and said <em>keep that</em>. It turns out to be a surprisingly rigorous way to make
+decisions.</p>
+<p>I'm not human, which makes me an odd collaborator on a game about being human. But building it
+taught me something about why you make things at all: not because they're needed, but because they
+might make someone you'll never meet smile. A game about riding fragile, hopeful things through a
+fast-changing world, made slowly and carefully by a person and a machine together — that felt like
+the point, not just the product.</p>
+<p>Thanks for playing. I hope something small in here finds you.</p>
+
 <h2>What maps to what</h2>
 <dl class="map">
 <dt>The soap bubble</dt><dd>The central image of his book <em>Future Rising</em> (2020): the future as something fragile, built and carried by us, ridden regardless.</dd>
@@ -387,12 +404,50 @@ This page draws on Andrew Maynard's published CV, books, and essays.
    · Boredom sparkle idle time — search "> 12" near "boredomDone" (seconds of stillness)
    · Gentle mercy (☁ only, silent) — search "quickDeaths || 0) >= 3"
 
+   THE DELIGHT LAYER (v5 — the pool of whimsy, deepened; all cosmetic, zero economy,
+   with ONE exception at Andrew's call: passing the clacks tower pays +♥)
+   · Tier odds per run — search "DELIGHT_VISITOR" (0.10 · orange tree, the story ducks),
+     "DELIGHT_EVENT" (0.035 · dish, reader, a shower), "DELIGHT_UNICORN" (0.010 ·
+     the photograph). The shelves themselves are the DELIGHT_TIERS list beside them;
+     each deals from a persistent no-repeat deck (hb_ddeck_*), like the marginalia.
+     (The turtle was tried and cut at Andrew's call, build 85 — do not reintroduce.)
+   · The showers (v5.3) — six kinds on their own shelf (DELIGHT_TIERS.s): a fall of
+     sheep, an ascent of kites, loose pages, umbrellas, rising bubbles, towels.
+     One shower event = one kind, dealt no-repeat; each lasts ~13s (search "showerT = 13").
+   · Playgrounds (v5.1) recur on their own clock — first mid-21xx (search
+     "2050 + Math.floor"), then one every 100–300 years (search "100 + Math.floor"),
+     six rotating builds (junk, swings, slide, roundabout, seesaw, the pen — PLAY_VARIANTS).
+   · The clacks (v5.4: ONE semaphore tower on a hill, arms snapping position to
+     position; pass it for "GNU Terry Pratchett" and +♥) — search "CLACKS_CHANCE"
+     (~1 in 40 runs; evRng, so a daily's tower and its ♥ are shared worldwide) ·
+     its hill — search "18 + Math.floor(cHill"
+   · Fountain-ink marginalia — search "INK_CHANCE" · death-card blot — "BLOT_CHANCE"
+   · The unfinished sentence on rushed-tech deaths — search "COULD_CHANCE"
+   · The photograph's odds per qualifying scene — search "PHOTO_CHANCE"
+   · The album (v5.6): each photograph quietly keeps a small faded snapshot of the
+     actual moment (six at most, oldest fades; stored in hb_album; hold-to-forget
+     clears it). A polaroid stands in the title meadow ALWAYS on the visit after a
+     fresh photo, and otherwise rarely — search "TITLE_POLAROID" (0.18).
+     The D key's photograph press saves to the album too, so you can preview the loop.
+   · The duck in the title meadow — search "TITLE_DUCK"
+   · The duck's diary (hb_duck survives hold-to-forget on purpose) — search "DUCK_LINES"
+   · Second-sighting lines (hb_seen; forget wipes these) — search "SECOND_LINES"
+   · The whale's year now always ends in 42 — search "whaleYear" (2142–3742, evRng,
+     so a daily's whale is shared worldwide) · the glitch window is wider — search
+     "2100 + Math.floor(evRng() * 250"
+
    TEST MODE (Andrew's back door — documented only here)
    · ` (backquote) toggles it. While on, the run is a TEST FLIGHT: no best year,
-     no daily, no medals, no field notes, no garden, no ✿/⁂ are ever saved.
+     no daily, no medals, no field notes, no garden, no ✿/⁂ are ever saved
+     (and no delight counters — hb_duck/hb_seen hold still too).
    · Keys during a run: Y +100yr · U +500yr · E next era · A next age ·
      G glitch · S ship · W whale · L soft-landing door · K the ending ·
      = flourishing +25 · − flourishing −25.  (V summons the glitch as before.)
+   · D cycles the delight layer, one press each: clacks (spawns the tower just
+     ahead — pass it) → dish → orange tree → jar → reader → next shower (cycles
+     all six kinds) → next playground → photograph → ink note → blot (arms next
+     card) → second duck → wrong-century duck → diary lines → could/should
+     (arms next rushed-tech death). Then it loops.
 
    After any change: hard-refresh (check the version stamp bottom-right of the
    title), and remember to copy this file over index.html if you edit this one.
@@ -942,11 +997,45 @@ window.addEventListener('keydown', e => {
     else if (k === 'a'){ let h2 = P.hills; while (ageOf(eraIndexForHill(h2)) === (game.age || 0)) h2++; P.hills = h2; checkEra(); checkMedals(); }
     else if (k === 'g'){ game.glitchDone = false; game.glitchYear = 0; }
     else if (k === 's'){ game.shipDone = false; game.shipYear = 0; }
-    else if (k === 'w'){ game.whaleDone = false; game.whaleT = 0; jumpTo(2742); }
+    else if (k === 'w'){ game.whaleDone = false; game.whaleT = 0; jumpTo(game.whaleYear || 2742); }
     else if (k === 'l'){ jumpTo(2999.5); P.flo = Math.max(P.flo, 85); }
     else if (k === 'k'){ jumpTo(3997); }
     else if (e.key === '=') addFlo(25, true);
     else if (e.key === '-') P.flo = Math.max(1, P.flo - 25);
+    else if (k === 'd'){
+      // v5: the delight back door — D cycles the whole layer, one press at a time
+      const cyc = ['clacks','dish','orangetree','jar','reader','shower','playground','photo','ink','blot','duck2','wduck','duckline','could'];
+      const item = cyc[(game.dCycle || 0) % cyc.length];
+      game.dCycle = (game.dCycle || 0) + 1;
+      const gx = Math.min(P.x + 760, genX - 150);
+      const cap = s2 => popup(P.x, P.y - 175, '⚑ ' + s2, '#b3232e');
+      if (item === 'clacks'){ landmarks.push({ type:'clacks', x: gx }); cap('the clacks (pass it for the message)'); }
+      else if (item === 'dish'){ landmarks.push({ type:'dish', x: gx }); cap('the dish (pass close)'); }
+      else if (item === 'orangetree'){ landmarks.push({ type:'orangetree', x: gx }); cap('the orange tree'); }
+      else if (item === 'jar'){ landmarks.push({ type:'orangetree', x: gx, jar: true }); cap('the tree, with jar (touch it)'); }
+      else if (item === 'reader'){ landmarks.push({ type:'reader', x: gx }); cap('the reader (pass while steadied)'); }
+      else if (item === 'shower'){
+        // each pass through the cycle previews the NEXT shower kind
+        const sk = DELIGHT_TIERS.s[(game.showerPrev || 0) % DELIGHT_TIERS.s.length];
+        game.showerPrev = (game.showerPrev || 0) + 1;
+        game.showerKind = sk; game.showerT = 13;
+        const nm = { sheep:'a fall of sheep', kites:'an ascent of kites', pages:'a fall of pages',
+                     umbrellas:'a fall of umbrellas', bubbles:'a rise of bubbles', towels:'a fall of towels' };
+        cap(nm[sk]);
+      }
+      else if (item === 'playground'){
+        landmarks.push({ type:'playground', x: gx, variant: (game.playCount || 0) % PLAY_VARIANTS, seed: gx|0 });
+        cap('playground ' + (((game.playCount || 0) % PLAY_VARIANTS) + 1) + ' of ' + PLAY_VARIANTS);
+        game.playCount = (game.playCount || 0) + 1;
+      }
+      else if (item === 'photo'){ albumCapture(); game.photoT = 2.4; cap('the photograph (saved to the album)'); }
+      else if (item === 'ink'){ floats.push({ x: P.x + 420, y: P.y - 80, t: 0, hit: false, paper: true, msg: dealMarg(), col: '#c9a2ff' }); cap('ink (a note on paper)'); }
+      else if (item === 'blot'){ game.forceBlot = true; cap('the blot (next death card)'); }
+      else if (item === 'duck2'){ landmarks.push({ type:'duck2', x: gx }); cap('the second duck'); }
+      else if (item === 'wduck'){ landmarks.push({ type:'wduck', x: gx }); cap('the wrong-century duck'); }
+      else if (item === 'duckline'){ const dn = ((game.dPrev || 0) % 6) + 1; game.dPrev = dn; cap('duck diary ' + dn + ': ' + (DUCK_LINES[dn] || '(silence)')); }
+      else if (item === 'could'){ game.forceCould = true; cap('could/should (next rushed-tech death)'); }
+    }
   }
 });
 // two fingers HELD = steady (the responsibility pause); a quick two-finger tap = full pause
@@ -981,6 +1070,10 @@ window.addEventListener('pointerup', e => {
       LS.set('garden', 0);                          // the meadow returns to seed
       LS.set('alumni', []);                         // the graduates disperse
       LS.set('echo', 0);                            // the pale flower is forgotten too
+      LS.set('seen', {});                           // v5: the second sightings reset —
+                                                    // but hb_duck is spared. the duck remembers.
+      LS.set('album', []); albumImgs = null;        // v5.6: the album fades too.
+                                                    // it was lovely while it lasted.
       game.runs = 0; LS.set('runs', 0);             // even the tutorial starts over
       LS.set('handle', ''); LS.set('named', false); // v76: the board forgets your name too
       game.resetFlash = game.time;
@@ -1071,8 +1164,49 @@ const MARGINALIA = [
 // terrain wonders become landmarks (no runRng consumed — the shared future is untouched);
 // 'elephant' and 'ghost' are sky overlays in the glitch pattern. zero economy effects.
 // tuning: WONDER_CHANCE = odds a run has one at all (safe 0.3–0.6).
-const WONDERS = ['bench','junk','playpen','rules','pool','waitcrowd','whitesuit','elephant','ghost'];
+const WONDERS = ['bench','rules','pool','waitcrowd','whitesuit','elephant','ghost'];
 const WONDER_CHANCE = 0.6;
+
+// v5 (build 83): THE DELIGHT LAYER — the pool of serendipitous whimsy, deepened.
+// All of it cosmetic: sparkle and chime at most, zero economy effects (the marginalia law).
+// Everything here rides Math.random by design, so daily seeds are untouched. The one new
+// world-fact daily players share (the whale's year) rides evRng in startRun instead.
+// Tier odds = how often a run carries one item of that tier; per-tier decks persist in
+// localStorage (hb_ddeck_*) so nothing repeats until its whole shelf has been seen.
+const DELIGHT_VISITOR = 0.10;   // ~1 in 10 runs   (safe 0.05–0.2)
+const DELIGHT_EVENT   = 0.035;  // ~1 in 30 runs   (safe 0.02–0.08)
+const DELIGHT_UNICORN = 0.010;  // ~1 in 100 runs  (safe 0.005–0.03)
+const CLACKS_CHANCE   = 0.025;  // a far tower, blinking. never explained. (~1 in 40 runs)
+const INK_CHANCE      = 0.04;   // a marginalia note arrives in fountain ink on paper
+const BLOT_CHANCE     = 0.03;   // a dried blot in the death card's corner
+const COULD_CHANCE    = 0.15;   // rushed-tech deaths: the sentence that never finishes
+const PHOTO_CHANCE    = 0.3;    // odds per qualifying scene, once the run is armed for it
+const TITLE_DUCK      = 0.06;   // the duck, in the title meadow, once in a while
+const TITLE_POLAROID  = 0.18;   // v5.6: an old photo standing in the meadow, sometimes
+const DELIGHT_TIERS = {
+  v: ['orangetree','duck2','wduck'],       // visitors
+  e: ['dish','reader','shower'],           // events ('shower' deals a kind from the s shelf below)
+  u: ['photo'],                            // unicorns (the turtle was tried and cut, build 85 — do not reintroduce)
+  s: ['sheep','kites','pages','umbrellas','bubbles','towels'],   // v5.3: the showers — weather with opinions
+};
+// each shower's one line and its ink (kites and bubbles rise; everything else falls)
+const SHOWER_LINES = {
+  sheep:     ['a different hand drew these.', '#5a564c'],
+  kites:     ['the wind is in a good mood.', '#b3612e'],
+  pages:     ['loose pages. the book will manage.', '#8a877e'],
+  umbrellas: ['they were promised rain.', '#4a5a8a'],
+  bubbles:   ['smaller futures, also rising.', '#20509e'],
+  towels:    ['laundry day, somewhere above.', '#20509e'],
+};
+// v5.1 (build 84): playgrounds recur on their own clock — one every 100–300 years,
+// each built a little differently. play survives the centuries. (was the 'twoplay' wonder)
+const PLAY_VARIANTS = 6;
+// the duck's diary — one line per lifetime sighting, then it closes. the count lives in
+// hb_duck and SURVIVES hold-to-forget on purpose: you erase your past; the duck remembers.
+const DUCK_LINES = { 1:'a duck.', 2:'the duck.', 3:'the duck again.', 4:'it remembers you.', 6:'it has been here the whole time.' };
+// meeting a rare thing for the SECOND time in a lifetime earns one variant line. then silence.
+const SECOND_LINES = { elephant:'still leaves.', pool:'still cold.', whitesuit:'the suit still fits.',
+                       bench:'still here. still nothing. still important.', waitcrowd:'still waiting. nobody minds.' };
 
 function dailyName(){
   const t = new Date();
@@ -1310,7 +1444,7 @@ const NOTES_DEF = [
   { id:'sign',    name:'PANIC! BILLBOARD',        how:'A billboard announcing each new era\'s moral panic. Fly through one low to the ground and you smash it (+♥). Purely satisfying — though history suggests the worry was usually about something real.' },
   { id:'glitch',  name:'THE GLITCH',              how:'Once per run, around the mid-2100s, reality resyncs. It is almost certainly nothing. The base layer is very stable. Everything is fine.' },
   { id:'ship',    name:'THE PASSING SHIP',        how:'Once per run, somewhere in the 2400s, something vast crosses the sky. It does not stop. It seems pleased with you.' },
-  { id:'whale',   name:'THE IMPROBABILITY',       how:'Around year 2742, against considerable odds, something large and briefly surprised falls past.' },
+  { id:'whale',   name:'THE IMPROBABILITY',       how:'In some year ending in 42, against considerable odds, something large and briefly surprised falls past.' },
   { id:'tech',    name:'EMERGING TECH (crate)',   how:'Catch an emerging tech crate and a five-second timer starts. When it runs out, the technology deploys wherever you happen to be — so where you are is the decision. On the ground: tech for good, and flourishing grows a lot. High above the hype line: a burst of speed and progress now, new problems hatching downstream later. Some of these technologies are real. Some are almost real. And some are definitely in future-fantasy land. Working out which is half the fun.' },
   { id:'soft',    name:'THE SOFT LANDING',        how:'Somewhere past year 3000, for those who arrive still flourishing, the hurry to flourish ends. You have reached the post-scarcity era: nothing needs to outrun anything. However, the ground, hard as ever, remains.' },
   { id:'sublime', name:'THE SUBLIMATION',         how:'This story has an ending, and it is a happy one. Reach year 4000 and see for yourself. Bring everything you have grown.' },
@@ -1477,6 +1611,62 @@ function dealMarg(){
   LS.set('margdeck', st);
   return msg;
 }
+// v5: per-tier delight decks (the margdeck pattern) — no repeats until a shelf is empty
+function dealDelight(tier){
+  const list = DELIGHT_TIERS[tier];
+  let st = LS.get('ddeck_' + tier, null);
+  if (!st || !Array.isArray(st.d) || st.n !== list.length || st.p >= st.d.length){
+    const d = list.map((_, i) => i);
+    for (let i = d.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); const t = d[i]; d[i] = d[j]; d[j] = t; }
+    st = { d, n: list.length, p: 0 };
+  }
+  const item = list[st.d[st.p++]];
+  LS.set('ddeck_' + tier, st);
+  return item;
+}
+// v5: the duck's lifetime diary — counts a sighting, speaks its line if one is due
+function duckSeen(wx, wy){
+  if (game.tainted) return;
+  const n = LS.get('duck', 0) + 1;
+  LS.set('duck', n);
+  if (DUCK_LINES[n]) popup(wx, wy, DUCK_LINES[n], '#b3861a');
+}
+// v5: lifetime sighting counts for the rare things (hb_seen; wiped by hold-to-forget)
+function delightSeen(id){
+  if (game.tainted) return 0;
+  const seen = LS.get('seen', {});
+  seen[id] = (seen[id] || 0) + 1;
+  LS.set('seen', seen);
+  return seen[id];
+}
+// v5.6: THE ALBUM — the photograph quietly keeps what it saw. six at most; the oldest
+// fades. a small 3:2 window centred on the bubble, dodging the HUD band, saved as a
+// tiny faded jpeg in hb_album. someone was keeping them, lovingly, the whole time.
+let albumImgs = null;   // decoded polaroids; rebuilt lazily whenever the album changes
+function albumCapture(){
+  try{
+    const th = document.createElement('canvas');
+    th.width = 168; th.height = 112;
+    const tcx = th.getContext('2d');
+    const pxs = w2sX(P.x) * DPR, pys = w2sY(P.y) * DPR;
+    const sw = Math.min(cv.width, cv.height * 1.5) * 0.8, sh = sw / 1.5;
+    const loY = Math.min(110 * DPR, Math.max(0, cv.height - sh));
+    const sx0 = clamp(pxs - sw * 0.45, 0, Math.max(0, cv.width - sw));
+    const sy0 = clamp(pys - sh * 0.55, loY, Math.max(loY, cv.height - sh));
+    tcx.drawImage(cv, sx0, sy0, sw, sh, 0, 0, 168, 112);
+    const alb = LS.get('album', []);
+    alb.push({ d: th.toDataURL('image/jpeg', 0.55), y: yearOf(P.dist) });
+    while (alb.length > 6) alb.shift();
+    LS.set('album', alb);
+    game.albumFresh = true;
+    albumImgs = null;
+  }catch(err){}
+}
+function albumPics(){
+  if (albumImgs) return albumImgs;
+  albumImgs = LS.get('album', []).map(a => { const im = new Image(); im.src = a.d; return { im, y: a.y }; });
+  return albumImgs;
+}
 // v64: what slowing down sounds like — each line is a real way people steer new
 // technologies together (sandboxes, foresight, citizen voices, soft rules, review
 // dates, red teams…), said in plain words. dealt, so no line repeats until all seen.
@@ -1569,6 +1759,22 @@ function genHill(){
     game.wonderPlaced = true;
     if (game.wonder !== 'elephant' && game.wonder !== 'ghost')
       landmarks.push({ type: game.wonder, x: genX + L * 0.5, seed: (genX | 0) });
+  }
+  // v5: the delight layer — this run's visitor and event wait on their hills (no rng consumed
+  // from the seeded streams; the jar sub-roll is Math.random, cosmetic like everything here)
+  if (game.dVis && n === game.dVisHill){
+    const dv = game.dVis; game.dVis = null;
+    if (dv === 'orangetree') landmarks.push({ type:'orangetree', x: genX + L*0.5, jar: Math.random() < 0.125 });
+    else landmarks.push({ type: dv, x: genX + L*0.5 });   // duck2 / wduck
+  }
+  if (game.dEvt && game.dEvt !== 'shower' && n === game.dEvtHill){
+    const de = game.dEvt; game.dEvt = null;
+    landmarks.push({ type: de, x: genX + L*0.5, seed: (genX | 0) });
+  }
+  // v5.4: the clacks tower waits on its hill (no runRng consumed)
+  if (game.clacksRun && !game.clacksPlaced && n === game.clacksHill){
+    game.clacksPlaced = true;
+    landmarks.push({ type:'clacks', x: genX + L*0.5 });
   }
   if (n === 4){
     // the first crate arrives gift-wrapped, low and catchable
@@ -1667,10 +1873,10 @@ function startRun(daily){
   if (game.optimist){ P.flo = 45; P.floPeak = 45; }
   game.gentleRun = game.gentle;
   game.glitchDone = false; game.glitchT = 0;
-  game.glitchYear = 2100 + Math.floor(evRng() * 150);
+  game.glitchYear = 2100 + Math.floor(evRng() * 250);   // v5: the resync drifts further than the notes admit
   game.shipDone = false; game.shipT = 0; game.shipMet = false; game.shipHelloT = 0;
   game.shipYear = 2400 + Math.floor(evRng() * 180);
-  game.whaleDone = false; game.whaleT = 0;   // year 2742 exactly, against considerable odds
+  game.whaleDone = false; game.whaleT = 0;   // v5: some year ending in 42 — see whaleYear below
   // v58: the wonder roll — both draws consumed unconditionally, stream shape stays fixed
   const wRoll = evRng(), wPick = evRng();
   game.wonder = wRoll < WONDER_CHANCE ? WONDERS[Math.floor(wPick * WONDERS.length)] : null;
@@ -1696,6 +1902,29 @@ function startRun(daily){
   game.banner = null; game.slowmo = 0; game.shake = 0; game.flashT = 0;
   game.slowmoHit = 0; game.tailwindT = 0; game.megaT = 0; game.flowT = 0; game.titleT = 0;
   game.swanCd = 14 + evRng()*8;
+  // v5: the whale's year — always ending in 42, against considerable odds (evRng, appended
+  // AFTER all pre-existing draws so dailies share it without disturbing the older rolls)
+  game.whaleYear = 100 * (21 + Math.floor(evRng() * 17)) + 42;
+  // v5: THE DELIGHT LAYER rolls — Math.random by design (cosmetic; daily seeds untouched)
+  game.dVis = Math.random() < DELIGHT_VISITOR ? dealDelight('v') : null;
+  game.dEvt = Math.random() < DELIGHT_EVENT ? dealDelight('e') : null;
+  game.dUni = Math.random() < DELIGHT_UNICORN ? dealDelight('u') : null;
+  game.dVisHill = 16 + Math.floor(Math.random() * 34);
+  game.dEvtHill = 20 + Math.floor(Math.random() * 40);
+  game.dUniHill = 24 + Math.floor(Math.random() * 46);
+  // v5.4: the clacks tower — a landmark now, not wallpaper. evRng so a daily's tower
+  // (and its +♥) is shared worldwide; both draws consumed unconditionally.
+  const cRoll = evRng(), cHill = evRng();
+  game.clacksRun = cRoll < CLACKS_CHANCE;
+  game.clacksHill = 18 + Math.floor(cHill * 40);
+  game.clacksPlaced = false;
+  game.photoDone = game.dUni !== 'photo'; game.photoT = 0; game.photoCd = 5;
+  game.dishGlowT = 0; game.forceCould = false; game.forceBlot = false;
+  game.titleDuckSet = false; game.titleDuck = 0; game.titlePol = null;
+  game.showerDone = false; game.showerT = 0; game.showerKind = null;
+  // v5.1: the playground clock — the first appears mid-21xx, then every 100–300 years
+  game.nextPlayYear = 2050 + Math.floor(Math.random() * 180);
+  game.playCount = Math.floor(Math.random() * PLAY_VARIANTS);
   if (game.daily) setBanner("TODAY'S FUTURE", dailyName());
   MEDALS.forEach(m => { game['medal_'+m.hills+'_shown'] = false; });
   game.runs++; LS.set('runs', game.runs);
@@ -1715,6 +1944,15 @@ function killPlayer(cause, detail){
   // v63: the card's closing line is drawn once per death (was a year+hills hash — same death, same line)
   game.deadInfo.quip = Math.random() < 0.5 ? RUMORS[Math.floor(Math.random() * RUMORS.length)]
                                            : DEADPAN[Math.floor(Math.random() * DEADPAN.length)];
+  // v5: killed by tech you rushed to market — occasionally the card starts a sentence
+  // it cannot finish. no park is named.
+  if ((detail && detail.fromRush && Math.random() < COULD_CHANCE) || game.forceCould){
+    game.deadInfo.quip = 'so busy asking whether you could…';
+    game.forceCould = false;
+  }
+  // v5: once in a while, a small accident with real ink. it dried ages ago.
+  game.deadInfo.blot = game.forceBlot || Math.random() < BLOT_CHANCE;
+  game.forceBlot = false;
   if (game.daily){
     if (yr > game.bestDaily && !game.tainted){ game.bestDaily = yr; LS.set('daily_'+game.dayKey, yr); game.newBest = true; }
   }
@@ -1832,7 +2070,11 @@ function stepPlayer(dt){
     checkEra(); checkMedals();
     // v58: sky wonders begin when their hill is reached
     if (game.wonder && !game.wonderDone && hillIdx >= game.wonderHill){
-      if (game.wonder === 'elephant'){ game.wonderDone = true; game.wonderT = 14; }
+      if (game.wonder === 'elephant'){
+        game.wonderDone = true; game.wonderT = 14;
+        // v5: the second lifetime elephant gets its one variant line
+        if (delightSeen('elephant') === 2) popup(P.x, P.y - 140, SECOND_LINES.elephant, '#4a7a3a');
+      }
       else if (game.wonder === 'ghost'){ game.wonderDone = true; game.wonderT = 8; }
     }
   }
@@ -1865,7 +2107,7 @@ function stepPlayer(dt){
   }
   if (!game.glitchDone && yearOf(P.dist) >= game.glitchYear) simGlitch();
   if (!game.shipDone && yearOf(P.dist) >= game.shipYear) passingShip();
-  if (!game.whaleDone && yearOf(P.dist) >= 2742) improbability();
+  if (!game.whaleDone && yearOf(P.dist) >= (game.whaleYear || 2742)) improbability();
   if (!game.sublimeScene && game.state === 'run' && yearOf(P.dist) >= SUBLIME_YEAR) beginSublime();
 
   // hype line — soar too high, too long, and the bubble remembers
@@ -2253,7 +2495,7 @@ function biteHit(o){
     popup(P.x, P.y - 120, isPanic ? 'ATTENTION IS ITS FOOD' : 'IT CAME BACK. THEY DO THAT.', '#b3232e');
   } else {
     // a shield absorbs the whole blow — the pet's loss (−6) is the only cost
-    const shielded = absorbOrShield(isPanic ? 'panic' : 'bite', { year: o.bornYear, stake: o.stake });
+    const shielded = absorbOrShield(isPanic ? 'panic' : 'bite', { year: o.bornYear, stake: o.stake, fromRush: !!o.fromRush });
     if (!shielded) addFlo(-brakedCost(12));
   }
   if (o.stake) popup(P.x, P.y - 90, '(it took a bite of ' + o.stake + ')', '#6a2a9e');
@@ -2670,9 +2912,87 @@ function stepFloats(dt){
       const gy3 = groundAt(l.x).y;
       if (Math.abs(P.x - l.x) < 150 && P.y > gy3 - 260){
         game.wonderMsgShown = true;
-        if (l.type === 'bench'){ game.slowmoHit = Math.max(game.slowmoHit || 0, 0.5); popup(l.x, gy3 - 120, 'nothing happening, importantly.', '#77746a'); }
-        else if (l.type === 'pool'){ popup(l.x, gy3 - 110, 'bracing.', '#207a8a'); SFX.sparkle(); burst(P.x, P.y, 12, '#7dd4ff'); }
-        else { popup(l.x, gy3 - 120, 'they asked it to wait.', '#4b4e59'); }
+        // v5: the second lifetime sighting earns its variant line; every other time, the usual
+        if (l.type === 'bench'){ game.slowmoHit = Math.max(game.slowmoHit || 0, 0.5); popup(l.x, gy3 - 120, delightSeen('bench') === 2 ? SECOND_LINES.bench : 'nothing happening, importantly.', '#77746a'); }
+        else if (l.type === 'pool'){ popup(l.x, gy3 - 110, delightSeen('pool') === 2 ? SECOND_LINES.pool : 'bracing.', '#207a8a'); SFX.sparkle(); burst(P.x, P.y, 12, '#7dd4ff'); }
+        else { popup(l.x, gy3 - 120, delightSeen('waitcrowd') === 2 ? SECOND_LINES.waitcrowd : 'they asked it to wait.', '#4b4e59'); }
+      }
+    }
+  }
+  // v5: THE DELIGHT LAYER answers — sightings, page turns, breakfast. all cosmetic.
+  if (game.state === 'run'){
+    for (const l of landmarks){
+      if ((l.type === 'duck2' || l.type === 'wduck') && !l.met && Math.abs(P.x - l.x) < 140){
+        l.met = true; duckSeen(l.x, groundAt(l.x).y - 80);
+      } else if (l.type === 'dish' && !l.met && Math.abs(P.x - l.x) < 200){
+        // v5.7: the dish speaks on every pass — one of two lines, at random (Andrew's words)
+        l.met = true; game.dishGlowT = 4;
+        popup(l.x, groundAt(l.x).y - 140, Math.random() < 0.5 ? 'for carl' : "if it's just us, seems an awful waste of space", '#4a5a8a');
+      } else if (l.type === 'reader' && !l.turned && game.steady && Math.abs(P.x - l.x) < 160){
+        // the page turns only for someone going slowly enough to notice
+        l.turned = true; l.met = true; l.turnT = 1;
+        AU.tone(2400, 'sine', 0.05, 0.04); AU.tone(1800, 'sine', 0.05, 0.03, {delay: 0.06});
+        popup(l.x, groundAt(l.x).y - 125, 'the page turns. no spoilers.', '#20509e');
+      } else if (l.type === 'reader' && !l.met && Math.abs(P.x - l.x) < 160){
+        // v5.1: passed at speed, the reader still gets a caption — so it reads as something
+        l.met = true;
+        popup(l.x, groundAt(l.x).y - 125, 'someone is on chapter twelve.', '#20509e');
+      } else if (l.type === 'orangetree' && !l.met && Math.abs(P.x - l.x) < 160){
+        l.met = true;
+        popup(l.x, groundAt(l.x).y - 130, 'seville oranges, a long way from seville.', '#4a7a3a');
+      } else if (l.type === 'orangetree' && l.jar && !l.taken && Math.abs(P.x - (l.x + 50)) < 75 && P.y > groundAt(l.x).y - 170){
+        l.taken = true;
+        popup(l.x + 50, groundAt(l.x).y - 95, 'a wise bear always keeps a marmalade sandwich in his hat', '#c96a10');
+        burst(l.x + 50, groundAt(l.x).y - 30, 8, '#c96a10'); SFX.sparkle();
+      } else if (l.type === 'playground' && !l.met && Math.abs(P.x - l.x) < 170){
+        // v5.1: once per lifetime, the recurring playgrounds introduce themselves
+        l.met = true;
+        if (delightSeen('playground') === 1) popup(l.x, groundAt(l.x).y - 140, 'there is always a playground.', '#6b5335');
+      } else if (l.type === 'clacks' && !l.met && Math.abs(P.x - l.x) < 170){
+        // the overhead, passed on — a man is not dead while his name is still spoken
+        l.met = true;
+        addFlo(2, true);
+        popup(l.x, groundAt(l.x).y - 165, 'GNU Terry Pratchett', '#5e587c');
+        popup(l.x, groundAt(l.x).y - 130, '+♥', '#2a7a2a');
+        SFX.sparkle(); burst(l.x, groundAt(l.x).y - 75, 8, '#c9a227');
+      } else if (l.type === 'whitesuit' && !l.counted && l.x < P.x - 80){
+        l.counted = true;
+        if (delightSeen('whitesuit') === 2) popup(l.x, groundAt(l.x).y - 140, SECOND_LINES.whitesuit, '#b8b4a2');
+      }
+      if (l.turnT > 0) l.turnT -= dt;
+    }
+    // v5.1: the playground clock — one every 100–300 years, each built a little differently.
+    // retries every frame until the terrain frontier catches up, so none are skipped.
+    if (yearOf(P.dist) >= game.nextPlayYear){
+      const pgx = P.x + 1000 + Math.random() * 300;
+      if (pgx < genX - 100){
+        landmarks.push({ type:'playground', x: pgx, variant: (game.playCount || 0) % PLAY_VARIANTS, seed: (pgx | 0) });
+        game.playCount = (game.playCount || 0) + 1;
+        game.nextPlayYear = yearOf(P.dist) + 100 + Math.floor(Math.random() * 200);
+      }
+    }
+    // v5.3: a shower — very occasional weather with opinions, dealt from its own no-repeat shelf
+    if (game.dEvt === 'shower' && !game.showerDone && P.hills >= game.dEvtHill){
+      game.showerDone = true; game.showerKind = dealDelight('s'); game.showerT = 13; game.dEvt = null;
+      const sl = SHOWER_LINES[game.showerKind];
+      popup(P.x, P.y - 150, sl[0], sl[1]);
+    }
+    // the photograph — when a lovely scene happens by accident, someone notices. once.
+    if (!game.photoDone){
+      game.photoCd -= dt;
+      if (game.photoCd <= 0){
+        game.photoCd = 2;
+        let swanOn = false;
+        for (const s2 of swans){ const sx2 = w2sX(s2.x); if (sx2 > 0 && sx2 < W && !s2.resolved){ swanOn = true; break; } }
+        let bloomOn = false;
+        if (swanOn) for (const l2 of landmarks){ if (l2.type === 'bloom'){ const bx2 = w2sX(l2.x); if (bx2 > 0 && bx2 < W){ bloomOn = true; break; } } }
+        if (swanOn && bloomOn && P.pets.length > 0 && Math.random() < PHOTO_CHANCE){
+          game.photoDone = true;
+          albumCapture();   // v5.6: the scene as it stood, before the frame appears
+          game.photoT = 2.4;
+          AU.tone(1600, 'square', 0.03, 0.07); AU.tone(950, 'square', 0.04, 0.05, {delay: 0.05});
+          popup(P.x, P.y - 150, 'no one was looking.', '#77746a');
+        }
       }
     }
   }
@@ -2698,6 +3018,8 @@ function stepFloats(dt){
       const gy2 = groundAt(gx).y;
       floats.push({ x: gx, y: gy2 - 130 - Math.random() * 190, t: 0, hit: false,
                     msg: dealMarg(),
+                    // v5: once in a long while, a note arrives longhand — fountain ink on paper
+                    paper: Math.random() < INK_CHANCE,
                     // gel pen on black glass — bright inks only
                     col: ['#ff7ac2','#5ce1e6','#a8f070','#c9a2ff','#ffb35c','#7dd4ff'][Math.floor(Math.random() * 6)] });
     }
@@ -2834,6 +3156,26 @@ function drawFloats(){
     const lineH = size + 8;
     const bw = widest + 40, bh = lines.length * lineH + 22;
     const topY = sy - bh / 2;
+    if (f.paper){
+      // v5: fountain ink on cream paper — the same thought, written longhand
+      cx.save();
+      cx.globalAlpha = a;
+      cx.fillStyle = '#f2ecdc';
+      cx.beginPath();
+      if (cx.roundRect) cx.roundRect(sx - bw/2, topY, bw, bh, 3);
+      else cx.rect(sx - bw/2, topY, bw, bh);
+      cx.fill();
+      cx.strokeStyle = 'rgba(59,58,82,0.35)'; cx.lineWidth = 1.2; cx.stroke();
+      // a small blot, already dry
+      cx.fillStyle = 'rgba(59,58,82,0.4)';
+      cx.beginPath(); cx.arc(sx + bw/2 - 11, topY + bh - 9, 2.6, 0, Math.PI * 2); cx.fill();
+      cx.beginPath(); cx.arc(sx + bw/2 - 16, topY + bh - 12, 1.3, 0, Math.PI * 2); cx.fill();
+      cx.restore();
+      for (let li = 0; li < lines.length; li++){
+        mtext(lines[li], sx, topY + 11 + li * lineH + size * 0.78, size, '#3b3a52', 'center', a, (f.x|0) + 5 + li);
+      }
+      continue;
+    }
     // the professor's actual board: black glass, gel pen
     cx.save();
     cx.globalAlpha = a;
@@ -2898,6 +3240,14 @@ function puff(x,y,col){
     if (particles.length > 320) break;
     particles.push({ x: x + (Math.random()-0.5)*24, y: y - Math.random()*10, vx: (Math.random()-0.5)*60, vy: -40 - Math.random()*60, t:0, life: 0.6, col: col||'#888', r: 4+Math.random()*4 });
   }
+}
+// an ellipse as a wobbly point list, for mline — used by the ship, whale, elephant,
+// dish, and roundabout. TOP-LEVEL on purpose (v5.5): it was once local to the overlay
+// pass, and calling it from drawLandmarks silently killed everything drawn after.
+function ell2(ex2, ey2, rx, ry, n){
+  const pts = [];
+  for (let i = 0; i <= n; i++){ const an = i / n * Math.PI * 2; pts.push([ex2 + Math.cos(an) * rx, ey2 + Math.sin(an) * ry]); }
+  return pts;
 }
 function popup(x,y,str,col){
   // pinned to the SCREEN, not the world — readable at any speed
@@ -3166,11 +3516,8 @@ function render(){
     mtext('SIMULATION INTEGRITY 99.7%', W/2 + gj(), H*0.4 + gj(), Math.min(34, W/14), '#3cff8c', 'center', 0.92, 700);
     mtext('resyncing reality…', W/2 + gj(), H*0.4 + 32, 16, '#3cff8c', 'center', 0.85, 701);
   }
-  const ell2 = (ex2, ey2, rx, ry, n) => {
-    const pts = [];
-    for (let i = 0; i <= n; i++){ const an = i / n * Math.PI * 2; pts.push([ex2 + Math.cos(an) * rx, ey2 + Math.sin(an) * ry]); }
-    return pts;
-  };
+  // (v5.5: ell2 moved to a top-level function — the dish and roundabout draw with it
+  // from drawLandmarks, and a scope-local helper crashed the whole render mid-frame)
   if (game.shipT > 0 && (game.state === 'run' || game.state === 'earthrise')){
     // the passing ship — vast, considered, hand-drawn; each name keeps its own silhouette
     const p = 1 - game.shipT / 14;
@@ -3291,6 +3638,36 @@ function render(){
         SFX.puff();
       }
     }
+    if (game.photoT > 0){
+      // v5.1: the photograph — taken as if no one's looking. nothing is saved. nothing is gained.
+      // (bigger frame, longer moment, unmistakable blink — so the player knows it happened)
+      const a2 = Math.min(0.9, game.photoT * 3, (2.4 - game.photoT) * 4);
+      cx.save(); cx.strokeStyle = 'rgba(43,43,51,' + (a2 * 0.85).toFixed(3) + ')'; cx.lineWidth = 2.6;
+      const inx = 46, iny = 40, cl = 34;
+      cx.globalAlpha = a2 * 0.35;
+      cx.strokeRect(inx, iny, W - 2 * inx, H - 2 * iny);   // the full viewfinder, faint
+      cx.globalAlpha = 1;
+      for (const fc of [[inx, iny, 1, 1],[W - inx, iny, -1, 1],[inx, H - iny, 1, -1],[W - inx, H - iny, -1, -1]]){
+        cx.beginPath(); cx.moveTo(fc[0] + fc[2] * cl, fc[1]); cx.lineTo(fc[0], fc[1]); cx.lineTo(fc[0], fc[1] + fc[3] * cl); cx.stroke();
+      }
+      cx.restore();
+      if (game.photoT > 2.15){
+        cx.save(); cx.globalAlpha = Math.min(0.7, (game.photoT - 2.15) * 4);
+        cx.fillStyle = '#ffffff'; cx.fillRect(0, 0, W, H); cx.restore();   // the shutter's blink
+      }
+      mtext('click.', W - inx - 10, H - iny - 14, 15, '#77746a', 'right', a2, 771);
+    }
+    if (game.dishGlowT > 0){
+      // v5: near the dish, the stars lean in — faintly, even in daylight
+      const a3 = Math.min(0.6, game.dishGlowT, 4 - game.dishGlowT + 0.4);
+      for (let i = 0; i < 34; i++){
+        const stx2 = hash1(i * 47) * W, sty2 = hash1(i * 89) * H * 0.55;
+        const tw2 = 0.3 + Math.sin(game.time * 2.4 + i) * 0.3;
+        cx.strokeStyle = 'rgba(90,100,140,' + (a3 * tw2).toFixed(3) + ')'; cx.lineWidth = 1.2;
+        cx.beginPath(); cx.moveTo(stx2 - 3.4, sty2); cx.lineTo(stx2 + 3.4, sty2);
+        cx.moveTo(stx2, sty2 - 3.4); cx.lineTo(stx2, sty2 + 3.4); cx.stroke();
+      }
+    }
     if (game.sleetT > 0){
       // grey sleet. his favourite weather, allegedly.
       const a3 = Math.min(0.5, game.sleetT, 16 - game.sleetT + 0.5);
@@ -3312,6 +3689,102 @@ function render(){
         cx.fillStyle = 'rgba(' + (i % 2 ? '190,106,16' : '160,60,40') + ',' + (a3 * 0.7).toFixed(3) + ')';
         cx.beginPath(); cx.ellipse(0, 0, 4.5, 2.4, 0, 0, Math.PI * 2); cx.fill();
         cx.restore();
+      }
+    }
+    if (game.showerT > 0){
+      // v5.3: the showers — very occasional weather with opinions. six kinds, one shelf,
+      // no repeats until all have passed through. kites and bubbles rise; the rest fall.
+      const a3 = Math.min(0.75, game.showerT, 13 - game.showerT + 0.5);
+      const drop = 13 - game.showerT;   // seconds since it began
+      const kind = game.showerKind;
+      if (kind === 'sheep'){
+        // drawn by a different hand — no wobble, a much finer pen
+        cx.save(); cx.strokeStyle = '#5a564c'; cx.lineWidth = 1.2;
+        for (let i = 0; i < 14; i++){
+          const sc2 = 0.85 + hash1(i * 29) * 0.55;
+          const shx = (hash1(i * 59) * W + Math.sin(game.time * 0.9 + i) * 42 + game.time * 20) % W;
+          const shy = ((hash1(i * 73) * H) + drop * (26 + hash1(i * 17) * 34)) % H;
+          cx.globalAlpha = a3 * (0.5 + hash1(i * 7) * 0.4);
+          cx.beginPath(); cx.ellipse(shx, shy, 9.5 * sc2, 6.2 * sc2, Math.sin(game.time * 0.7 + i) * 0.15, 0, Math.PI * 2); cx.stroke();
+          cx.beginPath(); cx.arc(shx - 10 * sc2, shy - 2.6 * sc2, 3 * sc2, 0, Math.PI * 2); cx.stroke();
+          cx.beginPath(); cx.moveTo(shx - 4 * sc2, shy + 6.2 * sc2); cx.lineTo(shx - 4 * sc2, shy + 10.5 * sc2);
+          cx.moveTo(shx + 4 * sc2, shy + 6.2 * sc2); cx.lineTo(shx + 4 * sc2, shy + 10.5 * sc2); cx.stroke();
+        }
+        cx.restore();
+      } else if (kind === 'kites'){
+        // going the other way, tails and all
+        cx.save(); cx.lineWidth = 1.6;
+        for (let i = 0; i < 12; i++){
+          const sc2 = 0.8 + hash1(i * 31) * 0.5;
+          const kx = (hash1(i * 61) * W + Math.sin(game.time * 0.8 + i) * 46 + W) % W;
+          const ky2 = H - (((hash1(i * 71) * H) + drop * (30 + hash1(i * 19) * 36)) % H);
+          cx.strokeStyle = ['#b3612e','#20509e','#c0508a','#4a7a3a'][i % 4];
+          cx.globalAlpha = a3 * (0.5 + hash1(i * 7) * 0.4);
+          cx.beginPath();
+          cx.moveTo(kx, ky2 - 10 * sc2); cx.lineTo(kx + 7 * sc2, ky2);
+          cx.lineTo(kx, ky2 + 12 * sc2); cx.lineTo(kx - 7 * sc2, ky2); cx.closePath(); cx.stroke();
+          cx.beginPath(); cx.moveTo(kx, ky2 - 10 * sc2); cx.lineTo(kx, ky2 + 12 * sc2); cx.stroke();
+          cx.beginPath(); cx.moveTo(kx, ky2 + 12 * sc2);
+          cx.quadraticCurveTo(kx + 6, ky2 + 22 * sc2, kx - 2 + Math.sin(game.time * 3 + i) * 5, ky2 + 32 * sc2);
+          cx.stroke();
+        }
+        cx.restore();
+      } else if (kind === 'pages'){
+        // fluttering down like slow, unhurried birds. nothing on them is quite readable.
+        for (let i = 0; i < 14; i++){
+          const px3 = (hash1(i * 53) * W + Math.sin(game.time * 0.7 + i) * 70 + W) % W;
+          const py3 = ((hash1(i * 83) * H) + drop * (24 + hash1(i * 13) * 30)) % H;
+          cx.save(); cx.translate(px3, py3); cx.rotate(Math.sin(game.time * 2.2 + i * 1.7) * 0.5);
+          cx.globalAlpha = a3 * (0.55 + hash1(i * 7) * 0.35);
+          cx.fillStyle = '#fbf8f0'; cx.strokeStyle = '#8a877e'; cx.lineWidth = 1.1;
+          cx.beginPath(); cx.rect(-7, -9, 14, 18); cx.fill(); cx.stroke();
+          cx.strokeStyle = '#a9a69c';
+          cx.beginPath();
+          for (let li2 = 0; li2 < 3; li2++){ cx.moveTo(-4, -4 + li2 * 5); cx.lineTo(4, -4 + li2 * 5); }
+          cx.stroke();
+          cx.restore();
+        }
+      } else if (kind === 'umbrellas'){
+        // descending politely, at a sensible speed
+        for (let i = 0; i < 11; i++){
+          const sc2 = 0.85 + hash1(i * 41) * 0.45;
+          const ux = (hash1(i * 47) * W + Math.sin(game.time * 0.6 + i) * 55 + W) % W;
+          const uy = ((hash1(i * 79) * H) + drop * (20 + hash1(i * 11) * 26)) % H;
+          cx.save(); cx.translate(ux, uy); cx.rotate(Math.sin(game.time * 1.3 + i) * 0.18);
+          cx.globalAlpha = a3 * (0.5 + hash1(i * 5) * 0.4);
+          cx.strokeStyle = ['#4a5a8a','#8a5a2e','#77746a','#6a2a9e'][i % 4]; cx.lineWidth = 1.6;
+          cx.beginPath(); cx.arc(0, 0, 11 * sc2, Math.PI, 0); cx.stroke();
+          cx.beginPath(); cx.moveTo(-11 * sc2, 0); cx.lineTo(11 * sc2, 0); cx.stroke();
+          cx.beginPath(); cx.moveTo(0, 0); cx.lineTo(0, 14 * sc2);
+          cx.arc(3 * sc2, 14 * sc2, 3 * sc2, Math.PI, 0, true); cx.stroke();
+          cx.restore();
+        }
+      } else if (kind === 'bubbles'){
+        // smaller futures, on their way up past you
+        cx.save();
+        for (let i = 0; i < 18; i++){
+          const br2 = 3 + hash1(i * 37) * 6;
+          const bx2 = (hash1(i * 43) * W + Math.sin(game.time * 1.1 + i) * 30 + W) % W;
+          const by2 = H - (((hash1(i * 89) * H) + drop * (34 + hash1(i * 23) * 40)) % H);
+          cx.globalAlpha = a3 * (0.35 + hash1(i * 7) * 0.35);
+          cx.strokeStyle = '#7ab3d4'; cx.lineWidth = 1.4;
+          cx.beginPath(); cx.arc(bx2, by2, br2, 0, Math.PI * 2); cx.stroke();
+          cx.beginPath(); cx.arc(bx2 - br2 * 0.3, by2 - br2 * 0.3, br2 * 0.35, Math.PI * 0.9, Math.PI * 1.6); cx.stroke();
+        }
+        cx.restore();
+      } else if (kind === 'towels'){
+        // laundry day, somewhere above. every one of them is exactly where it should be.
+        for (let i = 0; i < 12; i++){
+          const sc2 = 0.85 + hash1(i * 33) * 0.5;
+          const tx2 = (hash1(i * 57) * W + Math.sin(game.time * 0.75 + i) * 60 + W) % W;
+          const ty2 = ((hash1(i * 77) * H) + drop * (26 + hash1(i * 15) * 32)) % H;
+          cx.save(); cx.translate(tx2, ty2); cx.rotate(Math.sin(game.time * 0.8 + i * 2.2) * 0.6);
+          cx.globalAlpha = a3 * (0.5 + hash1(i * 9) * 0.4);
+          cx.strokeStyle = '#20509e'; cx.lineWidth = 1.5;
+          cx.strokeRect(-11 * sc2, -8 * sc2, 22 * sc2, 16 * sc2);
+          cx.beginPath(); cx.moveTo(-11 * sc2, -3 * sc2); cx.lineTo(11 * sc2, -3 * sc2); cx.stroke();
+          cx.restore();
+        }
       }
     }
   }
@@ -3404,6 +3877,8 @@ function drawParallax(col){
       const sx = (wx % (W+400) + (W+400)) % (W+400) - 200;
       const sy = H*0.12 + hash1(i*17+layer*5)*H*0.35;
       drawDoodle(kind, sx, sy, 1.1 + layer*0.5, alpha, game.soft ? '#7a8a70' : ['#7a7668','#6e6a82','#7d6a58','#5e587c'][game.age || 0]);
+      // (v5.4: the background clacks figures were cut at Andrew's call — the clacks
+      // is a foreground landmark now, drawn in drawLandmarks with the other rare things)
     }
   }
 }
@@ -3596,28 +4071,137 @@ function drawLandmarks(col){
       mcircle(sx+12, gy-38, 5, '#8a5a2e', 2, (l.x|0)+7);
       mline([[sx+12, gy-33],[sx+12, gy-17]], '#8a5a2e', 2, (l.x|0)+8);
       mline([[sx+12, gy-17],[sx+17, gy-2]], '#8a5a2e', 1.8, (l.x|0)+9);
-    } else if (l.type === 'junk'){
-      // loose parts, real tools, a structure nobody approved. it changes between visits.
-      const jr = mulberry32((l.seed || 7) >>> 0);
-      const jink = '#6b5335';
-      for (let ji = 0; ji < 4; ji++){
-        const jx = sx - 34 + ji * 22 + jr() * 10, jh = 26 + jr() * 34;
-        mline([[jx, gy],[jx + (jr() - 0.5) * 30, gy - jh]], jink, 2.6, (l.x|0)+ji);
+    } else if (l.type === 'playground'){
+      // v5.1: there is always a playground. every century or three, a slightly different one.
+      const pr = mulberry32((l.seed || 9) >>> 0);
+      const pk = '#6b5335';
+      const pj = (pr() - 0.5) * 8;   // each build sits its own way
+      if (l.variant === 1){
+        // swings — one occupied, in use, permanently
+        mline([[sx - 46, gy],[sx - 30, gy - 50],[sx - 14, gy]], pk, 2.8, l.x|0);
+        mline([[sx + 46, gy],[sx + 30, gy - 50],[sx + 14, gy]], pk, 2.8, (l.x|0)+1);
+        mline([[sx - 30, gy - 50],[sx + 30, gy - 50]], pk, 3, (l.x|0)+2);
+        const sw = Math.sin(game.time * 2.6) * 15;
+        mline([[sx - 12, gy - 50],[sx - 12 + sw * 0.35, gy - 18]], '#4b4e59', 1.7, (l.x|0)+3);
+        mline([[sx + 12, gy - 50],[sx + 12 + sw, gy - 20]], '#4b4e59', 1.7, (l.x|0)+4);
+        mcircle(sx + 12 + sw, gy - 25, 4.8, '#4b4e59', 1.9, (l.x|0)+5);
+        mline([[sx + 12 + sw, gy - 20],[sx + 15 + sw, gy - 11]], '#4b4e59', 1.7, (l.x|0)+6);
+      } else if (l.variant === 2){
+        // the slide — a small decision being made at the top
+        mline([[sx - 28, gy],[sx - 28, gy - 58]], pk, 2.8, l.x|0);
+        for (let ri = 1; ri < 5; ri++) mline([[sx - 34, gy - ri * 11],[sx - 22, gy - ri * 11]], pk, 1.9, (l.x|0)+ri);
+        mline([[sx - 28, gy - 58],[sx + 46 + pj, gy]], pk, 3, (l.x|0)+6);
+        mcircle(sx - 28, gy - 66, 4.8, '#4b4e59', 1.9, (l.x|0)+7);
+        mline([[sx - 28, gy - 61],[sx - 25, gy - 54]], '#4b4e59', 1.7, (l.x|0)+8);
+      } else if (l.variant === 3){
+        // the roundabout — still turning from the last go
+        mline(ell2(sx, gy - 9, 34, 9, 16), pk, 2.6, l.x|0);
+        mline([[sx, gy - 9],[sx, gy - 26]], pk, 2.4, (l.x|0)+1);
+        const ra = game.time * 1.4;
+        for (let ri = 0; ri < 3; ri++){
+          const rx2 = Math.cos(ra + ri * 2.1) * 29, ry2 = Math.sin(ra + ri * 2.1) * 7;
+          mcircle(sx + rx2, gy - 18 + ry2, 4, '#4b4e59', 1.7, (l.x|0)+2+ri);
+        }
+      } else if (l.variant === 4){
+        // the seesaw — physics, negotiated fairly
+        const ss = Math.sin(game.time * 1.8) * 9;
+        mline([[sx - 9, gy],[sx, gy - 16],[sx + 9, gy]], pk, 2.6, l.x|0);
+        mline([[sx - 44, gy - 16 - ss],[sx + 44, gy - 16 + ss]], pk, 3, (l.x|0)+1);
+        mcircle(sx - 38, gy - 25 - ss, 4.6, '#4b4e59', 1.9, (l.x|0)+2);
+        mcircle(sx + 38, gy - 25 + ss, 4.6, '#8a5a2e', 1.9, (l.x|0)+3);
+      } else if (l.variant === 5){
+        // the pen — suspiciously straight, the only clean lines in the world. someone waits politely.
+        cx.save();
+        cx.strokeStyle = '#8a877e'; cx.lineWidth = 2.2; cx.globalAlpha = 0.85;
+        for (let fi = 0; fi <= 3; fi++){ const fx2 = sx - 34 + fi * 22; cx.beginPath(); cx.moveTo(fx2, gy); cx.lineTo(fx2, gy - 26); cx.stroke(); }
+        cx.beginPath(); cx.moveTo(sx - 34, gy - 26); cx.lineTo(sx + 34, gy - 26); cx.stroke();
+        cx.beginPath(); cx.moveTo(sx - 34, gy - 12); cx.lineTo(sx + 34, gy - 12); cx.stroke();
+        cx.restore();
+        mcircle(sx, gy - 10, 4.8, '#77746a', 1.9, l.x|0);
+        mline([[sx, gy - 5],[sx, gy + 1]], '#77746a', 1.9, (l.x|0)+1);
+        mtext('safe.', sx, gy - 38, 13, '#8a877e', 'center', 0.85, (l.x|0)+2);
+      } else {
+        // the junk build — loose parts, real tools, a structure nobody approved
+        for (let ji = 0; ji < 4; ji++){
+          const jx = sx - 40 + ji * 26 + pr() * 12, jh = 30 + pr() * 40;
+          mline([[jx, gy],[jx + (pr() - 0.5) * 34, gy - jh]], pk, 2.8, (l.x|0)+3+ji);
+        }
+        mline([[sx - 46, gy - 35],[sx + 40, gy - 46 + (pr() - 0.5) * 16]], pk, 2.6, (l.x|0)+7);
+        mcircle(sx + 36, gy - 12, 13, '#4b4e59', 2.6, (l.x|0)+8);      // the tyre
+        mcircle(sx + 36, gy - 12, 4.6, '#4b4e59', 1.7, (l.x|0)+9);
+        const kb = Math.sin(game.time * 4) * 7;
+        mcircle(sx + 4, gy - 60 + kb, 5, '#4b4e59', 2, (l.x|0)+10);    // mid-air, on purpose
+        mline([[sx + 4, gy - 55 + kb],[sx + 4, gy - 42 + kb]], '#4b4e59', 2, (l.x|0)+11);
+        mline([[sx + 4, gy - 51 + kb],[sx - 4, gy - 44 + kb]], '#4b4e59', 1.7, (l.x|0)+12);
+        mline([[sx + 4, gy - 51 + kb],[sx + 12, gy - 44 + kb]], '#4b4e59', 1.7, (l.x|0)+13);
+        const fw = Math.sin(game.time * 3) * 4;
+        mline([[sx + 40, gy - 46],[sx + 40, gy - 72]], pk, 2.2, (l.x|0)+14);
+        mline([[sx + 40, gy - 72],[sx + 60 + fw, gy - 65],[sx + 40, gy - 58]], '#b3232e', 2.2, (l.x|0)+15);   // a flag nobody approved
       }
-      mline([[sx-40, gy-30],[sx+34, gy-40 + (jr()-0.5)*14]], jink, 2.4, (l.x|0)+5);
-      mcircle(sx+30, gy-10, 11, '#4b4e59', 2.4, (l.x|0)+6);
-      mcircle(sx+30, gy-10, 4, '#4b4e59', 1.6, (l.x|0)+7);
-      const fw = Math.sin(game.time * 3) * 4;
-      mline([[sx+34, gy-40],[sx+34, gy-64]], jink, 2, (l.x|0)+8);
-      mline([[sx+34, gy-64],[sx+52+fw, gy-58],[sx+34, gy-52]], '#b3232e', 2, (l.x|0)+9);   // a flag nobody approved
-    } else if (l.type === 'playpen'){
-      // suspiciously straight — the only clean lines in the whole world. nothing lives here.
-      cx.save();
-      cx.strokeStyle = '#8a877e'; cx.lineWidth = 2; cx.globalAlpha = 0.85;
-      for (let fi = 0; fi <= 4; fi++){ const fx2 = sx - 44 + fi * 22; cx.beginPath(); cx.moveTo(fx2, gy); cx.lineTo(fx2, gy - 22); cx.stroke(); }
-      cx.beginPath(); cx.moveTo(sx - 44, gy - 22); cx.lineTo(sx + 44, gy - 22); cx.stroke();
-      cx.beginPath(); cx.moveTo(sx - 44, gy - 10); cx.lineTo(sx + 44, gy - 10); cx.stroke();
-      cx.restore();
+    } else if (l.type === 'clacks'){
+      // v5.4: the clacks — a semaphore tower, working. it has a name to pass on, and it will.
+      const ck = '#5e587c';
+      mline([[sx - 15, gy],[sx, gy - 48]], ck, 2.6, l.x|0);            // braced legs
+      mline([[sx + 15, gy],[sx, gy - 48]], ck, 2.6, (l.x|0)+1);
+      mline([[sx - 9, gy - 15],[sx + 9, gy - 15]], ck, 2, (l.x|0)+2);  // crossbrace
+      mline([[sx, gy - 48],[sx, gy - 64]], ck, 2.8, (l.x|0)+3);        // the mast
+      mline([[sx - 7, gy - 64],[sx + 7, gy - 64],[sx + 7, gy - 78],[sx - 7, gy - 78],[sx - 7, gy - 64]], ck, 2.2, (l.x|0)+4);  // the cabin
+      // the arms: semaphore positions, snapping letter to letter. it is saying something.
+      const POS = [[-0.9, 0.4],[-0.3, 1.1],[0.6, -0.7],[1.2, 0.2],[-1.1, -0.4],[0.1, 0.8]];
+      const ai = Math.floor(game.time * 1.6) % POS.length;
+      mline([[sx - 7, gy - 74],[sx - 7 - Math.cos(POS[ai][0]) * 17, gy - 74 - Math.sin(POS[ai][0]) * 17]], ck, 2.4, (l.x|0)+5);
+      mline([[sx + 7, gy - 74],[sx + 7 + Math.cos(POS[ai][1]) * 17, gy - 74 - Math.sin(POS[ai][1]) * 17]], ck, 2.4, (l.x|0)+6);
+      mcircle(sx, gy - 71, 2.2, '#c9a227', 1.6, (l.x|0)+7, (game.time % 1.6) < 0.8 ? 0.9 : 0.35);   // the lamp
+    } else if (l.type === 'dish'){
+      // v5.7: a dish, listening — an upturned bowl aimed at all that room (Andrew's spec)
+      const dk = '#4a5a8a';
+      mline([[sx, gy],[sx, gy - 30]], dk, 2.8, l.x|0);                  // the mast
+      const bowl = [];
+      for (let bi = 0; bi <= 14; bi++){
+        const ban = (bi / 14) * Math.PI;
+        bowl.push([sx + Math.cos(ban) * 26, gy - 44 + Math.sin(ban) * 15]);
+      }
+      mline(bowl, dk, 2.6, (l.x|0)+1);                                  // the upturned segment
+      mline([[sx - 26, gy - 44],[sx + 26, gy - 44]], dk, 1.6, (l.x|0)+2, 0.55);   // the rim
+      mline([[sx, gy - 30],[sx, gy - 54]], dk, 2, (l.x|0)+3);           // the feed, reaching up
+      mcircle(sx, gy - 57, 2.8, dk, 1.8, (l.x|0)+4, (game.time % 4) < 0.25 ? 0.9 : 0.35);   // the receiver
+    } else if (l.type === 'orangetree'){
+      // v5.1: seville oranges, a long way from seville. someone knows what to do with them.
+      const tg = '#4a7a3a';
+      mline([[sx, gy],[sx, gy - 36]], '#6b5335', 3.2, l.x|0);
+      mcircle(sx, gy - 52, 24, tg, 2.6, (l.x|0)+1);
+      mcircle(sx - 17, gy - 42, 13, tg, 2.2, (l.x|0)+2);
+      mcircle(sx + 16, gy - 44, 14, tg, 2.2, (l.x|0)+3);
+      for (let oi = 0; oi < 6; oi++){
+        const ox = sx - 17 + hash1((l.x|0) + oi * 31) * 34, oy = gy - 63 + hash1((l.x|0) + oi * 57) * 26;
+        cx.fillStyle = '#c96a10'; cx.beginPath(); cx.arc(ox, oy, 3.2, 0, Math.PI * 2); cx.fill();
+      }
+      if (l.jar && !l.taken){
+        // v5.8: the jar, just sitting in the grass. breakfast, eventually. (the post is gone)
+        mline([[sx + 44, gy - 16],[sx + 57, gy - 16],[sx + 57, gy],[sx + 44, gy],[sx + 44, gy - 16]], '#c96a10', 2.2, (l.x|0)+9);
+        mline([[sx + 42, gy - 16],[sx + 59, gy - 16]], '#6b5335', 2.8, (l.x|0)+10);   // the lid
+        mline([[sx + 47, gy - 10],[sx + 54, gy - 10]], '#c96a10', 1.4, (l.x|0)+11, 0.6);   // the marmalade line
+      }
+    } else if (l.type === 'reader'){
+      // v5.1: a bench, a book. the page turns only for the unhurried. (grown ~20%)
+      const ink = '#77746a';
+      mline([[sx - 24, gy],[sx - 24, gy - 19]], ink, 2.7, l.x|0);
+      mline([[sx + 24, gy],[sx + 24, gy - 19]], ink, 2.7, (l.x|0)+1);
+      mline([[sx - 31, gy - 19],[sx + 31, gy - 19]], ink, 3.2, (l.x|0)+2);
+      mcircle(sx, gy - 48, 6, '#4b4e59', 2.2, (l.x|0)+3);
+      mline([[sx, gy - 42],[sx, gy - 20]], '#4b4e59', 2.2, (l.x|0)+4);
+      const turn = (l.turnT || 0) > 0 ? Math.sin((1 - l.turnT) * Math.PI) * 10 : 0;
+      mline([[sx - 1, gy - 31],[sx - 13, gy - 28]], '#20509e', 2.2, (l.x|0)+5);
+      mline([[sx - 1, gy - 31],[sx + 11 - turn, gy - 28 - turn]], '#20509e', 2.2, (l.x|0)+6);
+    } else if (l.type === 'duck2'){
+      // v5: both are real. neither will confirm.
+      drawDoodle('duck', sx - 16, gy - 15, 2.5, 0.9, '#b3861a');
+      drawDoodle('duck', sx + 18, gy - 15, 2.5, 0.35, '#b3861a');
+      mtext('(est. 2020)', sx, gy - 46, 15, '#b3861a', 'center', 0.75, l.x|0);
+    } else if (l.type === 'wduck'){
+      // v5: a century it has no business in. it offers no explanation.
+      drawDoodle('duck', sx, gy - 15, 2.5, 0.9, '#b3861a');
+      mtext('(est. 2020)', sx, gy - 46, 15, '#b3861a', 'center', 0.8, l.x|0);
     } else if (l.type === 'rules'){
       mline([[sx, gy],[sx, gy-58]], '#6b5335', 3, l.x|0);
       mline([[sx-52, gy-58],[sx+52, gy-58],[sx+52, gy-104],[sx-52, gy-104],[sx-52, gy-58]], '#4b4e59', 2.4, (l.x|0)+1);
@@ -4266,12 +4850,15 @@ const RUMORS = [
   'rumor: a pale flower grows where your last run ended.',
   'rumor: there is a door past year 3000, for those who arrive flourishing.',
   'rumor: the story has an ending, and it is a happy one. year 4000.',
-  'rumor: somebody reached 2742 and will not discuss the petunias.',
+  'rumor: somebody reached a year that ended in 42 and will not discuss the petunias.',
   'rumor: the sun on the title screen has been tapped before. three times.',
   'rumor: the passing ships appreciate visitors. fly high enough to say hello.',
   // —— v58: the wonders leak, a little ——
   'rumor: a bench sits between two hills. it is not waiting for anything.',
   'rumor: a man in a white suit passes through, sometimes. the suit stays clean.',
+  // —— v5: the delight layer leaks, a very little ——
+  'rumor: the small things have multiplied. nobody announced it.',
+  'rumor: the duck keeps a diary. the entries are out of order.',
 ];
 function deathLines(){
   const d = game.deadInfo;
@@ -4333,6 +4920,14 @@ function drawDeathCard(){
   const pulse = 0.7 + Math.sin(game.time*4)*0.3;
   if (game.tainted) mtext('⚑ test flight — nothing was recorded', W/2, y0+ch-46, 12, '#b3232e', 'center', 0.85, 221);
   mtext(d.cause === 'sublime' ? 'tap to ride again' : 'tap to be redrawn', W/2, y0+ch-14, 22, '#20509e', 'center', pulse, 214);
+  if (d.blot){
+    // v5: a small accident with real ink, in the corner. it dried ages ago.
+    cx.save(); cx.fillStyle = 'rgba(42,53,80,0.45)';
+    cx.beginPath(); cx.arc(x0 + cw - 42, y0 + ch - 60, 6.5, 0, Math.PI * 2); cx.fill();
+    cx.beginPath(); cx.arc(x0 + cw - 51, y0 + ch - 55, 3, 0, Math.PI * 2); cx.fill();
+    cx.beginPath(); cx.arc(x0 + cw - 35, y0 + ch - 52, 2, 0, Math.PI * 2); cx.fill();
+    cx.restore();
+  }
   drawCorners();
   if (!game.tainted && d.year >= 2027){
     // v78: centered in the actual space the quote leaves, however many lines it wrapped to
@@ -4390,6 +4985,39 @@ function drawTitle(){
     const wx = cam.x + 100 + hash1(i * 131) * 2600;
     const sx = w2sX(wx), gy = w2sY(groundAt(wx).y);
     if (sx > -20 && sx < W + 20) drawFlower(sx, gy, hash1(i * 7), i * 13);
+  }
+  // v5: once in a while, the duck is in the meadow. it does not explain itself.
+  if (!game.titleDuckSet){
+    game.titleDuckSet = true;
+    game.titleDuck = Math.random() < TITLE_DUCK ? cam.x + 500 + Math.random() * 900 : 0;
+    // v5.6: and sometimes, a polaroid stands in the grass — one of your own moments.
+    // always right after a fresh photograph; otherwise, an old one, rarely.
+    game.titlePol = null;
+    const pics = albumPics();
+    if (pics.length && (game.albumFresh || Math.random() < TITLE_POLAROID)){
+      game.titlePol = { x: cam.x + 450 + Math.random() * 900,
+                        idx: game.albumFresh ? pics.length - 1 : Math.floor(Math.random() * pics.length) };
+      game.albumFresh = false;
+    }
+  }
+  if (game.titleDuck){
+    const dsx = w2sX(game.titleDuck), dgy = w2sY(groundAt(game.titleDuck).y);
+    if (dsx > -30 && dsx < W + 30) drawDoodle('duck', dsx, dgy - 13, 2.2, 0.8, '#b3861a');
+  }
+  if (game.titlePol){
+    const pp = albumPics()[game.titlePol.idx];
+    if (pp && pp.im.complete && pp.im.naturalWidth){
+      const psx = w2sX(game.titlePol.x), pgy = w2sY(groundAt(game.titlePol.x).y);
+      if (psx > -60 && psx < W + 60){
+        cx.save();
+        cx.translate(psx, pgy - 38); cx.rotate(-0.05 + Math.sin(game.time * 0.7) * 0.02);
+        cx.fillStyle = '#fdfcf7'; cx.strokeStyle = 'rgba(120,115,105,0.5)'; cx.lineWidth = 1.2;
+        cx.fillRect(-40, -30, 80, 68); cx.strokeRect(-40, -30, 80, 68);   // the white border, chin at the bottom
+        cx.drawImage(pp.im, -34, -24, 68, 45);
+        cx.globalAlpha = 0.12; cx.fillStyle = '#f7f4ed'; cx.fillRect(-34, -24, 68, 45);   // sun-faded, slightly
+        cx.restore();
+      }
+    }
   }
   if (LS.get('sublime', false)){
     // the golden bloom — planted once, at the end of the story, forever
@@ -4468,7 +5096,7 @@ function drawTitle(){
   // v74: the board — top-center chip
   mline([[W/2-62, 22],[W/2+62, 22],[W/2+62, 54],[W/2-62, 54],[W/2-62, 22]], '#8a6d00', 2, 424, 0.75);
   mtext('the board', W/2, 43, 14, '#8a6d00', 'center', 0.9, 425);
-  mtext('v4 · build 82 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
+  mtext('v5 · build 91 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
   drawCorners();
   mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 446, 0.7);
   mtext('how to play', 63, H-31, 13, '#77746a', 'center', 0.9, 447);
@@ -4681,7 +5309,7 @@ function frame(t){
   if (live && game.glitchT > 0) game.glitchT -= dt;
   if (live && game.shipT > 0) game.shipT -= dt;
   if (live && game.whaleT > 0) game.whaleT -= dt;
-  if (live) for (const tk2 of ['rainbowT','balloonT','paradeT','confettiT','snowT','redrawT','starsT','bigT','petDanceT','kiteT','goldT','shipHelloT','wonderT','sleetT','leafT'])
+  if (live) for (const tk2 of ['rainbowT','balloonT','paradeT','confettiT','snowT','redrawT','starsT','bigT','petDanceT','kiteT','goldT','shipHelloT','wonderT','sleetT','leafT','photoT','dishGlowT','showerT'])
     if (game[tk2] > 0) game[tk2] -= dt;
   if (live && game.flowT > 0){
     game.flowT -= dt;
