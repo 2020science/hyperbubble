@@ -406,11 +406,10 @@ This page draws on Andrew Maynard's published CV, books, and essays.
 
    THE DELIGHT LAYER (v5 — the pool of whimsy, deepened; all cosmetic, zero economy,
    with ONE exception at Andrew's call: passing the clacks tower pays +♥)
-   · Tier odds per run — search "DELIGHT_VISITOR" (0.22 · orange tree, the story ducks),
-     "DELIGHT_EVENT" (0.12 · dish, reader, a shower), "DELIGHT_UNICORN" (0.03 ·
-     the photograph). Raised in build 92 so a child playing a handful of runs meets
-     at least one delight; the no-repeat decks (hb_ddeck_*) keep the long tail rare.
-     The shelves themselves are the DELIGHT_TIERS list beside them.
+   · Tier odds per run — search "DELIGHT_VISITOR" (0.5 · orange tree, the story ducks),
+     "DELIGHT_EVENT" (0.25 · dish, reader, a shower), "DELIGHT_UNICORN" (0.05 ·
+     the photograph). Andrew's numbers, build 93; the no-repeat decks (hb_ddeck_*)
+     keep the long tail rare. The shelves are the DELIGHT_TIERS list beside them.
      (The turtle was tried and cut at Andrew's call, build 85 — do not reintroduce.)
    · The showers (v5.3) — six kinds on their own shelf (DELIGHT_TIERS.s): a fall of
      sheep, an ascent of kites, loose pages, umbrellas, rising bubbles, towels.
@@ -420,7 +419,7 @@ This page draws on Andrew Maynard's published CV, books, and essays.
      six rotating builds (junk, swings, slide, roundabout, seesaw, the pen — PLAY_VARIANTS).
    · The clacks (v5.4: ONE semaphore tower on a hill, arms snapping position to
      position; pass it for "GNU Terry Pratchett" and +♥) — search "CLACKS_CHANCE"
-     (~1 in 25 runs; evRng, so a daily's tower and its ♥ are shared worldwide) ·
+     (~1 in 15 runs; evRng, so a daily's tower and its ♥ are shared worldwide) ·
      its hill — search "18 + Math.floor(cHill"
    · Fountain-ink marginalia — search "INK_CHANCE" · death-card blot — "BLOT_CHANCE"
    · The unfinished sentence on rushed-tech deaths — search "COULD_CHANCE"
@@ -837,7 +836,16 @@ function buildCodex(){
     if (names.length) h += '<p><strong>' + DOMNAMES[dk] + ' (' + names.length + ')</strong> — ' + names.join(' · ') + '</p>';
   }
   h += '<h2>What a bite can take</h2><p>' + STAKES.map(esc).join(' · ') + '</p>';
-  h += '<div class="foot">The wonders, the serendipities, and the secrets are deliberately not listed. Some things are better found than told.</div>';
+  // v5.10: the marginalia and the delights join the catalogue at Andrew's call —
+  // "the catalog is a serendipitous delight in itself."
+  h += '<h2>The marginalia</h2><p>' + MARGINALIA.length + ' stray thoughts from the professor\'s notebook, drifting by for anyone with the ✎ switched on. Catching one earns a sparkle and nothing else, which is the point.</p><p>'
+    + MARGINALIA.map(m => esc(margSub(m))).join(' · ') + '</p>';
+  h += '<h2>The delights</h2><p>The pool of serendipitous whimsy. Most runs carry one or two; quiet decks make sure nothing repeats until everything has had its turn.</p>';
+  h += '<p><strong>the visitors</strong> — an orange tree a long way from home, sometimes with a jar · a second duck · a duck in quite the wrong century</p>';
+  h += '<p><strong>the events</strong> — a dish, listening · a reader who turns the page only for the unhurried · a shower of ' + Object.keys(SHOWER_LINES).map(esc).join(', or ') + '</p>';
+  h += '<p><strong>the playgrounds</strong> — one every century or three, in ' + PLAY_VARIANTS + ' rotating builds: the junk build, the swings, the slide, the roundabout, the seesaw, and the suspiciously safe pen</p>';
+  h += '<p><strong>the rare and the unseen</strong> — a semaphore tower with a name to pass on, and +♥ for passing it · a photograph taken when no one is looking, kept in a six-photo album that resurfaces where the flowers are · a marginalia note in fountain ink on paper · a dried blot on the last card · a sentence that never finishes · the duck\'s diary, five entries, out of order · second sightings, acknowledged exactly once</p>';
+  h += '<div class="foot">The wonders and the serendipities are still not listed. Some things remain better found than told.</div>';
   document.getElementById('codexBody').innerHTML = h;
 }
 function openCodex(){ if (!CODEX.dataset.built){ buildCodex(); CODEX.dataset.built = '1'; } CODEX.style.display = 'block'; CODEX.scrollTop = 0; }
@@ -1030,7 +1038,7 @@ window.addEventListener('keydown', e => {
         game.playCount = (game.playCount || 0) + 1;
       }
       else if (item === 'photo'){ albumCapture(); game.photoT = 2.4; cap('the photograph (saved to the album)'); }
-      else if (item === 'ink'){ floats.push({ x: P.x + 420, y: P.y - 80, t: 0, hit: false, paper: true, msg: dealMarg(), col: '#c9a2ff' }); cap('ink (a note on paper)'); }
+      else if (item === 'ink'){ floats.push({ x: P.x + 420, y: P.y - 80, t: 0, hit: false, paper: true, msg: margSub(dealMarg()), col: '#c9a2ff' }); cap('ink (a note on paper)'); }
       else if (item === 'blot'){ game.forceBlot = true; cap('the blot (next death card)'); }
       else if (item === 'duck2'){ landmarks.push({ type:'duck2', x: gx }); cap('the second duck'); }
       else if (item === 'wduck'){ landmarks.push({ type:'wduck', x: gx }); cap('the wrong-century duck'); }
@@ -1158,6 +1166,28 @@ const MARGINALIA = [
   "Are we ready for the future?","The future needs more undisciplinarians ...",
   "Are we living in a simulation?","Time is an illusion, lunchtime doubly so","The future's about to get weird ...",
   "What's the point of a future where people don't matter?","Read more Terry Pratchett","Is The Hitch Hikers Guide a manual from the future?",
+  // —— v5.11: the film shelf — AM's picks and wording (Aug 3, 2026). no movies named;
+  //     {you|fallback} becomes the player's board name once they have one (margSub) ——
+  "I'm sorry, Dave. I'm afraid I can't do that ...",
+  "I'm sorry, {you|Dave}. I'm afraid I can't do that ...",
+  "Open the pod bay doors, {you|HAL}",
+  "One is glad to be of service. ...",
+  "Number 5 is alive ...",
+  "You are who you choose to be",
+  "They should have sent a poet ...",
+  "Small moves ... small moves",
+  "It's alive! It's alive!",
+  "Soylent Green is people!",
+  "Why can't you scientists leave things alone?",
+  "Life, uh, finds a way ...",
+  "There is no gene for the human spirit",
+  "Roads? Where we're going, we don't need roads",
+  "Never forget the DeLorean ...",
+  "There is no spoon ...",
+  "Time to phone home ...",
+  "To infinity… and beyond!",
+  "The mediator between head and hands must be the heart",
+  "I've seen things you people wouldn't believe ...",
 ];
 
 // v58: the wonders — rare features, at most ONE per run, most runs none.
@@ -1174,11 +1204,11 @@ const WONDER_CHANCE = 0.6;
 // world-fact daily players share (the whale's year) rides evRng in startRun instead.
 // Tier odds = how often a run carries one item of that tier; per-tier decks persist in
 // localStorage (hb_ddeck_*) so nothing repeats until its whole shelf has been seen.
-const DELIGHT_VISITOR = 0.22;   // ~1 in 4–5 runs  (safe 0.1–0.35; raised build 92 — a child
-const DELIGHT_EVENT   = 0.12;   // ~1 in 8 runs     playing a handful of times should meet
-const DELIGHT_UNICORN = 0.03;   // ~1 in 33 runs    at least one delight; the DECKS keep the
-const CLACKS_CHANCE   = 0.04;   // ~1 in 25 runs    long tail — six showers still take dozens
-                                //                  of runs to exhaust. safe: halve or double.
+const DELIGHT_VISITOR = 0.5;    // ~1 in 2 runs    (Andrew's numbers, build 93 — the delight
+const DELIGHT_EVENT   = 0.25;   // ~1 in 4 runs     layer should greet even brief players;
+const DELIGHT_UNICORN = 0.05;   // ~1 in 20 runs    the no-repeat DECKS keep the long tail —
+const CLACKS_CHANCE   = 0.067;  // ~1 in 15 runs    six showers still take many runs to see.
+                                //                  safe: halve or double any of these.
 const INK_CHANCE      = 0.04;   // a marginalia note arrives in fountain ink on paper
 const BLOT_CHANCE     = 0.03;   // a dried blot in the death card's corner
 const COULD_CHANCE    = 0.15;   // rushed-tech deaths: the sentence that never finishes
@@ -1613,6 +1643,11 @@ function dealMarg(){
   LS.set('margdeck', st);
   return msg;
 }
+// v5.11: a couple of notes address the player by their board name, once they have one.
+// "{you|Dave}" → the hb_handle if named, else the fallback after the bar.
+function margSub(m){
+  return m.replace(/\{you\|([^}]*)\}/g, (mm, fb) => LS.get('handle', '') || fb);
+}
 // v5: per-tier delight decks (the margdeck pattern) — no repeats until a shelf is empty
 function dealDelight(tier){
   const list = DELIGHT_TIERS[tier];
@@ -1912,9 +1947,9 @@ function startRun(daily){
   game.dEvt = Math.random() < DELIGHT_EVENT ? dealDelight('e') : null;
   game.dUni = Math.random() < DELIGHT_UNICORN ? dealDelight('u') : null;
   // v5.9: earlier hills, so short runs (children, beginners) can actually reach them
+  // (v5.11: dUniHill removed — vestigial since the turtle cut; the photo is scene-triggered)
   game.dVisHill = 10 + Math.floor(Math.random() * 28);
   game.dEvtHill = 12 + Math.floor(Math.random() * 32);
-  game.dUniHill = 18 + Math.floor(Math.random() * 40);
   // v5.4: the clacks tower — a landmark now, not wallpaper. evRng so a daily's tower
   // (and its +♥) is shared worldwide; both draws consumed unconditionally.
   const cRoll = evRng(), cHill = evRng();
@@ -3020,7 +3055,7 @@ function stepFloats(dt){
       const gx = P.x + (W / scaleFactor()) * 0.9 + 260;
       const gy2 = groundAt(gx).y;
       floats.push({ x: gx, y: gy2 - 130 - Math.random() * 190, t: 0, hit: false,
-                    msg: dealMarg(),
+                    msg: margSub(dealMarg()),
                     // v5: once in a long while, a note arrives longhand — fountain ink on paper
                     paper: Math.random() < INK_CHANCE,
                     // gel pen on black glass — bright inks only
@@ -5099,7 +5134,7 @@ function drawTitle(){
   // v74: the board — top-center chip
   mline([[W/2-62, 22],[W/2+62, 22],[W/2+62, 54],[W/2-62, 54],[W/2-62, 22]], '#8a6d00', 2, 424, 0.75);
   mtext('the board', W/2, 43, 14, '#8a6d00', 'center', 0.9, 425);
-  mtext('v5 · build 92 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
+  mtext('v5 · build 94 ☀' + (game.test ? ' ⚑' : ''), W - 18, H - 14, 12, game.test ? '#b3232e' : '#c3beb4', 'right', 0.8, 410);
   drawCorners();
   mline([[14,H-52],[112,H-52],[112,H-20],[14,H-20],[14,H-52]], '#8a877e', 2, 446, 0.7);
   mtext('how to play', 63, H-31, 13, '#77746a', 'center', 0.9, 447);
