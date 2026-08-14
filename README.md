@@ -2,7 +2,9 @@
 
 **Embrace the tech, navigate the risks, manage the hype — how far can you get?**
 
-A one-button browser game about navigating powerful new technologies while keeping human flourishing alive — inspired by, and built from, the work of [Andrew Maynard](https://andrewmaynard.net), Professor of Advanced Technology Transitions at Arizona State University. Designed and coded by Anthropic's Claude in collaboration with Maynard, across four generations and eighty builds.
+A one-button browser game about navigating powerful new technologies while keeping human flourishing alive — inspired by, and built from, the work of [Andrew Maynard](https://andrewmaynard.net), Professor of Advanced Technology Transitions at Arizona State University. Designed and coded by Anthropic's Claude in collaboration with Maynard, across five generations and ninety builds.
+
+Read more about the ideas behind the game, including how it was developed, at [www.futureofbeinghuman.com/p/what-we-can-learn-with-ai-by-not-trying-to-learn](https://www.futureofbeinghuman.com/p/what-we-can-learn-with-ai-by-not-trying-to-learn) (concepts behind it and game play) and [www.futureofbeinghuman.com/p/i-asked-anthropics-fable-5-to-create-a-video-game-inspired-by-my-work](https://www.futureofbeinghuman.com/p/i-asked-anthropics-fable-5-to-create-a-video-game-inspired-by-my-work) (genesis).
 
 ## Play
 
